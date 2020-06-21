@@ -9,16 +9,15 @@
 import CoreData
 
 extension Todo {
-    convenience init?(
+    @discardableResult convenience init?(
         identifier: String,
         context: NSManagedObjectContext = CoreDataStack.shared.mainContext
     ) {
-        self.init(context: context)
         if identifier.isEmpty { //also required to be >1 in the CoreData model
             return nil
         } else {
+            self.init(context: context)
             self.identifier = identifier
         }
     }
-
 }
