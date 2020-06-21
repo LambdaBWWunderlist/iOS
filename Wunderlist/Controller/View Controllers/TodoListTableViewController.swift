@@ -51,6 +51,10 @@ class TodoListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: Fetch Todos
+        /*
+         Alert usage:
+            self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
+         */
     }
 
     // MARK: - TableView DataSource -
