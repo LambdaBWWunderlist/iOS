@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="2449" y="137"/>
         </scene>
-        <!--Todo List Table View Controller-->
+        <!--Wunderlist-->
         <scene sceneID="ppb-cq-h3O">
             <objects>
                 <tableViewController id="xEL-48-yFt" customClass="TodoListTableViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                             <outlet property="delegate" destination="xEL-48-yFt" id="jD5-nS-rce"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="CwU-hZ-xgX"/>
+                    <navigationItem key="navigationItem" title="Wunderlist" largeTitleDisplayMode="always" id="CwU-hZ-xgX"/>
                     <connections>
                         <outlet property="searchBar" destination="ztK-6B-zxu" id="f9e-0a-lVO"/>
                     </connections>
