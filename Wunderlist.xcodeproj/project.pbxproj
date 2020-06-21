@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B907C9FA249FF5C20048F94E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		B91921EE249FEDFC00138ED4 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +187,7 @@
 		B919222F249FEE5300138ED4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
 			);
 			path = Model;
@@ -316,6 +327,7 @@
 				B9192233249FEE7900138ED4 /* NetworkService.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* ViewController.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
+				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
 				B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */,
 				B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */,
 			);
