@@ -17,17 +17,16 @@ class TodoTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Outlets
+    // MARK: - Outlets -
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var completeToggleButton: UIButton!
 
     func updateViews() {
         guard let todoRep = todoRep else { return }
         todoRep.completed ? completeToggleButton.setImage(UIImage(named: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(named: "circle"), for: .normal)
-    }
+    }    
     
-    
-    // MARK: - Actions
+    // MARK: - Actions -
     @IBAction func completeToggleTapped(_ sender: Any) {
         guard let todoRep = todoRep,
             let todo = todoController?.fetchController.fetchTodo(todoRep: todoRep)
