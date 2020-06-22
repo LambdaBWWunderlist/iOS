@@ -9,6 +9,18 @@
 import UIKit
 
 class TodoDetailViewController: UIViewController {
+    
+    // MARK: - Outlets
+    @IBOutlet var titleTextField: UITextField!
+    @IBOutlet var bodyTextView: UITextView!
+    @IBOutlet var recurringSegControl: UISegmentedControl!
+    
+    // MARK: - Actions
+    @IBAction func editButtonTapped(_ sender: Any) {
+    }
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

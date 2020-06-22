@@ -8,7 +8,7 @@
 
 import Foundation
 struct UserRepresentation {
-    let id: Int
+    let identifier: Int
     let username: String
     let password: String?
     let email: String?
