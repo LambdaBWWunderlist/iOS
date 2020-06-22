@@ -9,5 +9,5 @@
 import Foundation
 
 class TodoController {
-    var fetchController = FetchController()
+    let fetchController = FetchController()
 }

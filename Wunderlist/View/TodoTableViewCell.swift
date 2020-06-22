@@ -9,27 +9,38 @@
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
+    // MARK: - Properties -
+    var todoController: TodoController?
+    var todoRep: TodoRepresentation? {
+        didSet {
+            updateViews()
+        }
+    }
     
     // MARK: - Outlets
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var completeToggleButton: UIButton!
-    
+
+    func updateViews() {
+        guard let todoRep = todoRep else { return }
+        todoRep.completed ? completeToggleButton.setImage(UIImage(named: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(named: "circle"), for: .normal)
+    }
     
     
     // MARK: - Actions
     @IBAction func completeToggleTapped(_ sender: Any) {
-    }
-    
+        guard let todoRep = todoRep,
+            let todo = todoController?.fetchController.fetchTodo(todoRep: todoRep)
+        else { return }
+        self.todoRep?.completed.toggle()
+        todo.completed.toggle()
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        do {
+            try CoreDataStack.shared.save()
+        } catch let saveError {
+            print("error saving todo after toggling save: \(saveError)")
+        }
+        //TODO: send to server
     }
 
 }

@@ -17,6 +17,8 @@
 		B907CA0724A00CB30048F94E /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */; };
 		B907CA0A24A121D70048F94E /* Todo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0924A121D70048F94E /* Todo+Convenience.swift */; };
 		B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */; };
+		B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1124A15FDC0048F94E /* FetchController.swift */; };
+		B907CA1424A15FDC0048F94E /* TodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1224A15FDC0048F94E /* TodoController.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -57,6 +59,8 @@
 		B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B907CA0924A121D70048F94E /* Todo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+Convenience.swift"; sourceTree = "<group>"; };
 		B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepresentation.swift; sourceTree = "<group>"; };
+		B907CA1124A15FDC0048F94E /* FetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchController.swift; sourceTree = "<group>"; };
+		B907CA1224A15FDC0048F94E /* TodoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoController.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -221,9 +225,9 @@
 		B919222E249FEE3D00138ED4 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA1124A15FDC0048F94E /* FetchController.swift */,
+				B907CA1224A15FDC0048F94E /* TodoController.swift */,
 				B9192232249FEE7900138ED4 /* NetworkService.swift */,
-				B907CA0D24A1470E0048F94E /* TodoController.swift */,
-				B907CA0F24A147300048F94E /* FetchController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -382,9 +386,9 @@
 				B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */,
 				B907CA0A24A121D70048F94E /* Todo+Convenience.swift in Sources */,
 				B907CA05249FFF600048F94E /* User+Convenience.swift in Sources */,
-				B907CA1024A147300048F94E /* FetchController.swift in Sources */,
-				B907CA0E24A1470E0048F94E /* TodoController.swift in Sources */,
 				B907CA0724A00CB30048F94E /* UIViewController+Alert.swift in Sources */,
+				B907CA1424A15FDC0048F94E /* TodoController.swift in Sources */,
+				B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */,
 				B907CA01249FFB2C0048F94E /* Todo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
