@@ -11,18 +11,23 @@ import CoreData
 extension Todo {
     @discardableResult convenience init?(
         identifier: Int,
-        username: String,
-        email: String,
+        name: String,
+        recurring: String,
+        user: User,
         context: NSManagedObjectContext = CoreDataStack.shared.mainContext
     ) {
+        //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
         self.init(context: context)
         self.identifier = Int16(identifier)
-        if !username.isEmpty && !email.isEmpty {
-            self.username = username
-            self.email = email
+        if !name.isEmpty && !recurring.isEmpty {
+            self.name = name
+            self.recurring = recurring
         } else {
             print("username or password were empty")
             return nil
         }
+        self.user_id = user.identifier
     }
+
+    
 }
