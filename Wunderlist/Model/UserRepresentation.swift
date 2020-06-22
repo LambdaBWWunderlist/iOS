@@ -6,6 +6,7 @@
 //  Copyright © 2020 Hazy Studios. All rights reserved.
 //
 
+import Foundation
 struct UserRepresentation {
-    
+    let id: UUID
 }
