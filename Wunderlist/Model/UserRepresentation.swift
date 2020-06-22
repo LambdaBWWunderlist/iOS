@@ -7,5 +7,5 @@
 //
 
 struct UserRepresentation {
-    
+    let id: String
 }
