@@ -147,7 +147,7 @@ To get data and decode:
 func getSomeDataAndDecodeIt() {
     let networkService = NetworkService()
     guard let request = networkService.createRequest(url: URL(string:"https://www.google.com"), method: .get) else { return }
-    networkService.loadData(using: request) { (data, response, error) in
+    networkService.loadData(using: request) {
         //TODO: Error handling like normal, maybe check the response if you care what the code is
         guard let data = data else { return }
         let decodedData = networkService.decode(to: Data.self, data: data) //Data.self would be whatever type you're really trying to decode to (i.e. Todo.self)
