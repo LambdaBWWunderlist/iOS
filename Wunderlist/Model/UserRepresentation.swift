@@ -8,5 +8,9 @@
 
 import Foundation
 struct UserRepresentation {
-    let id: UUID
+    let id: Int
+    let username: String
+    let password: String?
+    let email: String?
+    let token: String?
 }

@@ -1,5 +1,5 @@
 //
-//  Todo+Convenience.swift
+//  User+Convenience.swift
 //  Wunderlist
 //
 //  Created by Kenny on 6/21/20.
@@ -8,7 +8,7 @@
 
 import CoreData
 
-extension Todo {
+extension User {
     @discardableResult convenience init?(
         identifier: Int,
         username: String,
