@@ -6,14 +6,16 @@
         <attribute name="name" attributeType="String" minValueString="1"/>
         <attribute name="recurring" attributeType="String"/>
         <attribute name="user_id" attributeType="Integer 16" minValueString="1" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="todo" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="email" attributeType="String" minValueString="0"/>
         <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="username" attributeType="String" minValueString="0"/>
+        <relationship name="todo" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Todo" inverseName="user" inverseEntity="Todo"/>
     </entity>
     <elements>
-        <element name="Todo" positionX="-54" positionY="18" width="128" height="118"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Todo" positionX="-54" positionY="18" width="128" height="133"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
