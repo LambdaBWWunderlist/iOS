@@ -86,7 +86,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mfK-Z9-rfd" firstAttribute="top" secondItem="uBh-gJ-bjO" secondAttribute="top" constant="20" id="0Op-3u-QiY"/>
                             <constraint firstItem="uBh-gJ-bjO" firstAttribute="trailing" secondItem="hg7-HV-ISc" secondAttribute="trailing" constant="20" id="7eW-bg-bkd"/>
@@ -188,7 +188,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wcY-4a-eFF" firstAttribute="trailing" secondItem="iuf-bo-edb" secondAttribute="trailing" constant="20" id="7cr-g5-yZA"/>
                             <constraint firstItem="iuf-bo-edb" firstAttribute="top" secondItem="Tmq-Kh-YQL" secondAttribute="bottom" constant="20" id="GKg-xf-Vgr"/>
@@ -257,7 +257,6 @@
                                     </subviews>
                                     <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableViewCellContentView>
-                                <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="zKq-E1-p0w" kind="show" identifier="TodoDetailSegue" id="qg7-Sn-Fol"/>
                                 </connections>
@@ -293,13 +292,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjS-Qp-X3x">
-                                <rect key="frame" x="20" y="357" width="374" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZY3-2r-DMl">
-                                <rect key="frame" x="20" y="219" width="374" height="249"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="ZY3-2r-DMl">
+                                <rect key="frame" x="20" y="306" width="374" height="482"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B1D-kk-3a0">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -312,35 +306,32 @@
                                         <color key="selectedSegmentTintColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ctg-e5-58n">
-                                        <rect key="frame" x="0.0" y="51" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="111" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-KG-qgb">
-                                        <rect key="frame" x="0.0" y="105" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="225" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rU-CW-iNg">
-                                        <rect key="frame" x="0.0" y="159" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="339" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CqW-HH-IVN">
-                                        <rect key="frame" x="0.0" y="213" width="374" height="36"/>
+                                        <rect key="frame" x="0.0" y="453" width="374" height="29"/>
                                         <color key="backgroundColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="lRV-1f-PhQ"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="17"/>
                                         <state key="normal" title="Register">
-                                            <color key="titleColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.50579410790000001" green="0.64317864179999995" blue="0.80382162329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZZz-D5-2Jt">
-                                <rect key="frame" x="20" y="80" width="374" height="101"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="ZZz-D5-2Jt">
+                                <rect key="frame" x="20" y="80" width="374" height="190"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wunderlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-CC-5wu">
                                         <rect key="frame" x="56.5" y="0.0" width="261.5" height="45"/>
@@ -348,29 +339,19 @@
                                         <color key="textColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FI4-LP-d4t">
-                                        <rect key="frame" x="12" y="60" width="350" height="2"/>
-                                        <color key="backgroundColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="2" id="ddg-cJ-mld"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register to Get Started" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVM-ZL-dLo">
-                                        <rect key="frame" x="49" y="77" width="276.5" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="Bkv-Nd-ON7"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="22"/>
-                                        <color key="textColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register to Get Started" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVM-ZL-dLo">
+                                        <rect key="frame" x="59.5" y="145" width="255" height="45"/>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="22"/>
+                                        <color key="textColor" red="0.0115189284" green="0.014093771329999999" blue="0.47364768400000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nAn-uL-lGF" firstAttribute="trailing" secondItem="ZY3-2r-DMl" secondAttribute="trailing" constant="20" id="8JI-Ya-cu1"/>
-                            <constraint firstItem="nAn-uL-lGF" firstAttribute="bottom" secondItem="ZY3-2r-DMl" secondAttribute="bottom" constant="340" id="8zg-fM-BS2"/>
+                            <constraint firstItem="nAn-uL-lGF" firstAttribute="bottom" secondItem="ZY3-2r-DMl" secondAttribute="bottom" constant="20" id="8zg-fM-BS2"/>
                             <constraint firstItem="ZY3-2r-DMl" firstAttribute="leading" secondItem="nAn-uL-lGF" secondAttribute="leading" constant="20" id="LCf-9x-bo5"/>
                             <constraint firstItem="ZZz-D5-2Jt" firstAttribute="leading" secondItem="nAn-uL-lGF" secondAttribute="leading" constant="20" id="U0x-Qy-JWr"/>
                             <constraint firstItem="ZZz-D5-2Jt" firstAttribute="top" secondItem="nAn-uL-lGF" secondAttribute="top" constant="80" id="ZDr-3e-dSm"/>
@@ -397,7 +378,7 @@
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="40"/>
-                            <color key="textColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.2430099547" green="0.48630940909999998" blue="0.69402945039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

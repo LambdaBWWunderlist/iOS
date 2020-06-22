@@ -25,4 +25,9 @@ extension User {
             return nil
         }
     }
+
+    var userRepresentation: UserRepresentation? {
+        guard let username = username else { return nil }
+        return UserRepresentation(id: Int(self.identifier), username: username, password: nil, email: self.email, token: nil)
+    }
 }
