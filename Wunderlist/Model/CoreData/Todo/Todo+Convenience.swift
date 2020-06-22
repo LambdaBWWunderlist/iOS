@@ -29,5 +29,16 @@ extension Todo {
         self.user_id = user.identifier
     }
 
-    
+    var todoRepresentation: TodoRepresentation? {
+        guard let name = name,
+            let recurring = recurring
+        else { return nil }
+        return TodoRepresentation(
+            identifier: Int(self.identifier),
+            completed: self.completed,
+            name: name,
+            recurring: recurring,
+            user_id: Int(self.user_id)
+        )
+    }
 }

@@ -13,6 +13,7 @@
 		B907CA05249FFF600048F94E /* User+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA04249FFF600048F94E /* User+Convenience.swift */; };
 		B907CA0724A00CB30048F94E /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */; };
 		B907CA0A24A121D70048F94E /* Todo+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0924A121D70048F94E /* Todo+convenience.swift */; };
+		B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -49,6 +50,7 @@
 		B907CA04249FFF600048F94E /* User+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Convenience.swift"; sourceTree = "<group>"; };
 		B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B907CA0924A121D70048F94E /* Todo+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+convenience.swift"; sourceTree = "<group>"; };
+		B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepresentation.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
+				B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
+				B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */,
 				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
 				B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */,
 				B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */,
