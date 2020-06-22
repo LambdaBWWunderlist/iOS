@@ -7,5 +7,9 @@
 //
 
 struct UserRepresentation {
-    let id: String
+    let id: Int
+    let username: String
+    let password: String?
+    let email: String?
+    let token: String?
 }
