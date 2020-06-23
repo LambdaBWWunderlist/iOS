@@ -17,6 +17,7 @@ class AuthService {
     ///
     /// Static so it's always accessible and always the same user (until another user is logged in)
     static var activeUser: UserRepresentation?
+    static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman")
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
@@ -113,12 +114,12 @@ class AuthService {
                     //this assigns all of the user's attributes from the server since the server is
                     //returning username, token, and identifier, but password is nil which is perfect
                     //for security purposes (and we dont need password after this)
-                    guard let loginUser = self.networkService.decode(
-                        to: UserRepresentation.self,
+                    guard let loggedIn = self.networkService.decode(
+                        to: UserDetails.self,
                         data: data
                     ) else { return }
                     //assign the static activeUser
-                    AuthService.activeUser = loginUser
+                    AuthService.activeUser = loggedIn.user
                     completion()
                     return
                 } else {

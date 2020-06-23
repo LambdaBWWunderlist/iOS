@@ -41,7 +41,7 @@ class WunderlistTests: XCTestCase {
 
         let networkService = NetworkService()
         var request = networkService.createRequest(url: URL(string: "https://wunderlist-node.herokuapp.com/api/login"), method: .post, headerType: .contentType, headerValue: .json)
-        let preLoginUser = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman")
+        let preLoginUser = AuthService.ironMan
 
         XCTAssertNotNil(request)
 
@@ -75,6 +75,20 @@ class WunderlistTests: XCTestCase {
          So the test doesn't normally take 30 seconds
          */
         wait(for: [expectation], timeout: 30.0)
+    }
+
+    func testSpeedOfTypicalLoginRequest() {
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let expectation = self.expectation(description: "\(#file), \(#function): WaitForLoginSpeedResult")
+            let controller = AuthService(dataLoader: URLSession(configuration: .ephemeral))
+            startMeasuring()
+            let ironMan = AuthService.ironMan
+            controller.loginUser(with: ironMan.username, password: ironMan.password!) {
+                XCTAssertNotNil(AuthService.activeUser)
+                expectation.fulfill()
+            }
+            wait(for: [expectation], timeout: 5)
+        }
     }
 
 }
