@@ -64,8 +64,10 @@ class WunderlistTests: XCTestCase {
             let decodedUser = networkService.decode(to: UserDetails.self, data: data!)
             XCTAssertNotNil(decodedUser)
 
-            let loggedInUser = decodedUser!.user
+            var loggedInUser = decodedUser!.user
+            loggedInUser.token = decodedUser!.token
             XCTAssertNotNil(loggedInUser)
+            XCTAssertNotNil(loggedInUser.token)
 
             expectation.fulfill()
         }

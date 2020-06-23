@@ -25,6 +25,7 @@
 		B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */ = {isa = PBXBuildFile; fileRef = B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */; };
 		B907CA2024A185800048F94E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1F24A185800048F94E /* AuthService.swift */; };
 		B907CA2424A1B6B20048F94E /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA2324A1B6B20048F94E /* CoreDataTests.swift */; };
+		B907CA2624A2944F0048F94E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA2524A2944F0048F94E /* Token.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -73,6 +74,7 @@
 		B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodLoginUserData.json; sourceTree = "<group>"; };
 		B907CA1F24A185800048F94E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B907CA2324A1B6B20048F94E /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
+		B907CA2524A2944F0048F94E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
 				B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */,
+				B907CA2524A2944F0048F94E /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
 				99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */,
 				B907CA2024A185800048F94E /* AuthService.swift in Sources */,
+				B907CA2624A2944F0048F94E /* Token.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
 				B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */,
 				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
