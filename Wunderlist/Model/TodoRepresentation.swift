@@ -6,10 +6,18 @@
 //  Copyright © 2020 Hazy Studios. All rights reserved.
 //
 
-struct TodoRepresentation {
+struct TodoRepresentation: Codable {
     let identifier: Int
     var completed: Bool
     let name: String
     let recurring: String
-    let user_id: Int
+    let userID: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case completed
+        case name
+        case recurring
+        case userID = "user_id"
+    }
 }
