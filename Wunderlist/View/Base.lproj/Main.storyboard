@@ -371,6 +371,9 @@
                                         </segments>
                                         <color key="tintColor" red="0.2430099547" green="0.48630940909999998" blue="0.69402945039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="selectedSegmentTintColor" name="borderGray"/>
+                                        <connections>
+                                            <action selector="signInTypeChanged:" destination="qBR-n6-tKz" eventType="valueChanged" id="c3h-NX-qxw"/>
+                                        </connections>
                                     </segmentedControl>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ctg-e5-58n">
                                         <rect key="frame" x="0.0" y="51" width="374" height="34"/>

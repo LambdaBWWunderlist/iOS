@@ -8,10 +8,16 @@
 
 import UIKit
 
+enum LoginType {
+    case register
+    case login
+}
+
 class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
+    var loginType = LoginType.register
     var togglePassword: Bool = false
     let toggleButton = UIButton(type: .custom)
     let hidePasswordImage = UIImage(systemName: "eye.slash")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
@@ -28,6 +34,21 @@ class LoginViewController: UIViewController {
     // MARK: - Actions
     @IBAction func loginButtonTapped(_ sender: Any) {
         
+        
+    }
+    
+    @IBAction func signInTypeChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            // sign up
+            loginType = .register
+            loginButton.setTitle("Register", for: .normal)
+            emailTextField.isHidden = false
+        } else {
+            // sign in
+            loginType = .login
+            loginButton.setTitle("Log In", for: .normal)
+            emailTextField.isHidden = true
+        }
     }
     
     
@@ -59,8 +80,6 @@ class LoginViewController: UIViewController {
         usernameTextField.layer.cornerRadius = 6.0
         usernameTextField.layer.borderWidth = 1.0
         
-        
-        
         emailTextField.layer.borderColor = UIColor.accentBlue.cgColor
         emailTextField.borderStyle = .roundedRect
         emailTextField.layer.cornerRadius = 6.0
@@ -70,9 +89,7 @@ class LoginViewController: UIViewController {
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.layer.cornerRadius = 6.0
         passwordTextField.layer.borderWidth = 1.0
-        
-        passwordTextField.rightView = toggleButton
-        
+    
         toggleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         toggleButton.frame = CGRect(x: CGFloat(passwordTextField.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         toggleButton.addTarget(self, action: #selector(self.passwordToggled(_:)), for: .touchUpInside)
