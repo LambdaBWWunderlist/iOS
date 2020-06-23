@@ -25,6 +25,13 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //saved dummy todo
+        //        let fetchController = FetchController()
+        //        let rep = TodoRepresentation(identifier: 2, completed: false, name: "do", recurring: "yeah", user_id: 1)
+        //        let fetchedTodo = fetchController.fetchTodo(todoRep: rep)
+        //        print(fetchedTodo?.user)
+        
         updateLoginView()
     }
     
