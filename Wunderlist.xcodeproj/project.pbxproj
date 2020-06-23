@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		992D350624A175390039DC05 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992D350524A175390039DC05 /* UIColorExtension.swift */; };
 		99F2946024A144F40067A94E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2945F24A144F40067A94E /* LoginViewController.swift */; };
 		99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946124A1458F0067A94E /* CreateTodoViewController.swift */; };
 		99F2946424A146140067A94E /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946324A146140067A94E /* TodoTableViewCell.swift */; };
@@ -56,7 +55,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		992D350524A175390039DC05 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		99F2945F24A144F40067A94E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		99F2946124A1458F0067A94E /* CreateTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoViewController.swift; sourceTree = "<group>"; };
 		99F2946324A146140067A94E /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		992D350424A175150039DC05 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				992D350524A175390039DC05 /* UIColorExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -427,7 +424,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				992D350624A175390039DC05 /* UIColorExtension.swift in Sources */,
 				99F2946024A144F40067A94E /* LoginViewController.swift in Sources */,
 				B907CA1A24A181AA0048F94E /* MockDataLoader.swift in Sources */,
 				B9192233249FEE7900138ED4 /* NetworkService.swift in Sources */,

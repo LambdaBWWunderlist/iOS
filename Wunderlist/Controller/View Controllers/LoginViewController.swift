@@ -29,21 +29,30 @@ class LoginViewController: UIViewController {
     }
     
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-     print("textFieldShouldBeginEditing:")
-     return true
-     }
-    
     private func updateLoginView() {
-        loginButton.layer.cornerRadius = 10.0
+        
+        
+        loginButton.layer.cornerRadius = 6.0
         passwordTextField.isSecureTextEntry = true
         
         loginButton.layer.borderColor = UIColor.accentBlue.cgColor
-        loginButton.layer.borderWidth = 1.0
+        loginButton.layer.borderWidth = 2.0
         
         usernameTextField.layer.borderColor = UIColor.accentBlue.cgColor
-//        usernameTextField.borderStyle = .roundedRect
-        usernameTextField.layer.cornerRadius = 10.0
+        usernameTextField.borderStyle = .roundedRect
+        usernameTextField.layer.cornerRadius = 6.0
         usernameTextField.layer.borderWidth = 1.0
+        
+        
+        
+        emailTextField.layer.borderColor = UIColor.accentBlue.cgColor
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.layer.cornerRadius = 6.0
+        emailTextField.layer.borderWidth = 1.0
+        
+        passwordTextField.layer.borderColor = UIColor.accentBlue.cgColor
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.layer.cornerRadius = 6.0
+        passwordTextField.layer.borderWidth = 1.0
     }
 }
