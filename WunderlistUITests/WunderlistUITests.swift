@@ -11,13 +11,31 @@ import XCTest
 class WunderlistUITests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        let app = XCUIApplication()
+        app.launchArguments = ["UITesting"]
+        app.launch()
     }
+    
+    enum Identifier: String {
+        
+        case loginUserTextField = "LoginViewController.usernameTextField"
+        case loginEmailTextField = "LoginViewController.emailController.usernameTextField"
+        case loginButton =  "LoginViewController.loginButton"
+        case cellTitleLabel = "TodoTableViewCell.titleLabel"
+        case cellCompleteButton
+            = "TodoTableViewCell.completeButton"
+        case createTitleLabel = "CreateTodoViewController.titleTextField"
+        case createBodyTextView = "CreateTodoViewController.bodyTextView"
+        case detailTitleTextField = "ToDoDetailViewController.titleTextField"
+        case detailBodyTextView = "TodoDetailViewController.bodyTextView"
+    }
+    
+    private var testUsername = "mockUser"
+    private var testEmail = "mock@email.com"
+    private var testPassword = "password"
+    private var testTitle = "Title"
+    private var testBody = "Body"
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
