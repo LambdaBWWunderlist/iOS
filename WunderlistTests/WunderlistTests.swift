@@ -45,26 +45,36 @@ class WunderlistTests: XCTestCase {
 
         XCTAssertNotNil(request)
 
-        let encodedRequest = networkService.encode(from: preLoginUser, request: &request!)
+        let encodingStatus = networkService.encode(from: preLoginUser, request: &request!)
 
-        XCTAssertNotNil(encodedRequest.request)
-        XCTAssertNil(encodedRequest.error)
+        XCTAssertNil(encodingStatus.error)
+        XCTAssertNotNil(encodingStatus.request)
+
 
         networkService.dataLoader.loadData(using: request!) { (data, response, error) in
+            XCTAssertNil(error)
             XCTAssertNotNil(data)
             XCTAssertNotNil(response)
+
             let httpResponse = response as? HTTPURLResponse
             XCTAssertEqual(httpResponse?.statusCode, 200)
-            XCTAssertNil(error)
-            print(String(data: data!, encoding: .utf8))
+
+            print(String(data: data!, encoding: .utf8) as Any) //as Any to silence warning
             
             let decodedUser = networkService.decode(to: UserDetails.self, data: data!)
             XCTAssertNotNil(decodedUser)
+
             let loggedInUser = decodedUser!.user
             XCTAssertNotNil(loggedInUser)
+
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 5.0)
+        /*
+         This timeout is so long because the server sleeps sometimes.
+         It sleeps when nobody has logged in for a period of time
+         So the test doesn't normally take 30 seconds
+         */
+        wait(for: [expectation], timeout: 30.0)
     }
 
 }

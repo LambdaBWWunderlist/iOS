@@ -94,7 +94,9 @@ class NetworkService {
     }
 
     /**
-     Encode from a Swift object to JSON for transmitting to an endpoint
+     Encode from a Swift object to JSON for transmitting to an endpoint.
+     Modifies request passed in as well as returning a modified request as a parameter
+     - note: It is preferred to use the request attached to the returned status
      - parameter type: the type to be encoded (i.e. MyCustomType.self)
      - parameter request: the URLRequest used to transmit the encoded result to the remote server
      - parameter dateFormatter: optional for use with JSONEncoder.dateEncodingStrategy
