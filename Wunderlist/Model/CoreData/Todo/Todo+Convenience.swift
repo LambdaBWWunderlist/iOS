@@ -30,6 +30,6 @@ extension Todo {
         self.user = fetchController.fetchUser(userRep: user, context: context)
         self.user_id = Int16(user.identifier)
     }
-
+    
     
 }

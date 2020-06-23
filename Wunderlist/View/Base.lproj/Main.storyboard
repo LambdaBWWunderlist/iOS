@@ -359,11 +359,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjS-Qp-X3x">
-                                <rect key="frame" x="20" y="357" width="374" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZY3-2r-DMl">
                                 <rect key="frame" x="20" y="264" width="374" height="249"/>
                                 <subviews>
@@ -404,18 +399,22 @@
                                         </state>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="qBR-n6-tKz" eventType="touchUpInside" id="2bS-Xc-jAb"/>
-                                            <segue destination="lw1-KE-PNx" kind="presentation" modalPresentationStyle="currentContext" id="SLU-vB-4kf"/>
+                                            <segue destination="lw1-KE-PNx" kind="presentation" modalPresentationStyle="currentContext" id="DXD-yD-hMm"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="0rU-CW-iNg" firstAttribute="top" secondItem="1Xa-KG-qgb" secondAttribute="bottom" constant="20" id="Bl8-Cg-USc"/>
                                     <constraint firstItem="1Xa-KG-qgb" firstAttribute="leading" secondItem="ZY3-2r-DMl" secondAttribute="leading" id="Io3-AH-KFr"/>
+                                    <constraint firstItem="CqW-HH-IVN" firstAttribute="top" secondItem="0rU-CW-iNg" secondAttribute="bottom" constant="20" id="JBh-a7-HLF"/>
                                     <constraint firstItem="Ctg-e5-58n" firstAttribute="top" secondItem="B1D-kk-3a0" secondAttribute="bottom" constant="20" id="KdL-aY-LDC"/>
                                     <constraint firstItem="0rU-CW-iNg" firstAttribute="top" secondItem="1Xa-KG-qgb" secondAttribute="bottom" constant="20" id="MP9-qJ-zk6"/>
                                     <constraint firstAttribute="trailing" secondItem="0rU-CW-iNg" secondAttribute="trailing" id="SfN-XQ-IsQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="CqW-HH-IVN" secondAttribute="bottom" id="T93-Z6-NpU"/>
                                     <constraint firstAttribute="trailing" secondItem="1Xa-KG-qgb" secondAttribute="trailing" id="Yrr-ZH-htg"/>
+                                    <constraint firstAttribute="trailing" secondItem="CqW-HH-IVN" secondAttribute="trailing" id="b1N-Zd-nzG"/>
                                     <constraint firstAttribute="trailing" secondItem="Ctg-e5-58n" secondAttribute="trailing" id="e9t-FO-h8H"/>
+                                    <constraint firstItem="CqW-HH-IVN" firstAttribute="leading" secondItem="ZY3-2r-DMl" secondAttribute="leading" id="hUr-vC-IC5"/>
                                     <constraint firstItem="1Xa-KG-qgb" firstAttribute="top" secondItem="Ctg-e5-58n" secondAttribute="bottom" constant="20" id="hbw-7n-Udm"/>
                                     <constraint firstItem="0rU-CW-iNg" firstAttribute="leading" secondItem="ZY3-2r-DMl" secondAttribute="leading" id="l5X-tW-7bX"/>
                                     <constraint firstItem="Ctg-e5-58n" firstAttribute="leading" secondItem="ZY3-2r-DMl" secondAttribute="leading" id="nt9-0I-7zf"/>
@@ -423,7 +422,7 @@
                                     <constraint firstItem="1Xa-KG-qgb" firstAttribute="top" secondItem="Ctg-e5-58n" secondAttribute="bottom" constant="20" id="sjh-PB-9HV"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZZz-D5-2Jt">
+                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZZz-D5-2Jt">
                                 <rect key="frame" x="20" y="124" width="374" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wunderlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-CC-5wu">
@@ -432,7 +431,7 @@
                                         <color key="textColor" red="0.019381960850000001" green="0.2902248502" blue="0.56855398420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="FI4-LP-d4t">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="FI4-LP-d4t">
                                         <rect key="frame" x="0.0" y="86" width="374" height="2"/>
                                         <color key="backgroundColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration">

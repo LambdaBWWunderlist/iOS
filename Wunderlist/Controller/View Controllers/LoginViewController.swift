@@ -22,14 +22,17 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: Any) {
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        updateLoginView()
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLoginView()
     }
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+     print("textFieldShouldBeginEditing:")
+     return true
+     }
     
     private func updateLoginView() {
         loginButton.layer.cornerRadius = 10.0
