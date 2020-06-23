@@ -94,13 +94,15 @@ class NetworkService {
     }
 
     /**
-     Encode from a Swift object to JSON for transmitting to an endpoint
+     Encode from a Swift object to JSON for transmitting to an endpoint.
+     Modifies request passed in as well as returning a modified request as a parameter
+     - note: It is preferred to use the request attached to the returned status
      - parameter type: the type to be encoded (i.e. MyCustomType.self)
      - parameter request: the URLRequest used to transmit the encoded result to the remote server
      - parameter dateFormatter: optional for use with JSONEncoder.dateEncodingStrategy
      - returns: An EncodingStatus object which should either contain an error and nil request or request and nil error
      */
-    func encode<T: Encodable>(
+    @discardableResult func encode<T: Encodable>(
         from type: T,
         request: inout URLRequest,
         dateFormatter: DateFormatter? = nil
@@ -153,5 +155,22 @@ func getSomeDataAndDecodeIt() {
         let decodedData = networkService.decode(to: Data.self, data: data) //Data.self would be whatever type you're really trying to decode to (i.e. Todo.self)
         print(String(data:data, encoding: .utf8))
     } //NO .resume() needed
+}
+
+//To encode data and send:
+func encodeSomeDataAndSendIt() {
+    let networkService = NetworkService()
+    let loginUser = UserRepresentation(identifier: nil, username: "somenetworkuser", password: "123")
+    guard var request = networkService.createRequest(url: URL(string:"https://www.google.com"), method: .get) else { return } //the request must be unwrapped and must be a variable
+    let encodingStatus = networkService.encode(from: loginUser, request: &request)
+    // you can check the encodingStatus.error for an error (and should)
+    // you can use either the original request or encodingStatus.request
+    // but should use the encodingStatus.request in case the original gets malformed
+    guard let encodedRequest = encodingStatus.request else { return }
+    networkService.loadData(using: encodedRequest) { (data, response, error) in
+        //it's sent, the server has handled it, and sent you some data
+        //handle the data that comes back
+    } //NO .resume() needed
+
 }
 */

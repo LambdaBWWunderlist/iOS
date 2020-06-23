@@ -13,12 +13,20 @@ extension Todo {
         identifier: Int,
         name: String,
         recurring: String,
-        user: UserRepresentation,
-        context: NSManagedObjectContext = CoreDataStack.shared.mainContext
+        completed: Bool,
+        user: User
     ) {
+        // Noticed insert(into: EntityDescription, context) init - we might need to use this instead of directly assigning the user and initializing the context...
+        
         //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
+        guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
+
+        self.user = user
         self.identifier = Int16(identifier)
+        self.user_id = Int16(identifier)
+        self.completed = completed
+
         if !name.isEmpty && !recurring.isEmpty {
             self.name = name
             self.recurring = recurring
@@ -26,10 +34,19 @@ extension Todo {
             print("username or password were empty")
             return nil
         }
-        let fetchController = FetchController()
-        self.user = fetchController.fetchUser(userRep: user, context: context)
-        self.user_id = Int16(user.identifier)
+        print()
     }
-    
-    
+
+    var todoRepresentation: TodoRepresentation? {
+        guard let name = name,
+            let recurring = recurring
+        else { return nil }
+        return TodoRepresentation(
+            identifier: Int(identifier),
+            completed: completed,
+            name: name,
+            recurring: recurring,
+            user_id: Int(user_id)
+        )
+    }
 }
