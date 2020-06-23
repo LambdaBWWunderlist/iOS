@@ -31,9 +31,9 @@ class AuthService {
     ///   - username: Minimum 4 characters
     ///   - password: Minimum 6 characters
     ///   - completion: Signals when the method is complete (returns nothing)
-    func registerUser(with username: String,
-                      and password: String,
-                      and email: String,
+    func registerUser(username: String,
+                      password: String,
+                      email: String,
                       completion: @escaping () -> Void) {
         let requestURL = baseURL.appendingPathComponent("register")
 

@@ -51,6 +51,10 @@ class TodoListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: Fetch Todos
+        let authService = AuthService()
+        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
+            print(AuthService.activeUser)
+        }
         /*
          Alert usage:
             self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
