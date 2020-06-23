@@ -22,22 +22,25 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: Any) {
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        updateLoginView()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        updateLoginView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func updateLoginView() {
+        loginButton.layer.cornerRadius = 10.0
+        passwordTextField.isSecureTextEntry = true
+        
+        loginButton.layer.borderColor = UIColor.accentBlue.cgColor
+        loginButton.layer.borderWidth = 1.0
+        
+        usernameTextField.layer.borderColor = UIColor.accentBlue.cgColor
+//        usernameTextField.borderStyle = .roundedRect
+        usernameTextField.layer.cornerRadius = 10.0
+        usernameTextField.layer.borderWidth = 1.0
     }
-    */
-
 }
