@@ -28,7 +28,7 @@ class FetchController {
     func fetchUser(userRep: UserRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> User? {
         guard let identifier = userRep.identifier else { return nil }
         let userFetchRequest: NSFetchRequest<User> = User.fetchRequest()
-        userFetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        userFetchRequest.predicate = NSPredicate(format: "identifier == %d", identifier)
 
         do {
             guard let user = try context.fetch(userFetchRequest).first else { return nil }

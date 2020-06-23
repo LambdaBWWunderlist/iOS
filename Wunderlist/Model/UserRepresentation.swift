@@ -7,6 +7,12 @@
 //
 
 import Foundation
+
+///Used to decode loginUser
+struct UserDetails: Codable {
+    let user: UserRepresentation
+}
+
 struct UserRepresentation: Codable {
     let identifier: Int?
     let username: String
@@ -21,4 +27,5 @@ struct UserRepresentation: Codable {
         case email
         case token
     }
+    
 }

@@ -24,6 +24,7 @@
 		B907CA1C24A181F70048F94E /* Data+MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1B24A181F70048F94E /* Data+MockData.swift */; };
 		B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */ = {isa = PBXBuildFile; fileRef = B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */; };
 		B907CA2024A185800048F94E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1F24A185800048F94E /* AuthService.swift */; };
+		B907CA2424A1B6B20048F94E /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA2324A1B6B20048F94E /* CoreDataTests.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -71,6 +72,7 @@
 		B907CA1B24A181F70048F94E /* Data+MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MockData.swift"; sourceTree = "<group>"; };
 		B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodLoginUserData.json; sourceTree = "<group>"; };
 		B907CA1F24A185800048F94E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B907CA2324A1B6B20048F94E /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			children = (
 				B9192211249FEDFE00138ED4 /* WunderlistTests.swift */,
 				B9192213249FEDFE00138ED4 /* Info.plist */,
+				B907CA2324A1B6B20048F94E /* CoreDataTests.swift */,
 			);
 			path = WunderlistTests;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B907CA2424A1B6B20048F94E /* CoreDataTests.swift in Sources */,
 				B9192212249FEDFE00138ED4 /* WunderlistTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

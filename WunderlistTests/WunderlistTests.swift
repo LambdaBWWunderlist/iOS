@@ -57,7 +57,10 @@ class WunderlistTests: XCTestCase {
             XCTAssertEqual(httpResponse?.statusCode, 200)
             XCTAssertNil(error)
             print(String(data: data!, encoding: .utf8))
-            let loggedInUser = networkService.decode(to: UserRepresentation.self, data: data!)
+            
+            let decodedUser = networkService.decode(to: UserDetails.self, data: data!)
+            XCTAssertNotNil(decodedUser)
+            let loggedInUser = decodedUser!.user
             XCTAssertNotNil(loggedInUser)
             expectation.fulfill()
         }
