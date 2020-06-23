@@ -13,8 +13,8 @@ class CoreDataTests: XCTestCase {
 
     func testUserTodoRelationship() {
         let user = User(identifier: 1, username: "kenny", email: "kennydubroff@hotmail.com")
-        let todo = Todo(identifier: 2, name: "do", recurring: "yeah", completed: false, user: user!)
-        let todo2 = Todo(identifier: 3, name: "dont", recurring: "nah", completed: false, user: user!)
+        let todo = Todo(user: user!, identifier: 2, name: "do", recurring: "yeah", dueDate: Date(), completed: false)
+        let todo2 = Todo(user: user!, identifier: 3, name: "dont", recurring: "nah", dueDate: Date(), completed: false)
 
         XCTAssertNotNil(todo?.user)
         XCTAssertNotNil(todo?.identifier)
