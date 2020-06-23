@@ -30,11 +30,6 @@ class LoginViewController: UIViewController {
         
     }
     
-    @IBAction func refresh(_ sender: Any) {
-
-        
-    }
-    
     
     override func viewDidLoad() {
         
@@ -53,12 +48,11 @@ class LoginViewController: UIViewController {
     
     private func updateLoginView() {
         
-        
         loginButton.layer.cornerRadius = 6.0
         passwordTextField.isSecureTextEntry = true
         
         loginButton.layer.borderColor = UIColor.accentBlue.cgColor
-        loginButton.layer.borderWidth = 2.0
+        loginButton.layer.borderWidth = 1.0
         
         usernameTextField.layer.borderColor = UIColor.accentBlue.cgColor
         usernameTextField.borderStyle = .roundedRect
