@@ -17,7 +17,7 @@ class AuthService {
     ///
     /// Static so it's always accessible and always the same user (until another user is logged in)
     static var activeUser: UserRepresentation?
-    static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman")
+    static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {

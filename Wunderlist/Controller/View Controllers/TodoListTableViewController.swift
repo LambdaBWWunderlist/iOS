@@ -17,19 +17,11 @@ class TodoListTableViewController: UITableViewController {
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        #warning(
-        """
-        Make sure "identifier" is the right key and delete this warning
-        """)
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "identifier",
                              ascending: true)
         ]
         let context = CoreDataStack.shared.mainContext
-        #warning(
-        """
-        Make sure "dueDate" is the right key and delete this warning
-        """)
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
                                              sectionNameKeyPath: "dueDate",
@@ -71,9 +63,9 @@ class TodoListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        #warning("Change the identifier - CRASH")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.reuseID, for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
+        let todo = fetchedResultsController.object(at: indexPath)
+        cell.titleLabel.text = todo.name
         return cell
     }
 
