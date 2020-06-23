@@ -39,6 +39,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signInTypeChanged(_ sender: UISegmentedControl) {
+        
         if sender.selectedSegmentIndex == 0 {
             // sign up
             loginType = .register
@@ -52,8 +53,8 @@ class LoginViewController: UIViewController {
             emailTextField.isHidden = true
             promptLabel.text = "Please Log In"
         }
+        
     }
-    
     
     override func viewDidLoad() {
         
@@ -67,6 +68,7 @@ class LoginViewController: UIViewController {
         //        print(fetchedTodo?.user)
         
         updateLoginView()
+        
     }
     
     
@@ -98,15 +100,19 @@ class LoginViewController: UIViewController {
         toggleButton.addTarget(self, action: #selector(self.passwordToggled(_:)), for: .touchUpInside)
         passwordTextField.rightView = toggleButton
         passwordTextField.rightViewMode = .always
+        
     }
     
     @ objc func passwordToggled(_: UIButton) {
+        
         passwordTextField.isSecureTextEntry.toggle()
         if passwordTextField.isSecureTextEntry == true {
             toggleButton.setImage(hidePasswordImage, for: .normal)
         } else {
             toggleButton.setImage(showPasswordImage, for: .normal)
         }
+        
     }
+    
 }
 
