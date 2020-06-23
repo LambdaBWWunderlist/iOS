@@ -10,6 +10,8 @@ import UIKit
 
 class TodoTableViewCell: UITableViewCell {
     // MARK: - Properties -
+    static let reuseID = "TodoCell"
+
     var todoController: TodoController?
     var todoRep: TodoRepresentation? {
         didSet {
