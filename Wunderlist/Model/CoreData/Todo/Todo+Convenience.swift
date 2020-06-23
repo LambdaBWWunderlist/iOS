@@ -42,11 +42,11 @@ extension Todo {
             let recurring = recurring
         else { return nil }
         return TodoRepresentation(
-            identifier: Int(self.identifier),
-            completed: self.completed,
+            identifier: Int(identifier),
+            completed: completed,
             name: name,
             recurring: recurring,
-            user_id: Int(self.user_id)
+            user_id: Int(user_id)
         )
     }
 }

@@ -76,7 +76,11 @@ class WunderlistTests: XCTestCase {
          */
         wait(for: [expectation], timeout: 30.0)
     }
-
+    /*
+     Standard Deviation is *much* higher than it should be for this test
+     Heroku may do something when the server spins up that takes a bit longer
+     ... and it's still only half a second on the first login
+    */
     func testSpeedOfTypicalLoginRequest() {
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let expectation = self.expectation(description: "\(#file), \(#function): WaitForLoginSpeedResult")
