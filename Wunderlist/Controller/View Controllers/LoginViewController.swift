@@ -14,7 +14,8 @@ class LoginViewController: UIViewController {
     
     var togglePassword: Bool = false
     let toggleButton = UIButton(type: .custom)
-
+    let hidePasswordImage = UIImage(systemName: "eye.slash")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
+    let showPasswordImage = UIImage(systemName: "eye")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
     
     // MARK: - Outlets
     
@@ -30,14 +31,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        togglePassword.toggle()
+
         
     }
     
     
     override func viewDidLoad() {
         
-        toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
         
         //saved dummy todo
@@ -78,13 +79,20 @@ class LoginViewController: UIViewController {
         
         passwordTextField.rightView = toggleButton
         
-        #warning("work in progress")
-        
-//        toggleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-//        toggleButton.frame = CGRect(x: CGFloat(frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-//        toggleButton.addTarget(self, action: #selector(self.refresh), for: .touchUpInside)
-//        passwordTextField.rightView = toggleButton
-//        passwordTextField.rightViewMode = .always
+        toggleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        toggleButton.frame = CGRect(x: CGFloat(passwordTextField.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+        toggleButton.addTarget(self, action: #selector(self.passwordToggled(_:)), for: .touchUpInside)
+        passwordTextField.rightView = toggleButton
+        passwordTextField.rightViewMode = .always
+    }
+    
+    @ objc func passwordToggled(_: UIButton) {
+        passwordTextField.isSecureTextEntry.toggle()
+        if passwordTextField.isSecureTextEntry == true {
+            toggleButton.setImage(hidePasswordImage, for: .normal)
+        } else {
+            toggleButton.setImage(showPasswordImage, for: .normal)
+        }
     }
 }
 
