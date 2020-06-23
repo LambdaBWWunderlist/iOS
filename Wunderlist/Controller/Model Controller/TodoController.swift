@@ -111,7 +111,7 @@ class TodoController {
                     for todo in existingTodos {
                         guard let identifier = todo.identifier,
                             let representation = representationsByID[identifier] else { continue }
-                        self.updateTodoRep(todo)
+                        self.updateTodoRep(todo, with: representation)
                     }
                 } catch let fetchError {error = fetchError}
             }
@@ -119,15 +119,35 @@ class TodoController {
                 throw error
             }
             for representation in todosToCreate.values {
-                guard let userRep = AuthService.activeUser else { continue }
                 Todo(todoRepresentation: representation, context: context, userRep: userRep )
             }
         }
     }
     
+    private func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
+        todo.name = representation.name
+        todo.recurring = representation.recurring
+        todo.completed = representation.completed
+        todo.dueDate = representation.dueDate
+    }
+    
     
     func deleteToDoFromServer(representation: TodoRepresentation, with completion: @escaping () -> Void) {
+        let identifier = todo.identifier
+        let userId = AuthService.activeUser?.identifier?.uuidString ?? backupUserId
+        let requestURL = baseURL
+            .appendingPathComponent(userId)
+            .appendingPathComponent(uuid.uuidString)
+            .appendingPathExtension("json")
         
+        guard let request = networkService.createRequest(url: requestURL, method: .delete) else { return }
+        networkService.dataLoader.loadData(using: request) { _, _, error in
+            if let error = error {
+                NSLog("Error deleting entry from server \(todo): \(error)")
+                completion(.failure(.otherError))
+                return
+            }
+            completion(.success(true))
     }
     
 }
