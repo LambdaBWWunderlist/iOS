@@ -17,7 +17,7 @@ class AuthService {
     ///
     /// Static so it's always accessible and always the same user (until another user is logged in)
     static var activeUser: UserRepresentation?
-    static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman")
+    static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
@@ -31,23 +31,28 @@ class AuthService {
     ///   - username: Minimum 4 characters
     ///   - password: Minimum 6 characters
     ///   - completion: Signals when the method is complete (returns nothing)
-    func registerUser(with username: String,
-                      and password: String,
+    func registerUser(username: String,
+                      password: String,
+                      email: String,
                       completion: @escaping () -> Void) {
         let requestURL = baseURL.appendingPathComponent("register")
+
         guard var request = networkService.createRequest(
             url: requestURL,
             method: .post,
             headerType: .contentType,
             headerValue: .json
         ) else { return }
-        var registerUser = UserRepresentation(identifier: nil, username: username, password: password)
+
+        var registerUser = UserRepresentation(identifier: nil, username: username, password: password, email: email)
         let encodedUser = networkService.encode(from: registerUser, request: &request)
+
         guard let requestWithUser = encodedUser.request else {
             print("requestWithUser failed, error encoding user?")
             completion()
             return
         }
+
         networkService.dataLoader.loadData(using: requestWithUser, with: { (data, response, error) in
             if let error = error {
                 print("error registering user: \(error)")

@@ -13,10 +13,6 @@ class CoreDataStack {
     static let shared = CoreDataStack()
 
     lazy var container: NSPersistentContainer = {
-        #warning("""
-            If this name doesn't match our Coredata model:
-            The app will crash
-        """)
         let container = NSPersistentContainer(name: "Todo")
         container.loadPersistentStores { _, error in
             if let error = error {
