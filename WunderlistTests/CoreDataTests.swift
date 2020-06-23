@@ -13,14 +13,18 @@ class CoreDataTests: XCTestCase {
 
     func testUserTodoRelationship() {
         let user = User(identifier: 1, username: "kenny", email: "kennydubroff@hotmail.com")
-        let todo = Todo(identifier: 2, name: "do", recurring: "yeah", user: user!)
-        let todo2 = Todo(identifier: 3, name: "dont", recurring: "nah", user: user!)
+        let todo = Todo(identifier: 2, name: "do", recurring: "yeah", completed: false, user: user!)
+        let todo2 = Todo(identifier: 3, name: "dont", recurring: "nah", completed: false, user: user!)
+
         XCTAssertNotNil(todo?.user)
         XCTAssertNotNil(todo?.identifier)
         XCTAssertNotNil(todo?.name)
         XCTAssertNotNil(todo?.recurring)
-        user?.addToTodos(todo!)
-        user?.addToTodos(todo2!)
+
+        XCTAssertEqual(user?.todos?.count, 2)
+
+        XCTAssertEqual(todo?.user, user)
+        XCTAssertEqual(todo2?.user, user)
     }
 
 }

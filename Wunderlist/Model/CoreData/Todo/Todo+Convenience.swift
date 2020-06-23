@@ -13,6 +13,7 @@ extension Todo {
         identifier: Int,
         name: String,
         recurring: String,
+        completed: Bool,
         user: User
     ) {
         // Noticed insert(into: EntityDescription, context) init - we might need to use this instead of directly assigning the user and initializing the context...
@@ -20,9 +21,11 @@ extension Todo {
         //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
         guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
+
         self.user = user
         self.identifier = Int16(identifier)
         self.user_id = Int16(identifier)
+        self.completed = completed
 
         if !name.isEmpty && !recurring.isEmpty {
             self.name = name
@@ -31,7 +34,6 @@ extension Todo {
             print("username or password were empty")
             return nil
         }
-
         print()
     }
 

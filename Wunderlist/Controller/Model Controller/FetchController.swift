@@ -13,10 +13,14 @@ class FetchController {
 
     func fetchTodo(todoRep: TodoRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Todo? {
         let todoFetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        todoFetchRequest.predicate = NSPredicate(format: "identifier == %@", todoRep.identifier )
-
+        let predicate = NSPredicate(format: "identifier == %d", todoRep.identifier )
+        todoFetchRequest.predicate = predicate
+        print(predicate)
         do {
-            guard let todo = try context.fetch(todoFetchRequest).first else { return nil }
+            guard let todo = try context.fetch(todoFetchRequest).first else {
+                print("Predicate: \(predicate) failed to fetch object")
+                return nil
+            }
             return todo
         } catch {
             print("Error fetching Todo from CoreData")
