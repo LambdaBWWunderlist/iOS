@@ -480,6 +480,7 @@
                         <outlet property="loginButton" destination="CqW-HH-IVN" id="XNQ-Pf-U9G"/>
                         <outlet property="loginSegControl" destination="B1D-kk-3a0" id="o6M-bX-rba"/>
                         <outlet property="passwordTextField" destination="0rU-CW-iNg" id="eGJ-Ti-Mck"/>
+                        <outlet property="promptLabel" destination="OVM-ZL-dLo" id="Lys-ak-Zfo"/>
                         <outlet property="usernameTextField" destination="Ctg-e5-58n" id="7ur-jK-Zok"/>
                     </connections>
                 </viewController>

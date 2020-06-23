@@ -30,6 +30,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var loginButton: UIButton!
+    @IBOutlet var promptLabel: UILabel!
     
     // MARK: - Actions
     @IBAction func loginButtonTapped(_ sender: Any) {
@@ -43,11 +44,13 @@ class LoginViewController: UIViewController {
             loginType = .register
             loginButton.setTitle("Register", for: .normal)
             emailTextField.isHidden = false
+            promptLabel.text = "Register to Get Started"
         } else {
             // sign in
             loginType = .login
             loginButton.setTitle("Log In", for: .normal)
             emailTextField.isHidden = true
+            promptLabel.text = "Please Log In"
         }
     }
     
