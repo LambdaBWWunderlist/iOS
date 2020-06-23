@@ -64,11 +64,11 @@ class AuthService {
             }
             if let data = data {
                 print(String(data: data, encoding: .utf8) as Any) //as Any to silence warning
-                guard let returnedUserDetails = self.networkService.decode(
-                    to: UserDetails.self,
+                guard let returnedUser = self.networkService.decode(
+                    to: UserRepresentation.self,
                     data: data
                     ) else { return }
-                registerUser = returnedUserDetails.user
+                registerUser = returnedUser
                 AuthService.activeUser = registerUser
             }
             completion()
