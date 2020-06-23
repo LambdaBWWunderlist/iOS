@@ -100,7 +100,7 @@ class NetworkService {
      - parameter dateFormatter: optional for use with JSONEncoder.dateEncodingStrategy
      - returns: An EncodingStatus object which should either contain an error and nil request or request and nil error
      */
-    func encode<T: Encodable>(
+    @discardableResult func encode<T: Encodable>(
         from type: T,
         request: inout URLRequest,
         dateFormatter: DateFormatter? = nil

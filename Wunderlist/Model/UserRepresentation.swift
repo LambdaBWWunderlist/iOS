@@ -7,10 +7,18 @@
 //
 
 import Foundation
-struct UserRepresentation {
-    let identifier: Int
+struct UserRepresentation: Codable {
+    let identifier: Int?
     let username: String
     let password: String?
-    let email: String?
-    let token: String?
+    var email: String? = nil
+    var token: String? = nil
+
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case username
+        case password
+        case email
+        case token
+    }
 }

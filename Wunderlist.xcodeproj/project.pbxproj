@@ -20,6 +20,10 @@
 		B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1124A15FDC0048F94E /* FetchController.swift */; };
 		B907CA1424A15FDC0048F94E /* TodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1224A15FDC0048F94E /* TodoController.swift */; };
 		B907CA1624A16B840048F94E /* UIColor+NamedColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1524A16B840048F94E /* UIColor+NamedColors.swift */; };
+		B907CA1A24A181AA0048F94E /* MockDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1924A181AA0048F94E /* MockDataLoader.swift */; };
+		B907CA1C24A181F70048F94E /* Data+MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1B24A181F70048F94E /* Data+MockData.swift */; };
+		B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */ = {isa = PBXBuildFile; fileRef = B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */; };
+		B907CA2024A185800048F94E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1F24A185800048F94E /* AuthService.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -63,6 +67,10 @@
 		B907CA1124A15FDC0048F94E /* FetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchController.swift; sourceTree = "<group>"; };
 		B907CA1224A15FDC0048F94E /* TodoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoController.swift; sourceTree = "<group>"; };
 		B907CA1524A16B840048F94E /* UIColor+NamedColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NamedColors.swift"; sourceTree = "<group>"; };
+		B907CA1924A181AA0048F94E /* MockDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataLoader.swift; sourceTree = "<group>"; };
+		B907CA1B24A181F70048F94E /* Data+MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MockData.swift"; sourceTree = "<group>"; };
+		B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodLoginUserData.json; sourceTree = "<group>"; };
+		B907CA1F24A185800048F94E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +139,23 @@
 				B907CA04249FFF600048F94E /* User+Convenience.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		B907CA1724A181920048F94E /* MockData Loader */ = {
+			isa = PBXGroup;
+			children = (
+				B907CA1924A181AA0048F94E /* MockDataLoader.swift */,
+				B907CA1B24A181F70048F94E /* Data+MockData.swift */,
+			);
+			path = "MockData Loader";
+			sourceTree = "<group>";
+		};
+		B907CA1824A1819D0048F94E /* Mock Data */ = {
+			isa = PBXGroup;
+			children = (
+				B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */,
+			);
+			path = "Mock Data";
 			sourceTree = "<group>";
 		};
 		B91921EE249FEDFC00138ED4 = {
@@ -228,9 +253,11 @@
 		B919222E249FEE3D00138ED4 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA1724A181920048F94E /* MockData Loader */,
 				B907CA1124A15FDC0048F94E /* FetchController.swift */,
 				B907CA1224A15FDC0048F94E /* TodoController.swift */,
 				B9192232249FEE7900138ED4 /* NetworkService.swift */,
+				B907CA1F24A185800048F94E /* AuthService.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -238,6 +265,7 @@
 		B919222F249FEE5300138ED4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA1824A1819D0048F94E /* Mock Data */,
 				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
 				B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */,
@@ -350,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9192207249FEDFE00138ED4 /* LaunchScreen.storyboard in Resources */,
+				B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */,
 				B9192204249FEDFE00138ED4 /* Assets.xcassets in Resources */,
 				B9192202249FEDFC00138ED4 /* Main.storyboard in Resources */,
 			);
@@ -377,10 +406,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				99F2946024A144F40067A94E /* LoginViewController.swift in Sources */,
+				B907CA1A24A181AA0048F94E /* MockDataLoader.swift in Sources */,
 				B9192233249FEE7900138ED4 /* NetworkService.swift in Sources */,
 				B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
 				99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */,
+				B907CA2024A185800048F94E /* AuthService.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
 				B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */,
 				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
@@ -394,6 +425,7 @@
 				B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */,
 				B907CA01249FFB2C0048F94E /* Todo.xcdatamodeld in Sources */,
 				B907CA1624A16B840048F94E /* UIColor+NamedColors.swift in Sources */,
+				B907CA1C24A181F70048F94E /* Data+MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

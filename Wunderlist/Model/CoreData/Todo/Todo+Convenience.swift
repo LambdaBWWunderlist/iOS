@@ -28,7 +28,11 @@ extension Todo {
         }
         let fetchController = FetchController()
         self.user = fetchController.fetchUser(userRep: user, context: context)
-        self.user_id = Int16(user.identifier)
+        guard let identifier = user.identifier else {
+            print("identifier was nil")
+            return nil
+        }
+        self.user_id = Int16(identifier)
     }
 
     var todoRepresentation: TodoRepresentation? {

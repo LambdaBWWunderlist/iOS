@@ -11,24 +11,57 @@ import XCTest
 
 class WunderlistTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testDecodingMockLoginUser() {
+        let expectation = self.expectation(description: "\(#file), \(#function): WaitForDecodingMockUserData")
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        let mockDataLoader = MockDataLoader(
+            data: Data.mockData(with: .goodLoginUserData),
+            response: nil,
+            error: nil
+        )
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        let networkService = NetworkService(dataLoader: mockDataLoader)
+        let request = networkService.createRequest(url: URL(string: "https://www.google.com"), method: .get)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        XCTAssertNotNil(request)
+
+        networkService.dataLoader.loadData(using: request!) { (data, response, error) in
+            XCTAssertNotNil(data)
+            XCTAssertNil(response)
+            XCTAssertNil(error)
+            let mockUser = networkService.decode(to: UserRepresentation.self, data: data!)
+            XCTAssertNotNil(mockUser)
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    func testDecodingLiveLoginUser() {
+        let expectation = self.expectation(description: "\(#file), \(#function): WaitForDecodingLiveUserData")
+
+        let networkService = NetworkService()
+        var request = networkService.createRequest(url: URL(string: "https://wunderlist-node.herokuapp.com/api/login"), method: .post, headerType: .contentType, headerValue: .json)
+        let preLoginUser = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman")
+
+        XCTAssertNotNil(request)
+
+        let encodedRequest = networkService.encode(from: preLoginUser, request: &request!)
+
+        XCTAssertNotNil(encodedRequest.request)
+        XCTAssertNil(encodedRequest.error)
+
+        networkService.dataLoader.loadData(using: request!) { (data, response, error) in
+            XCTAssertNotNil(data)
+            XCTAssertNotNil(response)
+            let httpResponse = response as? HTTPURLResponse
+            XCTAssertEqual(httpResponse?.statusCode, 200)
+            XCTAssertNil(error)
+            print(String(data: data!, encoding: .utf8))
+            let loggedInUser = networkService.decode(to: UserRepresentation.self, data: data!)
+            XCTAssertNotNil(loggedInUser)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
     }
 
 }
