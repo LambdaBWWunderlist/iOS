@@ -78,6 +78,7 @@ class WunderlistTests: XCTestCase {
          */
         wait(for: [expectation], timeout: 30.0)
     }
+
     /*
      Standard Deviation is *much* higher than it should be for this test
      Heroku may do something when the server spins up that takes a bit longer
