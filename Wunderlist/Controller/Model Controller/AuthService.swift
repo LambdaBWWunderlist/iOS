@@ -33,21 +33,26 @@ class AuthService {
     ///   - completion: Signals when the method is complete (returns nothing)
     func registerUser(with username: String,
                       and password: String,
+                      and email: String,
                       completion: @escaping () -> Void) {
         let requestURL = baseURL.appendingPathComponent("register")
+
         guard var request = networkService.createRequest(
             url: requestURL,
             method: .post,
             headerType: .contentType,
             headerValue: .json
         ) else { return }
-        var registerUser = UserRepresentation(identifier: nil, username: username, password: password)
+
+        var registerUser = UserRepresentation(identifier: nil, username: username, password: password, email: email)
         let encodedUser = networkService.encode(from: registerUser, request: &request)
+
         guard let requestWithUser = encodedUser.request else {
             print("requestWithUser failed, error encoding user?")
             completion()
             return
         }
+
         networkService.dataLoader.loadData(using: requestWithUser, with: { (data, response, error) in
             if let error = error {
                 print("error registering user: \(error)")
@@ -59,11 +64,11 @@ class AuthService {
             }
             if let data = data {
                 print(String(data: data, encoding: .utf8) as Any) //as Any to silence warning
-                guard let returnedUser = self.networkService.decode(
-                    to: UserRepresentation.self,
+                guard let returnedUserDetails = self.networkService.decode(
+                    to: UserDetails.self,
                     data: data
                     ) else { return }
-                registerUser = returnedUser
+                registerUser = returnedUserDetails.user
                 AuthService.activeUser = registerUser
             }
             completion()
