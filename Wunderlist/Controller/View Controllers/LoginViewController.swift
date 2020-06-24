@@ -44,7 +44,8 @@ class LoginViewController: UIViewController {
 //        print("\(error) saving CoreData user")
 //        }
         let authService = AuthService()
-        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
+
+        authService.loginUser(with: AuthService.testUser4.username, password: AuthService.testUser4.password!) {
             print("logged in")
         }
         

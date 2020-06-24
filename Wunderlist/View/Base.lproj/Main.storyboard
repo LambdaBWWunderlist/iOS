@@ -338,7 +338,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bqy-Ww-mz3">
                             <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="TeK-fG-TkS" kind="show" id="INe-CV-aO4"/>
+                                <segue destination="TeK-fG-TkS" kind="show" identifier="AddTodoSegue" id="INe-CV-aO4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
