@@ -169,5 +169,31 @@ class WunderlistUITests: XCTestCase {
         
         let navBar = app.navigationBars["Wunderlist"]
         navBar.buttons["Add"].tap()
+        
+        let titleTextField = textField(identifier: .createTitleLabel)
+        titleTextField.tap()
+        titleTextField.typeText("New Entry")
+        XCTAssertEqual(titleTextField.value as! String, "New Entry")
+        
+        let recurButton = app.segmentedControls.buttons["Weekly"]
+        recurButton.tap()
+        
+        let bodyTextView = textView(identifier: .createBodyTextView)
+        bodyTextView.tap()
+        bodyTextView.typeText("Body Here")
+        XCTAssertEqual(bodyTextView.value as! String, "Body Here")
+        
+        let createNavBar = app.navigationBars["Create a List"]
+        createNavBar.buttons["Save"].tap()
+    }
+    
+    func testEditList() throws {
+        try testUserSignIn()
+        
+        let cell = app.tables.staticTexts["Win"]
+        XCTAssert(app.staticTexts["Win"].exists)
+        cell.tap()
+        
+        
     }
 }
