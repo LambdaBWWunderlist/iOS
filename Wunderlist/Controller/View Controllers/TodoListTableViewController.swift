@@ -19,11 +19,14 @@ class TodoListTableViewController: UITableViewController {
     private let addTodoSegue = "AddTodoSegue"
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
+
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "identifier",
+            NSSortDescriptor(key: "completed",
                              ascending: true)
         ]
+        fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
+
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,

@@ -13,7 +13,7 @@ extension Todo {
         user: User,
         identifier: Int,
         name: String,
-        body: String,
+        body: String?,
         recurring: String,
         dueDate: Date,
         completed: Bool
@@ -23,21 +23,19 @@ extension Todo {
         //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
         guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
-        if !name.isEmpty && !recurring.isEmpty && !body.isEmpty {
+        if !name.isEmpty && !recurring.isEmpty {
+            self.user = user
+            self.identifier = Int16(identifier)
             self.name = name
-            self.recurring = recurring
             self.body = body
+            self.recurring = recurring
+            self.completed = completed
+            self.username = user.username
+            self.dueDate = dueDate
         } else {
             print("recurring, username or password were empty")
             return nil
         }
-        self.user = user
-        self.identifier = Int16(identifier)
-        self.username = user.username
-        self.dueDate = dueDate
-        self.completed = completed
-
-
         print()
     }
 
@@ -51,7 +49,7 @@ extension Todo {
         self.init(user: user,
                   identifier: todoRepresentation.identifier,
                   name: todoRepresentation.name,
-                  body: todoRepresentation.body ?? "",
+                  body: todoRepresentation.body,
                   recurring: todoRepresentation.recurring ?? "",
                   dueDate: todoRepresentation.dueDate ?? Date(),
                   completed: todoRepresentation.completed ?? false)
