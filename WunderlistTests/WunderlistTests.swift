@@ -39,34 +39,13 @@ class WunderlistTests: XCTestCase {
     func testDecodingLiveLoginUser() {
         let expectation = self.expectation(description: "\(#file), \(#function): WaitForDecodingLiveUserData")
 
-        let networkService = NetworkService()
-        var request = networkService.createRequest(url: URL(string: "https://wunderlist-node.herokuapp.com/api/login"), method: .post, headerType: .contentType, headerValue: .json)
-        let preLoginUser = AuthService.ironMan
-
-        XCTAssertNotNil(request)
-
-        let encodingStatus = networkService.encode(from: preLoginUser, request: &request!)
-
-        XCTAssertNil(encodingStatus.error)
-        XCTAssertNotNil(encodingStatus.request)
-
-
-        networkService.dataLoader.loadData(using: request!) { (data, response, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(data)
-            XCTAssertNotNil(response)
-
-            let httpResponse = response as? HTTPURLResponse
-            XCTAssertEqual(httpResponse?.statusCode, 200)
-
-            print(String(data: data!, encoding: .utf8) as Any) //as Any to silence warning
-            
-            let decodedUser = networkService.decode(to: UserDetails.self, data: data!)
-            XCTAssertNotNil(decodedUser)
-
-            let loggedInUser = decodedUser!.user
-            XCTAssertNotNil(loggedInUser)
-
+            let authService = AuthService()
+        authService.loginUser(
+            with: AuthService.ironMan.username,
+            password: AuthService.ironMan.password!
+        ) {
+            XCTAssertNotNil(AuthService.activeUser)
+            XCTAssertNotNil(AuthService.activeUser?.token)
             expectation.fulfill()
         }
         /*
@@ -76,6 +55,23 @@ class WunderlistTests: XCTestCase {
          */
         wait(for: [expectation], timeout: 30.0)
     }
+
+    func testFetchingTodos() {
+        let authService = AuthService()
+        let authExpectation = self.expectation(description: "\(#file), \(#function): WaitForLoggingIn")
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
+            authExpectation.fulfill()
+        }
+        wait(for: [authExpectation], timeout: 5.0)
+        let expectation = self.expectation(description: "\(#file), \(#function): WaitForFetchingTodos")
+
+        let todoController = TodoController()
+        todoController.fetchTodosFromServer() { _ in
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
+    }
+
     /*
      Standard Deviation is *much* higher than it should be for this test
      Heroku may do something when the server spins up that takes a bit longer

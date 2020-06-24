@@ -31,7 +31,7 @@ extension Todo {
         }
         self.user = user
         self.identifier = Int16(identifier)
-        self.userId = Int16(identifier)
+        self.username = user.username
         self.dueDate = dueDate
         self.completed = completed
 
@@ -39,16 +39,31 @@ extension Todo {
         print()
     }
 
+    convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext) {
+        let fetchController = FetchController()
+        guard let userRep = AuthService.activeUser,
+            let user = fetchController.fetchUser(userRep: userRep, context: context) else { return nil }
+        self.init(user: user,
+                  identifier: todoRepresentation.identifier,
+                  name: todoRepresentation.name,
+                  recurring: todoRepresentation.recurring,
+                  dueDate: todoRepresentation.dueDate,
+                  completed: todoRepresentation.completed)
+    }
+
     var todoRepresentation: TodoRepresentation? {
         guard let name = name,
-            let recurring = recurring
+            let recurring = recurring,
+            let date = dueDate,
+            let username = username
         else { return nil }
         return TodoRepresentation(
             identifier: Int(identifier),
             completed: completed,
             name: name,
             recurring: recurring,
-            userID: Int(userId)
+            username: username,
+            dueDate: date
         )
     }
 }

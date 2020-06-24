@@ -42,15 +42,12 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-         To create a user and todo: (this will load it into the tableView)
-         */
-//        guard let user = User(identifier: 1, username: AuthService.ironMan.username, email: AuthService.ironMan.email!) else {
-//            print("failed to create user")
-//            return
+        // TODO: Fetch Todos
+        //To register a user:
+//        let authService = AuthService()
+//        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
+//            print(AuthService.activeUser)
 //        }
-//        Todo(user: user, identifier: 2, name: "Do something", recurring: "Daily", dueDate: Date(), completed: false)
-//        try? CoreDataStack.shared.save()
         /*
          Alert usage:
             self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
