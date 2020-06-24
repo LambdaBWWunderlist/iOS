@@ -39,7 +39,7 @@ extension Todo {
         print()
     }
 
-    convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext) {
+    @discardableResult convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext)  {
         let fetchController = FetchController()
         guard let userRep = AuthService.activeUser,
             let user = fetchController.fetchUser(userRep: userRep, context: context) else { return nil }
@@ -55,7 +55,8 @@ extension Todo {
         guard let name = name,
             let recurring = recurring,
             let date = dueDate,
-            let username = username
+            let username = username,
+            let user = user
         else { return nil }
         return TodoRepresentation(
             identifier: Int(identifier),
@@ -63,7 +64,8 @@ extension Todo {
             name: name,
             recurring: recurring,
             username: username,
-            dueDate: date
+            dueDate: date,
+            userId: Int(user.identifier)
         )
     }
 }

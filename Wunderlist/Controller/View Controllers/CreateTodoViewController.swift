@@ -18,7 +18,8 @@ class CreateTodoViewController: UIViewController {
     
     // MARK: - Actions
     @IBOutlet var saveButtonTapped: UIBarButtonItem!
-    
+   
+    //    When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
 
     override func viewDidLoad() {
         super.viewDidLoad()

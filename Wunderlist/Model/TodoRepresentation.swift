@@ -14,6 +14,7 @@ struct TodoRepresentation: Codable {
     let recurring: String
     let username: String
     let dueDate: Date
+    let userId: Int?
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -22,6 +23,7 @@ struct TodoRepresentation: Codable {
         case recurring
         case dueDate = "due_date"
         case username
+        case userId = "user_id"
     }
 
 }

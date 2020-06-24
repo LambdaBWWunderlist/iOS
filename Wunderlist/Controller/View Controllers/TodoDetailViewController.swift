@@ -20,7 +20,7 @@ class TodoDetailViewController: UIViewController {
     }
     
     
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
