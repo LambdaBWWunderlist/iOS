@@ -121,6 +121,8 @@
 		992D350124A15FB10039DC05 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B9192232249FEE7900138ED4 /* NetworkService.swift */,
+				B907CA1F24A185800048F94E /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -277,8 +279,6 @@
 				B907CA1724A181920048F94E /* MockData Loader */,
 				B907CA1124A15FDC0048F94E /* FetchController.swift */,
 				B907CA1224A15FDC0048F94E /* TodoController.swift */,
-				B9192232249FEE7900138ED4 /* NetworkService.swift */,
-				B907CA1F24A185800048F94E /* AuthService.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
