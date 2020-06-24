@@ -11,7 +11,7 @@ import UIKit
 class CreateTodoViewController: UIViewController {
 
     // MARK: - Properties -
-    var todoRepresentation: TodoRepresentation?
+    var todoController: TodoController?
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -30,10 +30,7 @@ class CreateTodoViewController: UIViewController {
     }
 
     private func updateViews() {
-        guard let todoRep = todoRepresentation else { return }
-        title = todoRep.name
-        titleTextField.text = todoRep.name
-        bodyTextView.text = todoRep.body
+        
     }
 
 }
