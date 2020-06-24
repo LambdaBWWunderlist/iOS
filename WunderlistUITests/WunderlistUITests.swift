@@ -30,6 +30,7 @@ class WunderlistUITests: XCTestCase {
         case createBodyTextView = "CreateTodoViewController.bodyTextView"
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
+        case passwordToggleButton = "toggleButton"
     }
     
     private var testUsername = "mockUser"
@@ -41,6 +42,7 @@ class WunderlistUITests: XCTestCase {
     private var app: XCUIApplication {
         return XCUIApplication()
     }
+    
     
     private func textField(identifier: Identifier) -> XCUIElement {
         return app.textFields[identifier.rawValue]
@@ -74,6 +76,16 @@ class WunderlistUITests: XCTestCase {
         return app.buttons["Return"]
     }
     
+    private var securePasswordField: XCUIElement {
+        return app.secureTextFields["LoginViewController.passwordTextField"]
+        
+    }
+    
+    private var toggleButton: XCUIElement {
+        return buttons(identifier: .passwordToggleButton)
+    }
+    
+    
     private func signInHelper() {
         let logInButton = app.segmentedControls.buttons["Log In"]
         XCTAssert(logInButton.isHittable)
@@ -98,19 +110,58 @@ class WunderlistUITests: XCTestCase {
         let userTextField = textField(identifier: .loginUserTextField)
         userTextField.tap()
         userTextField.typeText("User")
-        enterButton.tap()
+        XCTAssertEqual(userTextField.value as! String, "User")
         
         let emailTextField = textField(identifier: .loginEmailTextField)
         emailTextField.tap()
         emailTextField.typeText("test@email.com")
+        XCTAssertEqual(emailTextField.value as! String, "test@email.com")
+        enterButton.tap()
 
-//        let passwordTextField = textField(identifier: .loginPasswordTextField)
-//        XCTAssert(passwordTextField.isHittable)
-//        passwordTextField.tap()
-//        passwordTextField.typeText("password")
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
         
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
+    }
+    
+    func testUserSignIn() throws {
+        let signInButton = app.segmentedControls.buttons["Log In"]
+        XCTAssert(signInButton.isHittable)
+        signInButton.tap()
         
+        let userTextField = textField(identifier: .loginUserTextField)
+        userTextField.tap()
+        userTextField.typeText("User")
+        XCTAssertEqual(userTextField.value as! String, "User")
         
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
+        
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
+    }
+    
+    func testPasswordToggle() throws {
+        let passwordTextField = securePasswordField
+        XCTAssertNotNil(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        
+        toggleButton.tap()
+        let showPasswordTextField = textField(identifier: .loginPasswordTextField)
+        XCTAssertEqual(showPasswordTextField.value as! String, "password")
+        
+        toggleButton.tap()
+        XCTAssertNotNil(passwordTextField.value)
     }
 
     override func tearDownWithError() throws {
@@ -126,12 +177,4 @@ class WunderlistUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
 }
