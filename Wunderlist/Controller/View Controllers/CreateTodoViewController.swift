@@ -9,6 +9,9 @@
 import UIKit
 
 class CreateTodoViewController: UIViewController {
+
+    // MARK: - Properties -
+    var todoRepresentation: TodoRepresentation?
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -23,22 +26,16 @@ class CreateTodoViewController: UIViewController {
     
     
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        updateViews()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func updateViews() {
+        guard let todoRep = todoRepresentation else { return }
+        title = todoRep.name
+        titleTextField.text = todoRep.name
+        bodyTextView.text = todoRep.body
     }
-    */
 
 }

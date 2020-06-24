@@ -58,7 +58,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         
-        toggleButton.setImage(hidePasswordImage, for: .normal)
+//        User(identifier: 7, username: AuthService.testUser.username, email: "thehammersvpa@gmail.com")
+//        do {
+//            try CoreDataStack.shared.save()
+//        } catch {
+//        print("\(error) saving CoreData user")
+//        }
+        let authService = AuthService()
+
+        authService.loginUser(with: AuthService.testUser4.username, password: AuthService.testUser4.password!) {
+            print("logged in")
+        }
+        
+        toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         super.viewDidLoad()
         
         //saved dummy todo

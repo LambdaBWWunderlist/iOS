@@ -9,6 +9,9 @@
 import UIKit
 
 class TodoDetailViewController: UIViewController {
+
+    // MARK: - Properties -
+    var todoRepresentation: TodoRepresentation?
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -20,11 +23,20 @@ class TodoDetailViewController: UIViewController {
     }
     
     
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        updateViews()
+    }
+
+    func updateViews() {
+        if let todoRepresentation = todoRepresentation {
+            titleTextField.text = todoRepresentation.name
+            bodyTextView.text = todoRepresentation.body
+        } else {
+
+        }
     }
 
 

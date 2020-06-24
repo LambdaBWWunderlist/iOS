@@ -11,9 +11,12 @@ import CoreData
 
 class TodoListTableViewController: UITableViewController {
     // MARK: Properties
+    let toDoController = TodoController()
+    
     @IBOutlet private var searchBar: UISearchBar!
 
     private let detailSegueID = "TodoDetailSegue"
+    private let addTodoSegue = "AddTodoSegue"
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
@@ -75,7 +78,17 @@ class TodoListTableViewController: UITableViewController {
     // MARK: - Navigation -
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == detailSegueID {
-            //do something
+            guard let destination = segue.destination as? TodoDetailViewController else { return }
+
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let todo = fetchedResultsController.object(at: indexPath)
+            destination.todoRepresentation = todo.todoRepresentation
+        } else if segue.identifier == addTodoSegue {
+            guard let destination = segue.destination as? CreateTodoViewController else { return }
+
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let todo = fetchedResultsController.object(at: indexPath)
+            destination.todoRepresentation = todo.todoRepresentation
         }
     }
 }
