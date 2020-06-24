@@ -43,13 +43,6 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        todoController.fetchTodosFromServer { _ in
-//            try? self.fetchedResultsController.performFetch()
-//            DispatchQueue.main.async { [weak self] in
-//                guard let self = self else { return }
-//                self.tableView.reloadData()
-//            }
-        }
 
         // TODO: Fetch Todos
         //To register a user:
