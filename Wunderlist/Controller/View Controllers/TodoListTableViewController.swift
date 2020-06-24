@@ -45,7 +45,6 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: Fetch Todos
         //To register a user:
 //        let authService = AuthService()
 //        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
@@ -83,12 +82,12 @@ class TodoListTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             let todo = fetchedResultsController.object(at: indexPath)
             destination.todoRepresentation = todo.todoRepresentation
+            destination.todoController = toDoController
+            
         } else if segue.identifier == addTodoSegue {
             guard let destination = segue.destination as? CreateTodoViewController else { return }
+            destination.todoController = toDoController
 
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let todo = fetchedResultsController.object(at: indexPath)
-            destination.todoRepresentation = todo.todoRepresentation
         }
     }
 }

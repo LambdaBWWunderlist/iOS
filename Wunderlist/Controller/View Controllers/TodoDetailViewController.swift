@@ -12,6 +12,7 @@ class TodoDetailViewController: UIViewController {
 
     // MARK: - Properties -
     var todoRepresentation: TodoRepresentation?
+    var todoController: TodoController?
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -21,9 +22,6 @@ class TodoDetailViewController: UIViewController {
     // MARK: - Actions
     @IBAction func editButtonTapped(_ sender: Any) {
     }
-    
-    
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +36,6 @@ class TodoDetailViewController: UIViewController {
 
         }
     }
-
 
 }
 

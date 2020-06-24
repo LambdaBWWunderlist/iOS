@@ -23,11 +23,14 @@ class TodoController {
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/items")!
     private let networkService = NetworkService()
+
+    // MARK: - Init -
     init() {
         if AuthService.activeUser != nil {
             fetchTodosFromServer()
         }
     }
+
     func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in } ) {
         let userURL = baseURL.appendingPathComponent("\(AuthService.activeUser?.identifier ?? 404)")
         guard var request = networkService.createRequest(url: userURL, method: .get, headerType: .contentType, headerValue: .json) else {
@@ -39,11 +42,13 @@ class TodoController {
         //send token to server, get back Todos for AuthService.activeUser
         networkService.dataLoader.loadData(using: request) { [weak self] (data, _, error) in
             guard let self = self else { return }
+
             if let error = error {
                 NSLog("Error fetching todos: \(error)")
                 completion(.failure(.otherError))
                 return
             }
+
             guard let data = data else {
                 NSLog("No data returned from request")
                 completion(.failure(.noData))
@@ -80,16 +85,19 @@ class TodoController {
         var error: Error?
         if AuthService.activeUser != nil {
             let fetchController = FetchController()
+
             guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
                 error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
                 throw error!
             }
+
             for todo in existingTodos {
                 let identifier = Int(todo.identifier)
                 guard let representation = representationsByID[identifier] else { continue }
                 self.updateTodoRep(todo: todo, with: representation)
                 todosToCreate.removeValue(forKey: identifier)
             }
+
             context.performAndWait {
                 for representation in todosToCreate.values {
                     Todo(todoRepresentation: representation, context: context)
@@ -104,21 +112,26 @@ class TodoController {
             if let error = error { throw error }
         }
     }
+
     func syncTodos(identifiersOnServer: [Int], context: NSManagedObjectContext) {
+
         guard let existingTodos = fetchController.fetchTodosFromActiveUser(context: context) else {
             print("Error fetching Todos from user")
             return
         }
+
         for todo in existingTodos {
             let todoId = Int(todo.identifier)
             if !identifiersOnServer.contains(todoId) {
                 context.delete(todo)
             }
         }
+
     }
+
     private func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
         todo.name = representation.name
-        //todo.body = representation.body
+        todo.body = representation.body
         todo.recurring = representation.recurring
         todo.completed = representation.completed ?? false
         todo.dueDate = representation.dueDate
