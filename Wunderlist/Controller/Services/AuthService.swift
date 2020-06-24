@@ -12,11 +12,13 @@ class AuthService {
     private let networkService = NetworkService()
     private let dataLoader: NetworkLoader
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/")!
-    //
+
     ///The currently logged in user
     ///
     /// Static so it's always accessible and always the same user (until another user is logged in)
     static var activeUser: UserRepresentation?
+
+    /// Seeded user on backend (great for testing)
     static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
     // MARK: - Init -

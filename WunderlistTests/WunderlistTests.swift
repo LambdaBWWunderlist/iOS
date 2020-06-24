@@ -56,6 +56,22 @@ class WunderlistTests: XCTestCase {
         wait(for: [expectation], timeout: 30.0)
     }
 
+    func testFetchingTodos() {
+        let authService = AuthService()
+        let authExpectation = self.expectation(description: "\(#file), \(#function): WaitForLoggingIn")
+        authService.loginUser(with: AuthService.ironMan.username, password: AuthService.ironMan.password!) {
+            authExpectation.fulfill()
+        }
+        wait(for: [authExpectation], timeout: 5.0)
+        let expectation = self.expectation(description: "\(#file), \(#function): WaitForFetchingTodos")
+
+        let todoController = TodoController()
+        todoController.fetchTodosFromServer() { _ in
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
+    }
+
     /*
      Standard Deviation is *much* higher than it should be for this test
      Heroku may do something when the server spins up that takes a bit longer
