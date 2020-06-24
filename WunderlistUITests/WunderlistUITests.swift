@@ -21,6 +21,7 @@ class WunderlistUITests: XCTestCase {
         
         case loginUserTextField = "LoginViewController.usernameTextField"
         case loginEmailTextField = "LoginViewController.emailController.usernameTextField"
+        case loginPasswordTextField = "LoginViewController.passwordTextField"
         case loginButton =  "LoginViewController.loginButton"
         case cellTitleLabel = "TodoTableViewCell.titleLabel"
         case cellCompleteButton
@@ -36,6 +37,55 @@ class WunderlistUITests: XCTestCase {
     private var testPassword = "password"
     private var testTitle = "Title"
     private var testBody = "Body"
+    
+    private var app: XCUIApplication {
+        return XCUIApplication()
+    }
+    
+    private func textField(identifier: Identifier) -> XCUIElement {
+        return app.textFields[identifier.rawValue]
+    }
+    
+    private func textView(identifier: Identifier) -> XCUIElement {
+        return app.textViews[identifier.rawValue]
+    }
+    
+    private func buttons(identifier: Identifier) -> XCUIElement {
+        return app.buttons[identifier.rawValue]
+    }
+    
+    private var emailTextField: XCUIElement {
+        return textField(identifier: .loginEmailTextField)
+    }
+    
+    private var nameTextField: XCUIElement {
+        return textField(identifier: .loginUserTextField)
+    }
+    
+    private var passwordTextField: XCUIElement {
+        return textField(identifier: .loginPasswordTextField)
+    }
+    
+    private var loginButton: XCUIElement {
+        return buttons(identifier: .loginButton)
+    }
+    
+    private func signInHelper() {
+        let logInButton = app.segmentedControls.buttons["Log In"]
+        XCTAssert(logInButton.isHittable)
+        logInButton.tap()
+        
+        emailTextField.tap()
+        XCTAssert(emailTextField.isHittable)
+        emailTextField.typeText(testEmail)
+        XCTAssert(emailTextField.value as? String == testEmail)
+        
+        passwordTextField.tap()
+        passwordTextField.typeText(testPassword)
+        XCTAssert(passwordTextField.value as? String == testPassword)
+        
+        
+    }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
