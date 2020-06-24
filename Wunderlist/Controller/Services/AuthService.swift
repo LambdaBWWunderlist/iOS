@@ -21,7 +21,9 @@ class AuthService {
     /// Seeded user on backend (great for testing)
     static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
-    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com")
+    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com") //id 7
+
+    static let testUser4 = UserRepresentation(identifier: nil, username: "testiOSUser4", password: "Secret", email: "iosUser4@apple.com") //id 13
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
@@ -68,14 +70,17 @@ class AuthService {
             }
             if let data = data {
                 print(String(data: data, encoding: .utf8) as Any) //as Any to silence warning
-                guard let returnedUser = self.networkService.decode(
+                guard let returnedUserDetails = self.networkService.decode(
                     to: UserRepresentation.self,
                     data: data
                     ) else { return }
-                registerUser = returnedUser
+                registerUser = returnedUserDetails
                 guard let identifier = registerUser.identifier,
                     let email = registerUser.email
-                else { return }
+                else {
+                    print("unable to retrieve email or identifier from registered user")
+                    return
+                }
 
                 //save user
                 User(identifier: identifier, username: registerUser.username, email: email)
