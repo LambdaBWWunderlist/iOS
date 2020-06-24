@@ -37,6 +37,17 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         
+//        User(identifier: 7, username: AuthService.testUser.username, email: "thehammersvpa@gmail.com")
+//        do {
+//            try CoreDataStack.shared.save()
+//        } catch {
+//        print("\(error) saving CoreData user")
+//        }
+        let authService = AuthService()
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
+            print("logged in")
+        }
+        
         toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         super.viewDidLoad()
         

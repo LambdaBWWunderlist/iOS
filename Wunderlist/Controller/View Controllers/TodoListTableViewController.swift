@@ -11,6 +11,8 @@ import CoreData
 
 class TodoListTableViewController: UITableViewController {
     // MARK: Properties
+    let toDoController = TodoController()
+    
     @IBOutlet private var searchBar: UISearchBar!
 
     private let detailSegueID = "TodoDetailSegue"

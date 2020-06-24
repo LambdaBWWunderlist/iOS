@@ -130,6 +130,7 @@ class AuthService {
                     //assign the static activeUser
                     loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
+                    print("\(AuthService.activeUser)\(loggedIn.user.token)")
                     completion()
                     return
                 } else {
