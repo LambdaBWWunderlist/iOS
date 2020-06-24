@@ -39,8 +39,9 @@ class TodoController {
             return
         }
         request.setValue(AuthService.activeUser?.token ?? "", forHTTPHeaderField: "Authorization")
-
-        networkService.dataLoader.loadData(using: request) { data, _, error in
+        //send token to server, get back Todos for AuthService.activeUser
+        networkService.dataLoader.loadData(using: request) { [weak self] (data, _, error) in
+            guard let self = self else { return }
             if let error = error {
                 NSLog("Error fetching todos: \(error)")
                 completion(.failure(.otherError))
@@ -56,7 +57,8 @@ class TodoController {
             //decode representations
             let reps = self.networkService.decode(
                 to: [TodoRepresentation].self,
-                data: data
+                data: data,
+                dateFormatter: self.networkService.dateFormatter
             )
             guard let unwrappedReps = reps else {
                 print("error unwrapping representations")
@@ -75,38 +77,39 @@ class TodoController {
         }
     }
 
+    ///determine which representations need to be created and which need to be updated, and save the context
     func updateTodos(with representations: [TodoRepresentation]) throws {
-        let identifiersToFetch = representations.compactMap {$0.identifier}
+        let identifiersToFetch = representations.map {$0.identifier}
         let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
         var todosToCreate = representationsByID
 
         let context = CoreDataStack.shared.container.newBackgroundContext()
         var error: Error?
         if AuthService.activeUser != nil {
+            let fetchController = FetchController()
+            guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
+                error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
+                throw error!
+            }
+            for todo in existingTodos {
+                let identifier = Int(todo.identifier)
+                guard let representation = representationsByID[identifier] else { continue }
+                self.updateTodoRep(todo: todo, with: representation)
+                todosToCreate.removeValue(forKey: identifier)
+            }
             context.performAndWait {
-                do {
-                    let fetchController = FetchController()
-                    guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
-                        error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
-                        throw error!
-                    }
-                    for todo in existingTodos {
-                        let identifier = Int(todo.identifier)
-                        guard let representation = representationsByID[identifier] else { continue }
-                        self.updateTodoRep(todo: todo, with: representation)
-                        todosToCreate.removeValue(forKey: identifier)
-                    }
-                } catch let fetchError {
-                    error = fetchError
-                }
                 for representation in todosToCreate.values {
                     Todo(todoRepresentation: representation, context: context)
                 }
                 syncTodos(identifiersOnServer: identifiersToFetch, context: context)
-
+                do {
+                try CoreDataStack.shared.save(context: context)
+                } catch let saveError {
+                    print(saveError)
+                }
             }
             if let error = error { throw error }
-            try CoreDataStack.shared.save(context: context)
+
         }
     }
 
@@ -127,7 +130,7 @@ class TodoController {
         todo.name = representation.name
         //todo.body = representation.body
         todo.recurring = representation.recurring
-        todo.completed = representation.completed
+        todo.completed = representation.completed ?? false
         todo.dueDate = representation.dueDate
     }
 }

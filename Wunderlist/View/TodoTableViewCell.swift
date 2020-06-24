@@ -25,7 +25,7 @@ class TodoTableViewCell: UITableViewCell {
 
     func updateViews() {
         guard let todoRep = todoRep else { return }
-        todoRep.completed ? completeToggleButton.setImage(UIImage(named: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(named: "circle"), for: .normal)
+        todoRep.completed ?? false ? completeToggleButton.setImage(UIImage(named: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(named: "circle"), for: .normal)
     }    
     
     // MARK: - Actions -
@@ -33,7 +33,10 @@ class TodoTableViewCell: UITableViewCell {
         guard let todoRep = todoRep,
             let todo = todoController?.fetchController.fetchTodo(todoRep: todoRep)
         else { return }
-        self.todoRep?.completed.toggle()
+        if self.todoRep?.completed != nil {
+            self.todoRep?.completed!.toggle()
+        }
+
         todo.completed.toggle()
 
         do {

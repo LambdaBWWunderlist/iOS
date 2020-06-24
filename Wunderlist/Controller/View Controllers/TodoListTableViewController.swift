@@ -25,7 +25,7 @@ class TodoListTableViewController: UITableViewController {
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
-                                             sectionNameKeyPath: "dueDate",
+                                             sectionNameKeyPath: "name",
                                              cacheName: nil)
         frc.delegate = self
         do {
@@ -43,6 +43,14 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        todoController.fetchTodosFromServer { _ in
+//            try? self.fetchedResultsController.performFetch()
+//            DispatchQueue.main.async { [weak self] in
+//                guard let self = self else { return }
+//                self.tableView.reloadData()
+//            }
+        }
+
         // TODO: Fetch Todos
         //To register a user:
 //        let authService = AuthService()

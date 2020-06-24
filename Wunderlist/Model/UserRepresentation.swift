@@ -15,7 +15,7 @@ struct UserDetails: Codable {
 }
 
 struct UserRepresentation: Codable {
-    let identifier: Int?
+    var identifier: Int?
     let username: String
     let password: String?
     var email: String? = nil

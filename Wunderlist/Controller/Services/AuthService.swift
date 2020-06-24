@@ -144,6 +144,5 @@ class AuthService {
     /// Log out the active user
     func logoutUser() {
         AuthService.activeUser = nil
-        //global function to return user to login screen? local method here?
     }
 }
