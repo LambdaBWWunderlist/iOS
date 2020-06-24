@@ -31,7 +31,7 @@ extension Todo {
         }
         self.user = user
         self.identifier = Int16(identifier)
-        self.userId = Int16(identifier)
+        self.username = user.username
         self.dueDate = dueDate
         self.completed = completed
 
@@ -54,14 +54,15 @@ extension Todo {
     var todoRepresentation: TodoRepresentation? {
         guard let name = name,
             let recurring = recurring,
-            let date = dueDate
+            let date = dueDate,
+            let username = username
         else { return nil }
         return TodoRepresentation(
             identifier: Int(identifier),
             completed: completed,
             name: name,
             recurring: recurring,
-            userID: Int(userId),
+            username: username,
             dueDate: date
         )
     }

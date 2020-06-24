@@ -59,7 +59,7 @@ class WunderlistTests: XCTestCase {
     func testFetchingTodos() {
         let authService = AuthService()
         let authExpectation = self.expectation(description: "\(#file), \(#function): WaitForLoggingIn")
-        authService.loginUser(with: AuthService.ironMan.username, password: AuthService.ironMan.password!) {
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
             authExpectation.fulfill()
         }
         wait(for: [authExpectation], timeout: 5.0)

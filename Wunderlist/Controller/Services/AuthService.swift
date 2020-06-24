@@ -21,6 +21,8 @@ class AuthService {
     /// Seeded user on backend (great for testing)
     static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
+    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com")
+
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
         self.dataLoader = dataLoader
