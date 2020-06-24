@@ -10,7 +10,8 @@ import Foundation
 
 ///Used to decode loginUser
 struct UserDetails: Codable {
-    let user: UserRepresentation
+    var user: UserRepresentation
+    var token: String?
 }
 
 struct UserRepresentation: Codable {

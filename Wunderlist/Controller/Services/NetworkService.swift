@@ -40,6 +40,7 @@ class NetworkService {
      */
     enum HttpHeaderType: String {
         case contentType = "Content-Type"
+        case Authorization = "Authorization"
     }
 
     /**
@@ -93,6 +94,9 @@ class NetworkService {
         return request
     }
 
+//    func getToDos() {
+//        createRequest(url: AuthService, method: .post)
+//    }
     /**
      Encode from a Swift object to JSON for transmitting to an endpoint.
      Modifies request passed in as well as returning a modified request as a parameter

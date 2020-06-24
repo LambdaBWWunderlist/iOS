@@ -12,12 +12,16 @@ class AuthService {
     private let networkService = NetworkService()
     private let dataLoader: NetworkLoader
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/")!
-    //
+
     ///The currently logged in user
     ///
     /// Static so it's always accessible and always the same user (until another user is logged in)
     static var activeUser: UserRepresentation?
+
+    /// Seeded user on backend (great for testing)
     static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
+
+    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com")
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
@@ -119,11 +123,12 @@ class AuthService {
                     //this assigns all of the user's attributes from the server since the server is
                     //returning username, token, and identifier, but password is nil which is perfect
                     //for security purposes (and we dont need password after this)
-                    guard let loggedIn = self.networkService.decode(
+                    guard var loggedIn = self.networkService.decode(
                         to: UserDetails.self,
                         data: data
                     ) else { return }
                     //assign the static activeUser
+                    loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
                     completion()
                     return

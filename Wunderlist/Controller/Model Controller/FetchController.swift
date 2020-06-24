@@ -43,4 +43,20 @@ class FetchController {
 
         return nil
     }
+    
+    func fetchToDos(todoReps:[TodoRepresentation], context: NSManagedObjectContext) -> [Todo]? {
+        let todoFetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+        guard let userID = AuthService.activeUser?.identifier else { return nil }
+        let predicate = NSPredicate(format: "userId == %d", userID)
+        todoFetchRequest.predicate = predicate
+        print(predicate)
+        do {
+            let todos = try context.fetch(todoFetchRequest)
+            return todos
+        } catch {
+            print("Error fetching ToDos from CoreData")
+        }
+        
+        return nil
+    }
 }
