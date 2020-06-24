@@ -17,7 +17,11 @@ class CreateTodoViewController: UIViewController {
     
     
     // MARK: - Actions
-    @IBOutlet var saveButtonTapped: UIBarButtonItem!
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 
     override func viewDidLoad() {

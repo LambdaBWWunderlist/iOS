@@ -101,6 +101,7 @@
                                         <segments>
                                             <segment title="None"/>
                                             <segment title="Daily"/>
+                                            <segment title="Weekly"/>
                                             <segment title="Monthly"/>
                                         </segments>
                                         <color key="tintColor" red="0.2430099547" green="0.48630940909999998" blue="0.69402945039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -128,12 +129,14 @@
                     <navigationItem key="navigationItem" title="Create a List" largeTitleDisplayMode="always" id="U7s-sQ-zSx">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="OfU-L5-sG1">
                             <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="TeK-fG-TkS" id="5t2-Od-Kre"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="MLS-0d-qoU" id="J5u-sf-NwU"/>
                         <outlet property="recurringSegControl" destination="AS3-qk-wGG" id="Cia-vP-xRG"/>
-                        <outlet property="saveButtonTapped" destination="OfU-L5-sG1" id="8ag-tr-gMx"/>
                         <outlet property="titleTextField" destination="a1f-Wx-Xy5" id="sGr-Dx-l8L"/>
                     </connections>
                 </viewController>
