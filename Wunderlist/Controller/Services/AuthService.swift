@@ -48,7 +48,7 @@ class AuthService {
             method: .post,
             headerType: .contentType,
             headerValue: .json
-        ) else { return }
+            ) else { return }
 
         var registerUser = UserRepresentation(identifier: nil, username: username, password: password, email: email)
         let encodedUser = networkService.encode(from: registerUser, request: &request)
@@ -77,9 +77,9 @@ class AuthService {
                 registerUser = returnedUserDetails
                 guard let identifier = registerUser.identifier,
                     let email = registerUser.email
-                else {
-                    print("unable to retrieve email or identifier from registered user")
-                    return
+                    else {
+                        print("unable to retrieve email or identifier from registered user")
+                        return
                 }
 
                 //save user
@@ -144,18 +144,35 @@ class AuthService {
                     guard var loggedIn = self.networkService.decode(
                         to: UserDetails.self,
                         data: data
-                    ) else { return }
+                        ) else { return }
                     //assign the static activeUser
                     loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
-                    completion()
-                    return
-                } else {
-                    //`String(describing:` to silence warning
-                    print("Bad Status Code: \(String(describing: response.statusCode))")
+
+                    //check for existing CoreData user and save if one doesn't exist (user logged in to a new device, etc)
+                    let fetchController = FetchController()
+                    let existingUser = fetchController.fetchUser(userRep: loggedIn.user)
+                    if existingUser == nil {
+                        let user = loggedIn.user
+                        let context = CoreDataStack.shared.container.newBackgroundContext()
+                        User(identifier: user.identifier ?? 404, username: user.username, email: user.email!, context: context)
+                        context.performAndWait {
+                            do {
+                                try context.save()
+                            } catch {
+                                print("error saving logged in user: \(error)")
+                            }
+                        }
+
+                        completion()
+                        return
+                    } else {
+                        //`String(describing:` to silence warning
+                        print("Bad Status Code: \(String(describing: response.statusCode))")
+                    }
                 }
+                completion()
             }
-            completion()
         }
     }
 

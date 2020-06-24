@@ -37,6 +37,5 @@ class TodoDetailViewController: UIViewController {
         }
     }
 
-
 }
 
