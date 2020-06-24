@@ -119,6 +119,7 @@
 		992D350124A15FB10039DC05 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA1F24A185800048F94E /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -261,7 +262,6 @@
 		B919222D249FEE3700138ED4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B907CA1F24A185800048F94E /* AuthService.swift */,
 				B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */,
 				B907C9FD249FF9650048F94E /* TodoListTableViewController.swift */,
 				99F2945F24A144F40067A94E /* LoginViewController.swift */,
