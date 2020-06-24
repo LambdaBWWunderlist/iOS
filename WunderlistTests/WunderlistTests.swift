@@ -39,36 +39,13 @@ class WunderlistTests: XCTestCase {
     func testDecodingLiveLoginUser() {
         let expectation = self.expectation(description: "\(#file), \(#function): WaitForDecodingLiveUserData")
 
-        let networkService = NetworkService()
-        var request = networkService.createRequest(url: URL(string: "https://wunderlist-node.herokuapp.com/api/login"), method: .post, headerType: .contentType, headerValue: .json)
-        let preLoginUser = AuthService.ironMan
-
-        XCTAssertNotNil(request)
-
-        let encodingStatus = networkService.encode(from: preLoginUser, request: &request!)
-
-        XCTAssertNil(encodingStatus.error)
-        XCTAssertNotNil(encodingStatus.request)
-
-
-        networkService.dataLoader.loadData(using: request!) { (data, response, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(data)
-            XCTAssertNotNil(response)
-
-            let httpResponse = response as? HTTPURLResponse
-            XCTAssertEqual(httpResponse?.statusCode, 200)
-
-            print(String(data: data!, encoding: .utf8) as Any) //as Any to silence warning
-            
-            let decodedUser = networkService.decode(to: UserDetails.self, data: data!)
-            XCTAssertNotNil(decodedUser)
-
-            var loggedInUser = decodedUser!.user
-            loggedInUser.token = decodedUser!.token
-            XCTAssertNotNil(loggedInUser)
-            XCTAssertNotNil(loggedInUser.token)
-
+            let authService = AuthService()
+        authService.loginUser(
+            with: AuthService.ironMan.username,
+            password: AuthService.ironMan.password!
+        ) {
+            XCTAssertNotNil(AuthService.activeUser)
+            XCTAssertNotNil(AuthService.activeUser?.token)
             expectation.fulfill()
         }
         /*

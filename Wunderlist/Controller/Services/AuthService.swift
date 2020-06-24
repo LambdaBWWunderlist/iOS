@@ -119,11 +119,12 @@ class AuthService {
                     //this assigns all of the user's attributes from the server since the server is
                     //returning username, token, and identifier, but password is nil which is perfect
                     //for security purposes (and we dont need password after this)
-                    guard let loggedIn = self.networkService.decode(
+                    guard var loggedIn = self.networkService.decode(
                         to: UserDetails.self,
                         data: data
                     ) else { return }
                     //assign the static activeUser
+                    loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
                     completion()
                     return
