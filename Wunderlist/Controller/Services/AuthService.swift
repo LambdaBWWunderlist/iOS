@@ -73,7 +73,20 @@ class AuthService {
                     data: data
                     ) else { return }
                 registerUser = returnedUser
-                AuthService.activeUser = registerUser
+                guard let identifier = registerUser.identifier,
+                    let email = registerUser.email
+                else { return }
+
+                //save user
+                User(identifier: identifier, username: registerUser.username, email: email)
+                do {
+                    try CoreDataStack.shared.save()
+                    AuthService.activeUser = registerUser
+                } catch let saveError {
+                    print("Error saving user: \(saveError)")
+                    completion()
+                    return
+                }
             }
             completion()
         })
@@ -130,7 +143,6 @@ class AuthService {
                     //assign the static activeUser
                     loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
-                    print("\(AuthService.activeUser)\(loggedIn.user.token)")
                     completion()
                     return
                 } else {
@@ -145,6 +157,5 @@ class AuthService {
     /// Log out the active user
     func logoutUser() {
         AuthService.activeUser = nil
-        //global function to return user to login screen? local method here?
     }
 }
