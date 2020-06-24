@@ -20,7 +20,7 @@ class WunderlistUITests: XCTestCase {
     enum Identifier: String {
         
         case loginUserTextField = "LoginViewController.usernameTextField"
-        case loginEmailTextField = "LoginViewController.emailController.usernameTextField"
+        case loginEmailTextField = "LoginViewController.emailTextField"
         case loginPasswordTextField = "LoginViewController.passwordTextField"
         case loginButton =  "LoginViewController.loginButton"
         case cellTitleLabel = "TodoTableViewCell.titleLabel"
@@ -70,6 +70,10 @@ class WunderlistUITests: XCTestCase {
         return buttons(identifier: .loginButton)
     }
     
+    private var enterButton: XCUIElement {
+        return app.buttons["Return"]
+    }
+    
     private func signInHelper() {
         let logInButton = app.segmentedControls.buttons["Log In"]
         XCTAssert(logInButton.isHittable)
@@ -83,6 +87,28 @@ class WunderlistUITests: XCTestCase {
         passwordTextField.tap()
         passwordTextField.typeText(testPassword)
         XCTAssert(passwordTextField.value as? String == testPassword)
+        
+    }
+    
+    func testUserRegistration() throws {
+        let registerButton = app.segmentedControls.buttons["Register"]
+        XCTAssert(registerButton.isHittable)
+        registerButton.tap()
+        
+        let userTextField = textField(identifier: .loginUserTextField)
+        userTextField.tap()
+        userTextField.typeText("User")
+        enterButton.tap()
+        
+        let emailTextField = textField(identifier: .loginEmailTextField)
+        emailTextField.tap()
+        emailTextField.typeText("test@email.com")
+
+//        let passwordTextField = textField(identifier: .loginPasswordTextField)
+//        XCTAssert(passwordTextField.isHittable)
+//        passwordTextField.tap()
+//        passwordTextField.typeText("password")
+        
         
         
     }
