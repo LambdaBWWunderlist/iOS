@@ -39,7 +39,11 @@ class LoginViewController: UIViewController {
         
         toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         super.viewDidLoad()
-        
+        let authService = AuthService()
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
+            print("logged in")
+        }
+
         //saved dummy todo
         //        let fetchController = FetchController()
         //        let rep = TodoRepresentation(identifier: 2, completed: false, name: "do", recurring: "yeah", user_id: 1)

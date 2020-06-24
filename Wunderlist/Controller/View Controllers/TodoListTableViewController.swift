@@ -14,6 +14,7 @@ class TodoListTableViewController: UITableViewController {
     @IBOutlet private var searchBar: UISearchBar!
 
     private let detailSegueID = "TodoDetailSegue"
+    private let todoController = TodoController()
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()

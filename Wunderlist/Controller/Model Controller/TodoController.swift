@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class TodoController {
     let fetchController = FetchController()
@@ -54,20 +55,79 @@ class TodoController {
 
             //decode representations
             let reps = self.networkService.decode(
-                to: [String: TodoRepresentation].self,
+                to: [TodoRepresentation].self,
                 data: data
-                )
-            let unwrappedReps = reps?.compactMap { $1 }
+            )
+            guard let unwrappedReps = reps else {
+                print("error unwrapping representations")
+                completion(.failure(.noRep))
+                return
+            }
             completion(.success(true))
-//            //update Todos
-//            do {
-//                //try self.updateTodos(with: unwrappedReps ?? [])
-//                completion(.success(true))
-//            } catch {
-//                completion(.failure(.otherError))
-//                NSLog("Error updating todos: \(error)")
-//            }
-
+            //update Todos
+            do {
+                try self.updateTodos(with: unwrappedReps)
+                completion(.success(true))
+            } catch {
+                completion(.failure(.otherError))
+                NSLog("Error updating todos: \(error)")
+            }
         }
+    }
+
+    func updateTodos(with representations: [TodoRepresentation]) throws {
+        let identifiersToFetch = representations.compactMap {$0.identifier}
+        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
+        var todosToCreate = representationsByID
+
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        var error: Error?
+        if AuthService.activeUser != nil {
+            context.performAndWait {
+                do {
+                    let fetchController = FetchController()
+                    guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
+                        error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
+                        throw error!
+                    }
+                    for todo in existingTodos {
+                        let identifier = Int(todo.identifier)
+                        guard let representation = representationsByID[identifier] else { continue }
+                        self.updateTodoRep(todo: todo, with: representation)
+                        todosToCreate.removeValue(forKey: identifier)
+                    }
+                } catch let fetchError {
+                    error = fetchError
+                }
+                for representation in todosToCreate.values {
+                    Todo(todoRepresentation: representation, context: context)
+                }
+                syncTodos(identifiersOnServer: identifiersToFetch, context: context)
+
+            }
+            if let error = error { throw error }
+            try CoreDataStack.shared.save(context: context)
+        }
+    }
+
+    func syncTodos(identifiersOnServer: [Int], context: NSManagedObjectContext) {
+        guard let existingTodos = fetchController.fetchTodosFromActiveUser(context: context) else {
+            print("Error fetching Todos from user")
+            return
+        }
+        for todo in existingTodos {
+            let todoId = Int(todo.identifier)
+            if !identifiersOnServer.contains(todoId) {
+                context.delete(todo)
+            }
+        }
+    }
+
+    private func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
+        todo.name = representation.name
+        //todo.body = representation.body
+        todo.recurring = representation.recurring
+        todo.completed = representation.completed
+        todo.dueDate = representation.dueDate
     }
 }
