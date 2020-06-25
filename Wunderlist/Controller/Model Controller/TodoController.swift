@@ -203,7 +203,7 @@ class TodoController {
     func deleteTodo(representation: TodoRepresentation) {
         deleteToDoFromServer(representation: representation) { [weak self] in
         guard let self = self else { return }
-            self.deleteTodo(representation: representation)
+            self.deleteTodoFromCoreData(representation: representation)
         }
     }
     
@@ -216,17 +216,20 @@ class TodoController {
         let requestURL = baseURL
             .appendingPathComponent("\(identifier)")
 
-        guard let request = networkService.createRequest(url: requestURL, method: .delete) else {
+        guard var request = networkService.createRequest(url: requestURL, method: .delete) else {
             print("the request failed. Is the URL valid?")
             completion()
             return
         }
-        networkService.dataLoader.loadData(using: request) { _, _, error in
+        guard let token = AuthService.activeUser?.token else { return }
+        request.addValue(token, forHTTPHeaderField: NetworkService.HttpHeaderType.authorization.rawValue)
+        networkService.dataLoader.loadData(using: request) { data, _, error in
             if let error = error {
                 print("Error deleting todo from server: \(error)")
                 completion()
                 return
             }
+
             completion()
         }
     }
@@ -236,12 +239,13 @@ class TodoController {
             print("fetching todo failed. can't delete it")
             return
         }
-        let context = CoreDataStack.shared.container.newBackgroundContext()
+        let context = CoreDataStack.shared.mainContext
         if todo.recurring == "deleted" {
             context.performAndWait {
                 context.delete(todo)
             }
         } else {
+            let context = CoreDataStack.shared.container.newBackgroundContext()
             todo.recurring = "deleted"
             do {
                 try CoreDataStack.shared.save(context: context)

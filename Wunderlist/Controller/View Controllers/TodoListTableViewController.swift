@@ -80,7 +80,8 @@ class TodoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.reuseID, for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
         let todo = fetchedResultsController.object(at: indexPath)
-        cell.titleLabel.text = todo.name
+        cell.todoRep = todo.todoRepresentation
+        cell.todoController = toDoController
         return cell
     }
     
@@ -89,7 +90,12 @@ class TodoListTableViewController: UITableViewController {
         return sectionInfo.name.capitalized
     }
 
-    // TODO: Implement Swipe to Delete
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let todoRep = fetchedResultsController.object(at: indexPath).todoRepresentation else { return }
+            toDoController.deleteTodo(representation: todoRep)
+        }
+    }
 
     // MARK: - Navigation -
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
