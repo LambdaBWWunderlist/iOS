@@ -8,7 +8,7 @@
 import Foundation
 
 struct TodoRepresentation: Codable {
-    let identifier: Int
+    let identifier: Int?
     var completed: Bool?
     let name: String
     let body: String?

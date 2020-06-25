@@ -42,12 +42,13 @@ extension Todo {
     @discardableResult convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext) {
         let fetchController = FetchController()
         guard let userRep = AuthService.activeUser,
-            let user = fetchController.fetchUser(userRep: userRep, context: context) else {
+            let user = fetchController.fetchUser(userRep: userRep, context: context),
+            let identifier = todoRepresentation.identifier else {
                 print("userRep or fetchedUser were nil")
                 return nil
         }
         self.init(user: user,
-                  identifier: todoRepresentation.identifier,
+                  identifier: identifier,
                   name: todoRepresentation.name,
                   body: todoRepresentation.body,
                   recurring: todoRepresentation.recurring ?? "",
