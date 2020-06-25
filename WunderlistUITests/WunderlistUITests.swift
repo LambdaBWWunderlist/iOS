@@ -154,16 +154,7 @@ class WunderlistUITests: XCTestCase {
         let submitButton = buttons(identifier: .loginButton)
         submitButton.tap()
     }
-    
-//    func dismissKeyboardIfPresent() {
-//        if app.keyboards.element(boundBy: 0).exists {
-//            if UIDevice.current.userInterfaceIdiom == .pad {
-//                app.keyboards.buttons["Hide keyboard"].tap()
-//            } else {
-//                textField(identifier: .createTitleLabel).typeText("\n")
-//            }
-//        }
-//    }
+
     
     func testPasswordToggle() throws {
         let passwordTextField = securePasswordField
@@ -215,7 +206,5 @@ class WunderlistUITests: XCTestCase {
         let cell = app.tables.staticTexts["Win"]
         XCTAssert(app.staticTexts["Win"].exists)
         cell.tap()
-        
-        
     }
 }

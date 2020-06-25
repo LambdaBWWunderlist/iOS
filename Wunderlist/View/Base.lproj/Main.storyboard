@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="TeK-fG-TkS" customClass="CreateTodoViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wxF-PQ-0Zn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7G-eW-EQZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5cB-qc-8if" userLabel="View Stack">
                                         <rect key="frame" x="20" y="32" width="374" height="732"/>
@@ -187,11 +187,11 @@
             <objects>
                 <viewController id="zKq-E1-p0w" customClass="TodoDetailViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RHq-q5-v4S">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8v-tg-3Jz">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iTY-WK-9cu" userLabel="View Stack">
                                         <rect key="frame" x="20" y="40" width="374" height="779"/>
@@ -360,7 +360,7 @@
             <objects>
                 <tableViewController id="Fp3-o0-djD" customClass="TodoListTableViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Rs-td-u6s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="sectionIndexBackgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -500,7 +500,6 @@
                                         </state>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="qBR-n6-tKz" eventType="touchUpInside" id="2bS-Xc-jAb"/>
-                                            <segue destination="lw1-KE-PNx" kind="presentation" modalPresentationStyle="currentContext" id="DXD-yD-hMm"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -581,6 +580,7 @@
                         <outlet property="passwordTextField" destination="0rU-CW-iNg" id="eGJ-Ti-Mck"/>
                         <outlet property="promptLabel" destination="OVM-ZL-dLo" id="Lys-ak-Zfo"/>
                         <outlet property="usernameTextField" destination="Ctg-e5-58n" id="7ur-jK-Zok"/>
+                        <segue destination="lw1-KE-PNx" kind="show" identifier="loginSegue" id="RRA-Ws-8T1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5x-Ux-7Qr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -592,8 +592,9 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lw1-KE-PNx" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="anp-yu-Dgl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Dax-hm-90b">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">

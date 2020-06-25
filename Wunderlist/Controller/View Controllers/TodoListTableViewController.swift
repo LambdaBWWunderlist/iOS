@@ -17,6 +17,7 @@ class TodoListTableViewController: UITableViewController {
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
+    var activeUser: UserRepresentation?
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
@@ -111,19 +112,16 @@ class TodoListTableViewController: UITableViewController {
     // MARK: - Functions
     
     func updateViews() {
-//        func updateViews() {
-//            let todoController = TodoController()
-//            guard let user = todoController.loadMockUser() else { return }
-//            AuthService.activeUser = user
-//            todoController.fetchTodosFromServer { _ in
-//                try? self.fetchedResultsController.performFetch()
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        }
+          let todoController = TodoController()
+        guard AuthService.activeUser != nil else { return }
+          todoController.fetchTodosFromServer { _ in
+            try? self.fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+              self.tableView.reloadData()
+          }
+        }
+      }
     }
-}
 
 // MARK: - CoreData Delegate Methods -
 extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
@@ -203,5 +201,4 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-
 }
