@@ -40,11 +40,14 @@ class CoreDataTests: XCTestCase {
 
             try? CoreDataStack.shared.save()
 
+            let firstTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
+            
+            XCTAssertGreaterThanOrEqual(firstTodosToDelete!.count, 1)
             let todoController = TodoController()
             todoController.delete7DayOldTodos()
 
-            let todosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
-            XCTAssertEqual(todosToDelete?.count, 0)
+            let noTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
+            XCTAssertEqual(noTodosToDelete?.count, 0)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 5)
