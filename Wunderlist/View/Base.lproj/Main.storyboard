@@ -146,7 +146,6 @@
                                     <constraint firstAttribute="trailing" secondItem="5cB-qc-8if" secondAttribute="trailing" constant="20" id="83E-cW-6m9"/>
                                     <constraint firstAttribute="bottom" secondItem="5cB-qc-8if" secondAttribute="bottom" constant="20" id="NKG-bf-Wkl"/>
                                     <constraint firstItem="5cB-qc-8if" firstAttribute="leading" secondItem="Q7G-eW-EQZ" secondAttribute="leading" constant="20" id="P5Z-ym-A5D"/>
-                                    <constraint firstItem="5cB-qc-8if" firstAttribute="width" secondItem="HSN-gO-3XO" secondAttribute="width" multiplier="0.903382" id="SV4-d6-6Oe"/>
                                     <constraint firstItem="5cB-qc-8if" firstAttribute="height" secondItem="HSN-gO-3XO" secondAttribute="height" multiplier="0.933673" id="ia5-k7-Wec"/>
                                     <constraint firstItem="5cB-qc-8if" firstAttribute="top" secondItem="Q7G-eW-EQZ" secondAttribute="top" constant="32" id="yhW-I9-9MK"/>
                                 </constraints>
@@ -191,8 +190,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8v-tg-3Jz">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8v-tg-3Jz">
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iTY-WK-9cu" userLabel="View Stack">
                                         <rect key="frame" x="20" y="40" width="374" height="779"/>
@@ -250,6 +249,7 @@
                                                         <segments>
                                                             <segment title="None"/>
                                                             <segment title="Daily"/>
+                                                            <segment title="Weekly"/>
                                                             <segment title="Monthly"/>
                                                         </segments>
                                                         <color key="tintColor" red="0.2430099547" green="0.48630940909999998" blue="0.69402945039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -318,7 +318,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="iTY-WK-9cu" secondAttribute="bottom" constant="20" id="7fB-mE-5hA"/>
-                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="width" secondItem="Gan-DL-JZH" secondAttribute="width" multiplier="0.903382" id="Qjm-Ng-GFb"/>
                                     <constraint firstItem="iTY-WK-9cu" firstAttribute="top" secondItem="R8v-tg-3Jz" secondAttribute="top" constant="40" id="QqD-pI-i3p"/>
                                     <constraint firstItem="iTY-WK-9cu" firstAttribute="leading" secondItem="R8v-tg-3Jz" secondAttribute="leading" constant="20" id="aX7-X5-AW9"/>
                                     <constraint firstItem="iTY-WK-9cu" firstAttribute="height" secondItem="Gan-DL-JZH" secondAttribute="height" multiplier="0.928486" id="b1o-WJ-N6l"/>
