@@ -112,6 +112,7 @@ class TodoController {
                     Todo(todoRepresentation: representation, context: context)
                 }
                 syncTodos(identifiersOnServer: identifiersToFetch, context: context)
+                delete7DayOldTodos(context: context)
                 do {
                     try CoreDataStack.shared.save(context: context)
                 } catch let saveError {
@@ -252,7 +253,6 @@ class TodoController {
                 context.delete(todo)
             }
         } else {
-            let context = CoreDataStack.shared.container.newBackgroundContext()
             todo.recurring = "deleted"
         }
 
@@ -260,6 +260,19 @@ class TodoController {
             try CoreDataStack.shared.save(context: context)
         } catch let saveError {
             print("Error saving context: \(saveError)")
+        }
+    }
+
+    private func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        guard let oldTodos = fetchController.fetchTodosToDeleteFromActiveUser(context: context) else {
+            print("failed to fetch oldTodos. no old todos?")
+            return
+        }
+
+        do {
+            for todo in oldTodos {
+                context.delete(todo)
+            }
         }
     }
 

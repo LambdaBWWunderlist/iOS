@@ -23,6 +23,7 @@ struct TodoRepresentation: Codable {
     let username: String?
     var userID: Int?
     let dueDate: Date?
+    var deletedDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"

@@ -71,4 +71,23 @@ class FetchController {
             return nil
         }
     }
+
+    func fetchTodosToDeleteFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
+        guard let username = AuthService.activeUser?.username else {
+            print("Error: No identifier from active User")
+            return nil
+        }
+        let maxDeletedDate = Date().addingTimeInterval(-7*24*60*60) //days, hours, minutes, seconds
+        let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(format: "username == %@ AND deletedDate <= %@", username, maxDeletedDate as CVarArg)
+        do {
+            let todos = try context.fetch(fetchRequest)
+            return todos
+        } catch {
+            print("Error retrieving todo: \(error)")
+            return nil
+        }
+    }
+
 }
