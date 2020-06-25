@@ -27,7 +27,7 @@ class CreateTodoViewController: UIViewController {
         }
         #warning("update recurring string")
         #warning("update with date from datePicker")
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: "Daily", username: AuthService.activeUser?.username ?? "", dueDate: Date())
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: "daily", username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: Date())
         todoController?.createTodo(representation: representation)
     }
    

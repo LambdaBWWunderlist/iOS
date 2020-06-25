@@ -51,7 +51,7 @@ extension Todo {
                   identifier: identifier,
                   name: todoRepresentation.name,
                   body: todoRepresentation.body,
-                  recurring: todoRepresentation.recurring ?? "",
+                  recurring: todoRepresentation.recurring ?? "daily",
                   dueDate: todoRepresentation.dueDate ?? Date(),
                   completed: todoRepresentation.completed ?? false)
     }

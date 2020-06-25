@@ -139,9 +139,8 @@ class TodoController {
     }
 
     func createTodo(representation: TodoRepresentation) {
-        createTodoOnServer(representation: representation) { [weak self] in
-            guard let self = self else { return }
-
+        createTodoOnServer(representation: representation) {
+            print("complete")
         }
     }
 
@@ -151,7 +150,7 @@ class TodoController {
             print("Error creating request in \(#file), \(#function). invalid URL?")
             return
         }
-        guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request).request else {
+        guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
             print("Error encoding representation in \(#file), \(#function). Check the logs")
             return
         }
@@ -168,7 +167,7 @@ class TodoController {
             if let response = response as? HTTPURLResponse {
                 if response.statusCode == 201 {
                     guard let data = data,
-                        let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data)
+                        let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
                     else {
                         print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
                         return
