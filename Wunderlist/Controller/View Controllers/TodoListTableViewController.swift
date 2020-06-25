@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class TodoListTableViewController: UITableViewController {
     // MARK: Properties
@@ -17,7 +18,10 @@ class TodoListTableViewController: UITableViewController {
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
-
+    
+    let userNotificationCenter = UNUserNotificationCenter.current()
+    let dailyTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400, repeats: false)
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
@@ -50,6 +54,8 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.requestNotificationAuthorization()
+        self.sendNotification()
         //To register a user:
 //        let authService = AuthService()
 //        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
@@ -104,6 +110,19 @@ class TodoListTableViewController: UITableViewController {
     }
     
     // MARK: - Functions
+    
+    func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                print("Error: ", error)
+            }
+        }
+    }
+    
+    func sendNotification() {
+     
+    }
     
     func updateViews() {
 //        func updateViews() {
