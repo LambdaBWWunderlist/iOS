@@ -139,9 +139,8 @@ class TodoController {
     }
 
     func createTodo(representation: TodoRepresentation) {
-        createTodoOnServer(representation: representation) { [weak self] in
-            guard let self = self else { return }
-
+        createTodoOnServer(representation: representation) {
+            print("complete")
         }
     }
 
@@ -151,7 +150,7 @@ class TodoController {
             print("Error creating request in \(#file), \(#function). invalid URL?")
             return
         }
-        guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request).request else {
+        guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
             print("Error encoding representation in \(#file), \(#function). Check the logs")
             return
         }
@@ -168,10 +167,10 @@ class TodoController {
             if let response = response as? HTTPURLResponse {
                 if response.statusCode == 201 {
                     guard let data = data,
-                        let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data)
-                    else {
-                        print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
-                        return
+                        let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
+                        else {
+                            print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
+                            return
                     }
 
                     self.createTodoInCoreData(representation: returnedRepresentation)
@@ -200,25 +199,57 @@ class TodoController {
             }
         }
     }
+
+    func deleteTodo(representation: TodoRepresentation) {
+        deleteToDoFromServer(representation: representation) { [weak self] in
+        guard let self = self else { return }
+            self.deleteTodo(representation: representation)
+        }
+    }
     
-//    func deleteToDoFromServer(representation: TodoRepresentation, with completion: @escaping () -> Void) {
-//            let identifier = representation.identifier
-//            let userId = AuthService.activeUser?.identifier?.uuidString ?? backupUserId
-//            let requestURL = baseURL
-//                .appendingPathComponent(userId)
-//                .appendingPathComponent(uuid.uuidString)
-//                .appendingPathExtension("json")
-//        
-//        guard let request = networkService.createRequest(url: requestURL, method: .delete) else { return }
-//        networkService.dataLoader.loadData(using: request) { _, _, error in
-//            if let error = error {
-//                NSLog("Error deleting entry from server \(todo): \(error)")
-//                completion(.failure(.otherError))
-//                return
-//            }
-//            completion(.success(true))
-//        }
-//        
-//    }
+    private func deleteToDoFromServer(representation: TodoRepresentation, with completion: @escaping () -> Void) {
+        guard let identifier = representation.identifier else {
+            print("identifier was nil")
+            completion()
+            return
+        }
+        let requestURL = baseURL
+            .appendingPathComponent("\(identifier)")
+
+        guard let request = networkService.createRequest(url: requestURL, method: .delete) else {
+            print("the request failed. Is the URL valid?")
+            completion()
+            return
+        }
+        networkService.dataLoader.loadData(using: request) { _, _, error in
+            if let error = error {
+                print("Error deleting todo from server: \(error)")
+                completion()
+                return
+            }
+            completion()
+        }
+    }
+
+    private func deleteTodoFromCoreData(representation: TodoRepresentation) {
+        guard let todo = fetchController.fetchTodo(todoRep: representation) else {
+            print("fetching todo failed. can't delete it")
+            return
+        }
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        if todo.recurring == "deleted" {
+            context.performAndWait {
+                context.delete(todo)
+            }
+        } else {
+            todo.recurring = "deleted"
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch let saveError {
+                print("Error saving context: \(saveError)")
+            }
+
+        }
+    }
 
 }
