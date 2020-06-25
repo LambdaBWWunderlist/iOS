@@ -69,6 +69,7 @@ extension Todo {
             body: body,
             recurring: Recurring(rawValue: recurring ?? ""), //this will be nil if it fails, and that's fine
             username: username,
+            userID: Int(user?.identifier ?? 0),
             dueDate: dueDate
         )
     }
