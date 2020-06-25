@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateTodoViewController: UIViewController {
+class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
@@ -17,6 +17,7 @@ class CreateTodoViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var datePicker: UIDatePicker!
     
     
     // MARK: - Actions
@@ -31,9 +32,8 @@ class CreateTodoViewController: UIViewController {
             self.present(alert, animated: true)
             return
         }
-        #warning("update recurring string")
         #warning("update with date from datePicker")
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: "daily", username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: Date())
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: Recurring.allCases[recurringSegControl.selectedSegmentIndex], username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: Date())
         todoController?.createTodo(representation: representation)
     }
    
@@ -42,10 +42,14 @@ class CreateTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        titleTextField.delegate = self
     }
 
     private func updateViews() {
         
     }
-
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

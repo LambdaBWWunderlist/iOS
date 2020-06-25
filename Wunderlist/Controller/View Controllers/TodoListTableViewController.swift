@@ -22,15 +22,17 @@ class TodoListTableViewController: UITableViewController {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "completed",
-                             ascending: true)
+            NSSortDescriptor(key: "recurring",
+                             ascending: true),
+            NSSortDescriptor(key: "dueDate",
+                                        ascending: true)
         ]
         fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
 
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
-                                             sectionNameKeyPath: "dueDate",
+                                             sectionNameKeyPath: "recurring",
                                              cacheName: nil)
         frc.delegate = self
         do {
@@ -57,11 +59,12 @@ class TodoListTableViewController: UITableViewController {
          Alert usage:
             self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
          */
+        searchBar.delegate = self
     }
 
     // MARK: - TableView DataSource -
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController.sections?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,6 +76,11 @@ class TodoListTableViewController: UITableViewController {
         let todo = fetchedResultsController.object(at: indexPath)
         cell.titleLabel.text = todo.name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
+        return sectionInfo.name.capitalized
     }
 
     // TODO: Implement Swipe to Delete
@@ -93,6 +101,22 @@ class TodoListTableViewController: UITableViewController {
             destination.todoController = toDoController
 
         }
+    }
+    
+    // MARK: - Functions
+    
+    func updateViews() {
+//        func updateViews() {
+//            let todoController = TodoController()
+//            guard let user = todoController.loadMockUser() else { return }
+//            AuthService.activeUser = user
+//            todoController.fetchTodosFromServer { _ in
+//                try? self.fetchedResultsController.performFetch()
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
 }
 
@@ -147,5 +171,32 @@ extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension TodoListTableViewController: UISearchBarDelegate {
-    // TODO: Implement search methods
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        var predicate: NSPredicate?
+        if searchBar.text?.count != 0 {
+            predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@)", searchText, searchText)
+        }
+        fetchedResultsController.fetchRequest.predicate = predicate
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Error performing fetch: \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        fetchedResultsController.fetchRequest.predicate = nil
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Error: \(error)")
+        }
+        tableView.reloadData()
+    }
+
 }

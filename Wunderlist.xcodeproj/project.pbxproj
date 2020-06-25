@@ -127,13 +127,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		992D350424A175150039DC05 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		B907C9FA249FF5C20048F94E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +197,6 @@
 				B919222F249FEE5300138ED4 /* Model */,
 				B919222C249FEE3100138ED4 /* Controller */,
 				B919222B249FEE2C00138ED4 /* View */,
-				992D350424A175150039DC05 /* Helpers */,
 				B919222A249FEE0A00138ED4 /* Resources */,
 			);
 			path = Wunderlist;

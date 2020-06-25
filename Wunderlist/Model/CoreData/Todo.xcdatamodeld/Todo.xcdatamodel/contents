@@ -6,7 +6,7 @@
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="Integer 16" minValueString="1" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" minValueString="1"/>
-        <attribute name="recurring" attributeType="String"/>
+        <attribute name="recurring" optional="YES" attributeType="String"/>
         <attribute name="username" attributeType="String" minValueString="1"/>
         <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="todos" inverseEntity="User"/>
     </entity>
