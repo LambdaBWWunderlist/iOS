@@ -133,7 +133,7 @@ class TodoController {
     private func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
         todo.name = representation.name
         todo.body = representation.body
-        todo.recurring = representation.recurring
+        todo.recurring = representation.recurring?.rawValue
         todo.completed = representation.completed ?? false
         todo.dueDate = representation.dueDate
     }
