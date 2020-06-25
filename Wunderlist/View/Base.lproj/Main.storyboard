@@ -500,6 +500,7 @@
                                         </state>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="qBR-n6-tKz" eventType="touchUpInside" id="2bS-Xc-jAb"/>
+                                            <segue destination="lw1-KE-PNx" kind="presentation" identifier="loginSegue" id="eEC-HV-zCt"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -580,7 +581,6 @@
                         <outlet property="passwordTextField" destination="0rU-CW-iNg" id="eGJ-Ti-Mck"/>
                         <outlet property="promptLabel" destination="OVM-ZL-dLo" id="Lys-ak-Zfo"/>
                         <outlet property="usernameTextField" destination="Ctg-e5-58n" id="7ur-jK-Zok"/>
-                        <segue destination="lw1-KE-PNx" kind="show" identifier="loginSegue" id="RRA-Ws-8T1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5x-Ux-7Qr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

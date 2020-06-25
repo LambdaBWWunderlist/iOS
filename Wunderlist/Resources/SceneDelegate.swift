@@ -13,13 +13,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
-        window?.makeKeyAndVisible()
+        if AuthService.activeUser == nil {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let authVC =
+            storyboard.instantiateViewController(withIdentifier: "LoginVC") as? LoginViewController else { return }
+        authVC.modalPresentationStyle = .fullScreen
+            
+            guard let navVC = window?.rootViewController as? UINavigationController,
+                let initialView = navVC.viewControllers[0] as? TodoListTableViewController else { return }
+            authVC.delegate = initialView
+            window?.makeKeyAndVisible()
+            window?.rootViewController?.present(authVC, animated: false, completion: nil)
+        }
+
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//
+//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+//        window?.windowScene = windowScene
+//        window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
+//        window?.makeKeyAndVisible()
     }
+    
 
 
     func sceneDidDisconnect(_ scene: UIScene) {

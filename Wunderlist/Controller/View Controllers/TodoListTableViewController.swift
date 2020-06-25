@@ -22,13 +22,23 @@ class TodoListTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+        
+        if AuthService.activeUser != nil {
+            guard let username = AuthService.activeUser?.username else {
+                fatalError()
+            }
+            let predicate = NSPredicate(format: "username == %@", username)
+            fetchRequest.predicate = predicate
+        }
+        
+        
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "recurring",
                              ascending: true),
             NSSortDescriptor(key: "dueDate",
                                         ascending: true)
         ]
-        fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
+//        fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
 
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
