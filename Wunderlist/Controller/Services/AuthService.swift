@@ -163,13 +163,12 @@ class AuthService {
                                 print("error saving logged in user: \(error)")
                             }
                         }
-
                         completion()
                         return
-                    } else {
-                        //`String(describing:` to silence warning
-                        print("Bad Status Code: \(String(describing: response.statusCode))")
                     }
+                } else {
+                    //`String(describing:` to silence warning
+                    print("Bad Status Code: \(String(describing: response.statusCode))")
                 }
                 completion()
             }
