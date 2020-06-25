@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import UserNotifications
 
 class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
+    let notificationController = NotificationController()
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -19,7 +21,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var bodyTextView: UILabel!
     @IBOutlet var datePicker: UIDatePicker!
     
-    
+   
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = titleTextField.text,
@@ -41,8 +43,22 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             recurring = Recurring.allCases[selectedSegment]
         }
         let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
-
-        todoController?.createTodo(representation: representation)
+        
+        todoController?.createTodo(representation: representation) {
+            guard let representation = self.todoController?.fetchController.fetchTodo(todoRep: representation)?.todoRepresentation else { return }
+            switch recurring {
+            case .daily:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderDaily, onDate: self.datePicker.date)
+            case .weekly:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderWeekly, onDate: self.datePicker.date)
+            case .monthly:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderMonthly, onDate: self.datePicker.date)
+            case nil:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderOneTime, onDate: self.datePicker.date)
+            case .deleted:
+                return
+            }
+        }
         navigationController?.popViewController(animated: true)
     }
    
@@ -52,6 +68,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         updateViews()
         titleTextField.delegate = self
+         self.notificationController.requestNotificationAuthorization()
     }
 
     private func updateViews() {

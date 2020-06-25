@@ -13,7 +13,6 @@ class TodoDetailViewController: UIViewController {
     // MARK: - Properties -
     var todoRepresentation: TodoRepresentation?
     var todoController: TodoController?
-    var todo: Todo?
     
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
@@ -33,7 +32,6 @@ class TodoDetailViewController: UIViewController {
                 self.present(alert, animated: true)
                 return }
         let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: .daily, username: AuthService.activeUser?.username ?? "", dueDate: Date())
-        todoController?.updateTodoRep(todo: todo!, with: representation)
 //        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: .none)
 //        let alert = UIAlertController(title: "This ToDo Needs A Name!",
 //                                      message: "Dismiss this message to enter a name for your ToDo",

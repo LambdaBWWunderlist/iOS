@@ -138,9 +138,9 @@ class TodoController {
         todo.dueDate = representation.dueDate
     }
 
-    func createTodo(representation: TodoRepresentation) {
+    func createTodo(representation: TodoRepresentation, complete: @escaping ()-> Void) {
         createTodoOnServer(representation: representation) {
-            print("complete")
+        complete()
         }
     }
 
@@ -174,7 +174,7 @@ class TodoController {
                     }
 
                     self.createTodoInCoreData(representation: returnedRepresentation)
-                    print("\(returnedRepresentation.userID)")
+                    print("\(returnedRepresentation.userID) \(returnedRepresentation.identifier) \(returnedRepresentation.recurring)")
                     complete()
                 } else {
                     print("bad status code in \(#file), \(#function): \(response.statusCode)")

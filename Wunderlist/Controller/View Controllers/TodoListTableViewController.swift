@@ -100,7 +100,6 @@ class TodoListTableViewController: UITableViewController {
 
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             let todo = fetchedResultsController.object(at: indexPath)
-            destination.todo = todo
             destination.todoRepresentation = todo.todoRepresentation
             destination.todoController = toDoController
             
