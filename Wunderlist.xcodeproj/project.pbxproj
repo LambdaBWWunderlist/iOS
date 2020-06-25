@@ -36,6 +36,8 @@
 		B919221D249FEDFE00138ED4 /* WunderlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919221C249FEDFE00138ED4 /* WunderlistUITests.swift */; };
 		B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9192230249FEE6100138ED4 /* UserRepresentation.swift */; };
 		E9D8D41124A31D040005F513 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8D41024A31D040005F513 /* NetworkService.swift */; };
+		E9D8D41324A51CE00005F513 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8D41224A51CE00005F513 /* NotificationController.swift */; };
+		E9D8D41524A525E70005F513 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8D41424A525E70005F513 /* NotificationType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		B919221E249FEDFE00138ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9192230249FEE6100138ED4 /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
 		E9D8D41024A31D040005F513 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		E9D8D41224A51CE00005F513 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		E9D8D41424A525E70005F513 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationType.swift; path = Wunderlist/Model/NotificationType.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +274,7 @@
 			children = (
 				B907CA1724A181920048F94E /* MockData Loader */,
 				B907CA1124A15FDC0048F94E /* FetchController.swift */,
+				E9D8D41224A51CE00005F513 /* NotificationController.swift */,
 				B907CA1224A15FDC0048F94E /* TodoController.swift */,
 			);
 			path = "Model Controller";
@@ -282,6 +287,7 @@
 				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
 				B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */,
+				E9D8D41424A525E70005F513 /* NotificationType.swift */,
 				B907CA2524A2944F0048F94E /* Token.swift */,
 			);
 			path = Model;
@@ -425,12 +431,14 @@
 				B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
 				99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */,
+				E9D8D41324A51CE00005F513 /* NotificationController.swift in Sources */,
 				B907CA2024A185800048F94E /* AuthService.swift in Sources */,
 				B907CA2624A2944F0048F94E /* Token.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
 				B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */,
 				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
 				99F2946424A146140067A94E /* TodoTableViewCell.swift in Sources */,
+				E9D8D41524A525E70005F513 /* NotificationType.swift in Sources */,
 				B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */,
 				B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */,
 				B907CA0A24A121D70048F94E /* Todo+Convenience.swift in Sources */,
