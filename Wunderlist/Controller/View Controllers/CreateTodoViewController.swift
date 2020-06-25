@@ -21,8 +21,14 @@ class CreateTodoViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
-        guard let name = titleTextField.text else {
-            print("The Todo needs a name!")
+        guard let name = titleTextField.text,
+        titleTextField.text != nil else {
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: .none)
+            let alert = UIAlertController(title: "This ToDo Needs A Name!",
+                                          message: "Dismiss this message to enter a name for your ToDo",
+                                          preferredStyle: .alert)
+            alert.addAction(dismissAction)
+            self.present(alert, animated: true)
             return
         }
         #warning("update recurring string")

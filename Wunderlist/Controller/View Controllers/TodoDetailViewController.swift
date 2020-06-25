@@ -21,6 +21,17 @@ class TodoDetailViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func editButtonTapped(_ sender: Any) {
+        guard let name = titleTextField.text,
+            titleTextField.text != nil else {
+                let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: .none)
+                let alert = UIAlertController(title: "This ToDo Needs A Name!",
+                                              message: "Dismiss this message to enter a name for your ToDo",
+                                              preferredStyle: .alert)
+                alert.addAction(dismissAction)
+                self.present(alert, animated: true)
+                return }
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: "Daily", username: AuthService.activeUser?.username ?? "", dueDate: Date())
+//        todoController?.updateTodoRep(todo:, with: representation)
     }
 
     override func viewDidLoad() {
