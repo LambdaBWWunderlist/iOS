@@ -13,10 +13,6 @@ class CoreDataStack {
     static let shared = CoreDataStack()
 
     lazy var container: NSPersistentContainer = {
-        #warning("""
-            If this name doesn't match our Coredata model:
-            The app will crash
-        """)
         let container = NSPersistentContainer(name: "Todo")
         container.loadPersistentStores { _, error in
             if let error = error {
@@ -41,13 +37,11 @@ class CoreDataStack {
          We may need to just have to remember to do this when networking.
          If we get weird CoreData errors, we can test this as a posssibility
          */
-        context.performAndWait {
-            do {
-                try context.save()
-            } catch let saveError {
-                context.reset()
-                error = saveError
-            }
+        do {
+            try context.save()
+        } catch let saveError {
+            context.reset()
+            error = saveError
         }
         if let error = error {throw error}
     }

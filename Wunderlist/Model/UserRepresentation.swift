@@ -7,6 +7,26 @@
 //
 
 import Foundation
-struct UserRepresentation {
-    let id: UUID
+
+///Used to decode loginUser
+struct UserDetails: Codable {
+    var user: UserRepresentation
+    var token: String?
+}
+
+struct UserRepresentation: Codable {
+    let identifier: Int?
+    let username: String
+    let password: String?
+    var email: String? = nil
+    var token: String? = nil
+
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case username
+        case password
+        case email
+        case token
+    }
+    
 }

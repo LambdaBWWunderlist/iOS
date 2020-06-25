@@ -7,11 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99F2946024A144F40067A94E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2945F24A144F40067A94E /* LoginViewController.swift */; };
+		99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946124A1458F0067A94E /* CreateTodoViewController.swift */; };
+		99F2946424A146140067A94E /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946324A146140067A94E /* TodoTableViewCell.swift */; };
 		B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */; };
 		B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907C9FD249FF9650048F94E /* TodoListTableViewController.swift */; };
 		B907CA01249FFB2C0048F94E /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B907C9FF249FFB2C0048F94E /* Todo.xcdatamodeld */; };
-		B907CA05249FFF600048F94E /* Todo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA04249FFF600048F94E /* Todo+Convenience.swift */; };
+		B907CA05249FFF600048F94E /* User+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA04249FFF600048F94E /* User+Convenience.swift */; };
 		B907CA0724A00CB30048F94E /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */; };
+		B907CA0A24A121D70048F94E /* Todo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0924A121D70048F94E /* Todo+Convenience.swift */; };
+		B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */; };
+		B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1124A15FDC0048F94E /* FetchController.swift */; };
+		B907CA1424A15FDC0048F94E /* TodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1224A15FDC0048F94E /* TodoController.swift */; };
+		B907CA1624A16B840048F94E /* UIColor+NamedColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1524A16B840048F94E /* UIColor+NamedColors.swift */; };
+		B907CA1A24A181AA0048F94E /* MockDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1924A181AA0048F94E /* MockDataLoader.swift */; };
+		B907CA1C24A181F70048F94E /* Data+MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1B24A181F70048F94E /* Data+MockData.swift */; };
+		B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */ = {isa = PBXBuildFile; fileRef = B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */; };
+		B907CA2024A185800048F94E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA1F24A185800048F94E /* AuthService.swift */; };
+		B907CA2424A1B6B20048F94E /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA2324A1B6B20048F94E /* CoreDataTests.swift */; };
+		B907CA2624A2944F0048F94E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907CA2524A2944F0048F94E /* Token.swift */; };
 		B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FA249FEDFC00138ED4 /* AppDelegate.swift */; };
 		B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */; };
 		B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */; };
@@ -21,7 +35,7 @@
 		B9192212249FEDFE00138ED4 /* WunderlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9192211249FEDFE00138ED4 /* WunderlistTests.swift */; };
 		B919221D249FEDFE00138ED4 /* WunderlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919221C249FEDFE00138ED4 /* WunderlistUITests.swift */; };
 		B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9192230249FEE6100138ED4 /* UserRepresentation.swift */; };
-		B9192233249FEE7900138ED4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9192232249FEE7900138ED4 /* NetworkService.swift */; };
+		E9D8D41124A31D040005F513 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8D41024A31D040005F513 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,11 +56,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		99F2945F24A144F40067A94E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		99F2946124A1458F0067A94E /* CreateTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoViewController.swift; sourceTree = "<group>"; };
+		99F2946324A146140067A94E /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B907C9FD249FF9650048F94E /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
 		B907CA00249FFB2C0048F94E /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
-		B907CA04249FFF600048F94E /* Todo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+Convenience.swift"; sourceTree = "<group>"; };
+		B907CA04249FFF600048F94E /* User+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Convenience.swift"; sourceTree = "<group>"; };
 		B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		B907CA0924A121D70048F94E /* Todo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+Convenience.swift"; sourceTree = "<group>"; };
+		B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepresentation.swift; sourceTree = "<group>"; };
+		B907CA1124A15FDC0048F94E /* FetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchController.swift; sourceTree = "<group>"; };
+		B907CA1224A15FDC0048F94E /* TodoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoController.swift; sourceTree = "<group>"; };
+		B907CA1524A16B840048F94E /* UIColor+NamedColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NamedColors.swift"; sourceTree = "<group>"; };
+		B907CA1924A181AA0048F94E /* MockDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataLoader.swift; sourceTree = "<group>"; };
+		B907CA1B24A181F70048F94E /* Data+MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MockData.swift"; sourceTree = "<group>"; };
+		B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodLoginUserData.json; sourceTree = "<group>"; };
+		B907CA1F24A185800048F94E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B907CA2324A1B6B20048F94E /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
+		B907CA2524A2944F0048F94E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		B91921F7249FEDFC00138ED4 /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91921FA249FEDFC00138ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +90,7 @@
 		B919221C249FEDFE00138ED4 /* WunderlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WunderlistUITests.swift; sourceTree = "<group>"; };
 		B919221E249FEDFE00138ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9192230249FEE6100138ED4 /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
-		B9192232249FEE7900138ED4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		E9D8D41024A31D040005F513 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +118,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		992D350124A15FB10039DC05 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E9D8D41024A31D040005F513 /* NetworkService.swift */,
+				B907CA1F24A185800048F94E /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		992D350424A175150039DC05 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		B907C9FA249FF5C20048F94E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				B907C9FF249FFB2C0048F94E /* Todo.xcdatamodeld */,
 				B907C9FB249FF5DD0048F94E /* CoreDataStack.swift */,
+				B907CA0824A121AC0048F94E /* User */,
 				B907CA03249FFF490048F94E /* Todo */,
 			);
 			path = CoreData;
@@ -102,10 +148,34 @@
 		B907CA03249FFF490048F94E /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				B907C9FF249FFB2C0048F94E /* Todo.xcdatamodeld */,
-				B907CA04249FFF600048F94E /* Todo+Convenience.swift */,
+				B907CA0924A121D70048F94E /* Todo+Convenience.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		B907CA0824A121AC0048F94E /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B907CA04249FFF600048F94E /* User+Convenience.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B907CA1724A181920048F94E /* MockData Loader */ = {
+			isa = PBXGroup;
+			children = (
+				B907CA1924A181AA0048F94E /* MockDataLoader.swift */,
+				B907CA1B24A181F70048F94E /* Data+MockData.swift */,
+			);
+			path = "MockData Loader";
+			sourceTree = "<group>";
+		};
+		B907CA1824A1819D0048F94E /* Mock Data */ = {
+			isa = PBXGroup;
+			children = (
+				B907CA1D24A1822C0048F94E /* GoodLoginUserData.json */,
+			);
+			path = "Mock Data";
 			sourceTree = "<group>";
 		};
 		B91921EE249FEDFC00138ED4 = {
@@ -134,6 +204,7 @@
 				B919222F249FEE5300138ED4 /* Model */,
 				B919222C249FEE3100138ED4 /* Controller */,
 				B919222B249FEE2C00138ED4 /* View */,
+				992D350424A175150039DC05 /* Helpers */,
 				B919222A249FEE0A00138ED4 /* Resources */,
 			);
 			path = Wunderlist;
@@ -144,6 +215,7 @@
 			children = (
 				B9192211249FEDFE00138ED4 /* WunderlistTests.swift */,
 				B9192213249FEDFE00138ED4 /* Info.plist */,
+				B907CA2324A1B6B20048F94E /* CoreDataTests.swift */,
 			);
 			path = WunderlistTests;
 			sourceTree = "<group>";
@@ -171,8 +243,11 @@
 		B919222B249FEE2C00138ED4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */,
 				B9192200249FEDFC00138ED4 /* Main.storyboard */,
 				B9192205249FEDFE00138ED4 /* LaunchScreen.storyboard */,
+				99F2946324A146140067A94E /* TodoTableViewCell.swift */,
+				B907CA1524A16B840048F94E /* UIColor+NamedColors.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +255,7 @@
 		B919222C249FEE3100138ED4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				992D350124A15FB10039DC05 /* Services */,
 				B919222E249FEE3D00138ED4 /* Model Controller */,
 				B919222D249FEE3700138ED4 /* View Controllers */,
 			);
@@ -191,6 +267,8 @@
 			children = (
 				B91921FE249FEDFC00138ED4 /* TodoDetailViewController.swift */,
 				B907C9FD249FF9650048F94E /* TodoListTableViewController.swift */,
+				99F2945F24A144F40067A94E /* LoginViewController.swift */,
+				99F2946124A1458F0067A94E /* CreateTodoViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -198,8 +276,9 @@
 		B919222E249FEE3D00138ED4 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B9192232249FEE7900138ED4 /* NetworkService.swift */,
-				B907CA0624A00CB30048F94E /* UIViewController+Alert.swift */,
+				B907CA1724A181920048F94E /* MockData Loader */,
+				B907CA1124A15FDC0048F94E /* FetchController.swift */,
+				B907CA1224A15FDC0048F94E /* TodoController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -207,8 +286,11 @@
 		B919222F249FEE5300138ED4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B907CA1824A1819D0048F94E /* Mock Data */,
 				B907C9FA249FF5C20048F94E /* CoreData */,
 				B9192230249FEE6100138ED4 /* UserRepresentation.swift */,
+				B907CA0B24A13CB40048F94E /* TodoRepresentation.swift */,
+				B907CA2524A2944F0048F94E /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9192207249FEDFE00138ED4 /* LaunchScreen.storyboard in Resources */,
+				B907CA1E24A1822C0048F94E /* GoodLoginUserData.json in Resources */,
 				B9192204249FEDFE00138ED4 /* Assets.xcassets in Resources */,
 				B9192202249FEDFC00138ED4 /* Main.storyboard in Resources */,
 			);
@@ -344,16 +427,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9192233249FEE7900138ED4 /* NetworkService.swift in Sources */,
+				99F2946024A144F40067A94E /* LoginViewController.swift in Sources */,
+				B907CA1A24A181AA0048F94E /* MockDataLoader.swift in Sources */,
+				E9D8D41124A31D040005F513 /* NetworkService.swift in Sources */,
 				B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
+				99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */,
+				B907CA2024A185800048F94E /* AuthService.swift in Sources */,
+				B907CA2624A2944F0048F94E /* Token.swift in Sources */,
 				B9192231249FEE6100138ED4 /* UserRepresentation.swift in Sources */,
+				B907CA0C24A13CB40048F94E /* TodoRepresentation.swift in Sources */,
 				B907C9FC249FF5DD0048F94E /* CoreDataStack.swift in Sources */,
+				99F2946424A146140067A94E /* TodoTableViewCell.swift in Sources */,
 				B91921FB249FEDFC00138ED4 /* AppDelegate.swift in Sources */,
 				B91921FD249FEDFC00138ED4 /* SceneDelegate.swift in Sources */,
-				B907CA05249FFF600048F94E /* Todo+Convenience.swift in Sources */,
+				B907CA0A24A121D70048F94E /* Todo+Convenience.swift in Sources */,
+				B907CA05249FFF600048F94E /* User+Convenience.swift in Sources */,
 				B907CA0724A00CB30048F94E /* UIViewController+Alert.swift in Sources */,
+				B907CA1424A15FDC0048F94E /* TodoController.swift in Sources */,
+				B907CA1324A15FDC0048F94E /* FetchController.swift in Sources */,
 				B907CA01249FFB2C0048F94E /* Todo.xcdatamodeld in Sources */,
+				B907CA1624A16B840048F94E /* UIColor+NamedColors.swift in Sources */,
+				B907CA1C24A181F70048F94E /* Data+MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B907CA2424A1B6B20048F94E /* CoreDataTests.swift in Sources */,
 				B9192212249FEDFE00138ED4 /* WunderlistTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

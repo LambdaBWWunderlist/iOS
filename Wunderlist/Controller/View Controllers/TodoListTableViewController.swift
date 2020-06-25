@@ -11,25 +11,23 @@ import CoreData
 
 class TodoListTableViewController: UITableViewController {
     // MARK: Properties
+    let toDoController = TodoController()
+    
     @IBOutlet private var searchBar: UISearchBar!
 
     private let detailSegueID = "TodoDetailSegue"
+    private let addTodoSegue = "AddTodoSegue"
 
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
+
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        #warning(
-        """
-        Make sure "identifier" is the right key and delete this warning
-        """)
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "identifier",
+            NSSortDescriptor(key: "completed",
                              ascending: true)
         ]
+        fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
+
         let context = CoreDataStack.shared.mainContext
-        #warning(
-        """
-        Make sure "dueDate" is the right key and delete this warning
-        """)
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
                                              sectionNameKeyPath: "dueDate",
@@ -50,7 +48,11 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: Fetch Todos
+        //To register a user:
+//        let authService = AuthService()
+//        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
+//            print(AuthService.activeUser)
+//        }
         /*
          Alert usage:
             self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
@@ -67,9 +69,9 @@ class TodoListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        #warning("Change the identifier - CRASH")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.reuseID, for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
+        let todo = fetchedResultsController.object(at: indexPath)
+        cell.titleLabel.text = todo.name
         return cell
     }
 
@@ -78,7 +80,17 @@ class TodoListTableViewController: UITableViewController {
     // MARK: - Navigation -
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == detailSegueID {
-            //do something
+            guard let destination = segue.destination as? TodoDetailViewController else { return }
+
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let todo = fetchedResultsController.object(at: indexPath)
+            destination.todoRepresentation = todo.todoRepresentation
+            destination.todoController = toDoController
+            
+        } else if segue.identifier == addTodoSegue {
+            guard let destination = segue.destination as? CreateTodoViewController else { return }
+            destination.todoController = toDoController
+
         }
     }
 }
