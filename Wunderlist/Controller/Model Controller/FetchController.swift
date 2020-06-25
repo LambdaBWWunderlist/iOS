@@ -26,7 +26,8 @@ class FetchController {
    
     func fetchTodo(todoRep: TodoRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Todo? {
         let todoFetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        let predicate = NSPredicate(format: "identifier == %d", todoRep.identifier )
+        guard let identifier = todoRep.identifier else { return nil }
+        let predicate = NSPredicate(format: "identifier == %d", identifier )
         todoFetchRequest.predicate = predicate
         print(predicate)
         do {

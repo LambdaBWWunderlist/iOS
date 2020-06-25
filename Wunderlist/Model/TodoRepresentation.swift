@@ -8,12 +8,13 @@
 import Foundation
 
 struct TodoRepresentation: Codable {
-    let identifier: Int
+    let identifier: Int?
     var completed: Bool?
     let name: String
     let body: String?
     let recurring: String?
-    let username: String
+    let username: String?
+    var userID: Int?
     let dueDate: Date?
 
     enum CodingKeys: String, CodingKey {
@@ -24,5 +25,6 @@ struct TodoRepresentation: Codable {
         case recurring
         case username
         case dueDate = "due_date"
+        case userID = "user_id"
     }
 }

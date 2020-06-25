@@ -85,6 +85,7 @@ class TodoController {
         var error: Error?
         if AuthService.activeUser != nil {
             let fetchController = FetchController()
+            let identifiersToFetch = identifiersToFetch.compactMap({ $0 })
 
             guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
                 error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
@@ -136,6 +137,68 @@ class TodoController {
         todo.completed = representation.completed ?? false
         todo.dueDate = representation.dueDate
     }
+
+    func createTodo(representation: TodoRepresentation) {
+        createTodoOnServer(representation: representation) {
+            print("complete")
+        }
+    }
+
+    private func createTodoOnServer(representation: TodoRepresentation, complete: @escaping () -> Void) {
+        guard var request = networkService.createRequest(url: baseURL, method: .post, headerType: .contentType, headerValue: .json) else {
+
+            print("Error creating request in \(#file), \(#function). invalid URL?")
+            return
+        }
+        guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
+            print("Error encoding representation in \(#file), \(#function). Check the logs")
+            return
+        }
+        guard let token = AuthService.activeUser?.token else {
+            print("No active user in \(#file), \(#function)")
+            return
+        }
+
+        requestWithEncodedRep.addValue(token, forHTTPHeaderField: NetworkService.HttpHeaderType.authorization.rawValue)
+
+        networkService.loadData(using: requestWithEncodedRep) { [weak self] (data, response, error) in
+            guard let self = self else { return }
+
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode == 201 {
+                    guard let data = data,
+                        let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
+                    else {
+                        print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
+                        return
+                    }
+
+                    self.createTodoInCoreData(representation: returnedRepresentation)
+
+                    complete()
+                } else {
+                    print("bad status code in \(#file), \(#function): \(response.statusCode)")
+                    complete()
+                    return
+                }
+            }
+
+        }
+
+
+    }
+
+    private func createTodoInCoreData(representation: TodoRepresentation) {
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        Todo(todoRepresentation: representation, context: context)
+        context.perform {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving Todo in \(#file) \(#function): \(error)")
+            }
+        }
+    }
     
 //    func deleteToDoFromServer(representation: TodoRepresentation, with completion: @escaping () -> Void) {
 //            let identifier = representation.identifier
@@ -156,8 +219,5 @@ class TodoController {
 //        }
 //        
 //    }
-    
-    func updateViews() {
-        
-    }
+
 }
