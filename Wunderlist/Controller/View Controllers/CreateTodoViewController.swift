@@ -27,8 +27,17 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             return
         }
         #warning("update with date from datePicker")
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: Recurring.allCases[recurringSegControl.selectedSegmentIndex], username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: Date())
+        var recurring: Recurring?
+        if recurringSegControl.selectedSegmentIndex == 0 {
+            recurring = nil
+        } else {
+            let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
+            recurring = Recurring.allCases[selectedSegment]
+        }
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
+
         todoController?.createTodo(representation: representation)
+        navigationController?.popViewController(animated: true)
     }
    
     //    When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
