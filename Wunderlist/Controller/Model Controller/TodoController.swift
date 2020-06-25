@@ -237,8 +237,18 @@ class TodoController {
             return
         }
         let context = CoreDataStack.shared.container.newBackgroundContext()
-        context.performAndWait {
-            context.delete(todo)
+        if todo.recurring == "deleted" {
+            context.performAndWait {
+                context.delete(todo)
+            }
+        } else {
+            todo.recurring = "deleted"
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch let saveError {
+                print("Error saving context: \(saveError)")
+            }
+
         }
     }
 
