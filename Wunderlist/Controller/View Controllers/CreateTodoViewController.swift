@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateTodoViewController: UIViewController {
+class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
@@ -33,11 +33,14 @@ class CreateTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        titleTextField.delegate = self
     }
 
     private func updateViews() {
         
     }
-    
-   
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

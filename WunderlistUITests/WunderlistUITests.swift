@@ -91,15 +91,20 @@ class WunderlistUITests: XCTestCase {
         XCTAssert(logInButton.isHittable)
         logInButton.tap()
         
-        emailTextField.tap()
-        XCTAssert(emailTextField.isHittable)
-        emailTextField.typeText(testEmail)
-        XCTAssert(emailTextField.value as? String == testEmail)
+        let userTextField = textField(identifier: .loginUserTextField)
+        userTextField.tap()
+        userTextField.typeText("User")
+        XCTAssertEqual(userTextField.value as! String, "User")
         
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
         passwordTextField.tap()
-        passwordTextField.typeText(testPassword)
-        XCTAssert(passwordTextField.value as? String == testPassword)
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
         
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
     }
     
     func testUserRegistration() throws {
@@ -150,6 +155,16 @@ class WunderlistUITests: XCTestCase {
         submitButton.tap()
     }
     
+//    func dismissKeyboardIfPresent() {
+//        if app.keyboards.element(boundBy: 0).exists {
+//            if UIDevice.current.userInterfaceIdiom == .pad {
+//                app.keyboards.buttons["Hide keyboard"].tap()
+//            } else {
+//                textField(identifier: .createTitleLabel).typeText("\n")
+//            }
+//        }
+//    }
+    
     func testPasswordToggle() throws {
         let passwordTextField = securePasswordField
         XCTAssertNotNil(passwordTextField.isHittable)
@@ -165,7 +180,7 @@ class WunderlistUITests: XCTestCase {
     }
     
     func testAddList() throws {
-        try testUserSignIn()
+        signInHelper()
         
         let navBar = app.navigationBars["Wunderlist"]
         navBar.buttons["Add"].tap()
@@ -174,9 +189,16 @@ class WunderlistUITests: XCTestCase {
         titleTextField.tap()
         titleTextField.typeText("New Entry")
         XCTAssertEqual(titleTextField.value as! String, "New Entry")
+        enterButton.tap()
         
         let recurButton = app.segmentedControls.buttons["Weekly"]
         recurButton.tap()
+        
+        let datePickers = XCUIApplication().datePickers
+        datePickers.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Jun 24")
+        datePickers.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "9")
+        datePickers.pickerWheels.element(boundBy: 2).adjust(toPickerWheelValue: "02")
+        datePickers.pickerWheels.element(boundBy: 3).adjust(toPickerWheelValue: "PM")
         
         let bodyTextView = textView(identifier: .createBodyTextView)
         bodyTextView.tap()

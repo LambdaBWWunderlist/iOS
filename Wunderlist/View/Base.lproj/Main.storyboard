@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5cB-qc-8if">
-                                <rect key="frame" x="20" y="148" width="374" height="740"/>
+                                <rect key="frame" x="20" y="148" width="374" height="728"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mfK-Z9-rfd">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="70"/>
@@ -48,7 +48,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hg7-HV-ISc">
-                                        <rect key="frame" x="0.0" y="75" width="374" height="66"/>
+                                        <rect key="frame" x="0.0" y="75" width="374" height="62"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recurring" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jT8-CV-3rX">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -67,7 +67,7 @@
                                                 </constraints>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" horizontalCompressionResistancePriority="745" verticalCompressionResistancePriority="746" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AS3-qk-wGG">
-                                                <rect key="frame" x="0.0" y="35" width="374" height="32"/>
+                                                <rect key="frame" x="0.0" y="35" width="374" height="28"/>
                                                 <color key="backgroundColor" name="deselectedBlue"/>
                                                 <segments>
                                                     <segment title="None"/>
@@ -81,7 +81,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XIA-BD-R73">
-                                        <rect key="frame" x="0.0" y="146" width="374" height="259"/>
+                                        <rect key="frame" x="0.0" y="142" width="374" height="251"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGu-9Q-qUJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -100,12 +100,12 @@
                                                 </constraints>
                                             </view>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="3d8-He-BGG">
-                                                <rect key="frame" x="0.0" y="35" width="374" height="224"/>
+                                                <rect key="frame" x="0.0" y="35" width="374" height="216"/>
                                             </datePicker>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="nID-fZ-7mZ">
-                                        <rect key="frame" x="0.0" y="410" width="374" height="330"/>
+                                        <rect key="frame" x="0.0" y="398" width="374" height="330"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLS-0d-qoU">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -141,7 +141,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="5cB-qc-8if" secondAttribute="bottom" constant="8" id="9OW-kJ-R1D"/>
+                            <constraint firstAttribute="bottom" secondItem="5cB-qc-8if" secondAttribute="bottom" constant="20" id="9OW-kJ-R1D"/>
                             <constraint firstItem="5cB-qc-8if" firstAttribute="top" secondItem="uBh-gJ-bjO" secondAttribute="top" constant="8" id="ZQZ-79-Rqk"/>
                             <constraint firstItem="uBh-gJ-bjO" firstAttribute="trailing" secondItem="5cB-qc-8if" secondAttribute="trailing" constant="20" id="h34-2m-GEl"/>
                             <constraint firstItem="5cB-qc-8if" firstAttribute="leading" secondItem="uBh-gJ-bjO" secondAttribute="leading" constant="20" id="py7-z9-L64"/>
