@@ -54,6 +54,7 @@ class TodoListTableViewController: UITableViewController {
          Alert usage:
             self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
          */
+        searchBar.delegate = self
     }
 
     // MARK: - TableView DataSource -
@@ -89,6 +90,22 @@ class TodoListTableViewController: UITableViewController {
             destination.todoController = toDoController
 
         }
+    }
+    
+    // MARK: - Functions
+    
+    func updateViews() {
+//        func updateViews() {
+//            let todoController = TodoController()
+//            guard let user = todoController.loadMockUser() else { return }
+//            AuthService.activeUser = user
+//            todoController.fetchTodosFromServer { _ in
+//                try? self.fetchedResultsController.performFetch()
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
 }
 
@@ -143,5 +160,32 @@ extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension TodoListTableViewController: UISearchBarDelegate {
-    // TODO: Implement search methods
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        var predicate: NSPredicate?
+        if searchBar.text?.count != 0 {
+            predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@)", searchText, searchText)
+        }
+        fetchedResultsController.fetchRequest.predicate = predicate
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Error performing fetch: \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        fetchedResultsController.fetchRequest.predicate = nil
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Error: \(error)")
+        }
+        tableView.reloadData()
+    }
+
 }
