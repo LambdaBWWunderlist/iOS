@@ -22,7 +22,7 @@ class CreateTodoViewController: UIViewController {
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = titleTextField.text,
-        titleTextField.text != nil else {
+            !name.isEmpty  else {
             let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: .none)
             let alert = UIAlertController(title: "This ToDo Needs A Name!",
                                           message: "Dismiss this message to enter a name for your ToDo",

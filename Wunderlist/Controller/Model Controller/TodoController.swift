@@ -174,7 +174,7 @@ class TodoController {
                     }
 
                     self.createTodoInCoreData(representation: returnedRepresentation)
-
+                    print("\(returnedRepresentation.userID)")
                     complete()
                 } else {
                     print("bad status code in \(#file), \(#function): \(response.statusCode)")

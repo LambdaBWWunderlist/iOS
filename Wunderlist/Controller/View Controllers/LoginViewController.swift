@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
 //        }
         let authService = AuthService()
 
-        authService.loginUser(with: AuthService.testUser4.username, password: AuthService.testUser4.password!) {
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
             print("logged in")
         }
         
