@@ -24,7 +24,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
     @IBAction func saveButtonTapped(_ sender: Any) {
         //  When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
         
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
 //        self.dateTextField.setInputViewDatePicker(target: self, selector: #selector(tapDone))
     }
     

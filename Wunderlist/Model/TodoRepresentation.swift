@@ -25,5 +25,4 @@ struct TodoRepresentation: Codable {
         case username
         case dueDate = "due_date"
     }
-
 }

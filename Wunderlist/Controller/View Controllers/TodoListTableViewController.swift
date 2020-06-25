@@ -21,13 +21,15 @@ class TodoListTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "identifier",
-                             ascending: true)
+            NSSortDescriptor(key: "recurring",
+                             ascending: true),
+            NSSortDescriptor(key: "dueDate",
+                                        ascending: true)
         ]
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
-                                             sectionNameKeyPath: "dueDate",
+                                             sectionNameKeyPath: "recurring",
                                              cacheName: nil)
         frc.delegate = self
         do {
@@ -59,7 +61,7 @@ class TodoListTableViewController: UITableViewController {
 
     // MARK: - TableView DataSource -
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController.sections?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,6 +73,11 @@ class TodoListTableViewController: UITableViewController {
         let todo = fetchedResultsController.object(at: indexPath)
         cell.titleLabel.text = todo.name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
+        return sectionInfo.name.capitalized
     }
 
     // TODO: Implement Swipe to Delete

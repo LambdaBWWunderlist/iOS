@@ -17,6 +17,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
+    weak var delegate: TodoListTableViewController?
     var loginType = LoginType.register
     var togglePassword: Bool = false
     let toggleButton = UIButton(type: .custom)
@@ -34,8 +35,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func loginButtonTapped(_ sender: Any) {
+        let authService = AuthService()
         
-        
+        guard let user = usernameTextField.text,
+            !user.isEmpty,
+            let email = emailTextField.text,
+            !email.isEmpty,
+            let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !password.isEmpty else { return }
+        authService.loginUser(with: user, password: password) {
+            DispatchQueue.main.async {
+                self.delegate?.updateViews()
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     @IBAction func signInTypeChanged(_ sender: UISegmentedControl) {
@@ -79,12 +92,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //        let fetchedTodo = fetchController.fetchTodo(todoRep: rep)
         //        print(fetchedTodo?.user)
         
-        updateLoginView()
+        configureLoginView()
         self.passwordTextField.delegate = self
     }
     
     
-    private func updateLoginView() {
+    private func configureLoginView() {
         
         loginButton.layer.cornerRadius = 6.0
         passwordTextField.isSecureTextEntry = true

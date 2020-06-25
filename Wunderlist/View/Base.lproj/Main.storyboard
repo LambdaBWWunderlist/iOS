@@ -149,6 +149,7 @@
                         <viewLayoutGuide key="safeArea" id="uBh-gJ-bjO"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create a List" largeTitleDisplayMode="always" id="U7s-sQ-zSx">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="A1q-Y7-SDb"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="OfU-L5-sG1">
                             <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -395,6 +396,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Wunderlist" leftItemsSupplementBackButton="YES" id="lpt-4P-dvb">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="eDK-s3-ozT"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bqy-Ww-mz3">
                             <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
