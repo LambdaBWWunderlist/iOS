@@ -263,7 +263,7 @@ class TodoController {
         }
     }
 
-    private func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         guard let oldTodos = fetchController.fetchTodosToDeleteFromActiveUser(context: context) else {
             print("failed to fetch oldTodos. no old todos?")
             return

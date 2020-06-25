@@ -57,7 +57,7 @@ class FetchController {
    
     func fetchTodosFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         guard let identifier = AuthService.activeUser?.username else {
-            print("Error: No identifier from active User")
+            print("Error: No identifier from active User in \(#function)")
             return nil
         }
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
@@ -74,7 +74,7 @@ class FetchController {
 
     func fetchTodosToDeleteFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         guard let username = AuthService.activeUser?.username else {
-            print("Error: No identifier from active User")
+            print("Error: No identifier from active User in \(#function)")
             return nil
         }
         let maxDeletedDate = Date().addingTimeInterval(-7*24*60*60) //days, hours, minutes, seconds
