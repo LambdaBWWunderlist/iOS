@@ -39,12 +39,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         guard let username = usernameTextField.text,
             !username.isEmpty,
-            let email = emailTextField.text,
-            !email.isEmpty,
+            
             let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
             !password.isEmpty else { return }
         
         if loginType == .register {
+            guard let email = emailTextField.text,
+                !email.isEmpty else { return }
+            
             authService.registerUser(username: username, password: password, email: email) {
                 DispatchQueue.main.async {
                     self.alertWithMessage(title: "Registration Complete", message: "Please Log In")
@@ -60,12 +62,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 DispatchQueue.main.async {
                     print("\(String(describing: AuthService.activeUser))")
                     self.delegate?.updateViews()
-                    self.dismiss(animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 }
-                self.dismiss(animated: true, completion: nil)
-                self.navigationController?.popViewController(animated: true)
+
             }
-            self.dismiss(animated: true, completion: nil)
+
         }
         
     }
@@ -85,7 +86,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             emailTextField.isHidden = true
             promptLabel.text = "Please Log In"
         }
-        
     }
     
     override func viewDidLoad() {
@@ -161,15 +161,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "loginSegue" {
-            if let navC = segue.destination as? UINavigationController,
-                let destinationVC = navC.viewControllers.first as? TodoListTableViewController {
-                destinationVC.activeUser = AuthService.activeUser
-            }
-        }
     }
 }
 
