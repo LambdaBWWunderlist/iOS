@@ -25,7 +25,8 @@ class TodoTableViewCell: UITableViewCell {
 
     func updateViews() {
         guard let todoRep = todoRep else { return }
-        todoRep.completed ?? false ? completeToggleButton.setImage(UIImage(named: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(named: "circle"), for: .normal)
+        titleLabel.text = todoRep.name
+        todoRep.completed ?? false ? completeToggleButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }    
     
     // MARK: - Actions -
@@ -35,7 +36,7 @@ class TodoTableViewCell: UITableViewCell {
         else { return }
         self.todoRep?.completed?.toggle()
         todo.completed.toggle()
-
+        updateViews()
         do {
             try CoreDataStack.shared.save()
         } catch let saveError {

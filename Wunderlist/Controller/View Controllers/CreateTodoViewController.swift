@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateTodoViewController: UIViewController {
+class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
@@ -17,6 +17,7 @@ class CreateTodoViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var datePicker: UIDatePicker!
     
     
     // MARK: - Actions
@@ -25,10 +26,18 @@ class CreateTodoViewController: UIViewController {
             print("The Todo needs a name!")
             return
         }
-        #warning("update recurring string")
         #warning("update with date from datePicker")
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: "daily", username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: Date())
+        var recurring: Recurring?
+        if recurringSegControl.selectedSegmentIndex == 0 {
+            recurring = nil
+        } else {
+            let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
+            recurring = Recurring.allCases[selectedSegment]
+        }
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
+
         todoController?.createTodo(representation: representation)
+        navigationController?.popViewController(animated: true)
     }
    
     //    When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
@@ -36,10 +45,14 @@ class CreateTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        titleTextField.delegate = self
     }
 
     private func updateViews() {
         
     }
-
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

@@ -18,6 +18,7 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var recurringSegControl: UISegmentedControl!
+    @IBOutlet var datePicker: UIDatePicker!
     
     // MARK: - Actions
     @IBAction func editButtonTapped(_ sender: Any) {
