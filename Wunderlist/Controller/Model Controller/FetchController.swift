@@ -57,11 +57,12 @@ class FetchController {
    
     func fetchTodosFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         guard let identifier = AuthService.activeUser?.username else {
-            print("Error: No identifier from active User")
+            print("Error: No identifier from active User in \(#function)")
             return nil
         }
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "username == %@", identifier as CVarArg)
+        let deleted = Recurring.deleted.rawValue
+        fetchRequest.predicate = NSPredicate(format: "username == %@ AND recurring != %@", identifier as CVarArg, deleted)
         do {
             let todos = try context.fetch(fetchRequest)
             return todos
@@ -70,4 +71,23 @@ class FetchController {
             return nil
         }
     }
+
+    func fetchTodosToDeleteFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
+        guard let username = AuthService.activeUser?.username else {
+            print("Error: No identifier from active User in \(#function)")
+            return nil
+        }
+        let maxDeletedDate = Date().addingTimeInterval(-7*24*60*60) //days, hours, minutes, seconds
+        let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(format: "username == %@ AND deletedDate <= %@", username, maxDeletedDate as CVarArg)
+        do {
+            let todos = try context.fetch(fetchRequest)
+            return todos
+        } catch {
+            print("Error retrieving todo: \(error)")
+            return nil
+        }
+    }
+
 }

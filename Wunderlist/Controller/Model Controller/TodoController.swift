@@ -21,6 +21,7 @@ class TodoController {
     }
     
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
+
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/items")!
     private let networkService = NetworkService()
 
@@ -78,14 +79,21 @@ class TodoController {
     }
     ///determine which representations need to be created and which need to be updated, and save the context
     func updateTodos(with representations: [TodoRepresentation]) throws {
-        let identifiersToFetch = representations.map {$0.identifier}
+        var identifiersToFetch: [Int] = []
+
+        identifiersToFetch = representations.compactMap {
+            if $0.recurring != .deleted {
+                return $0.identifier
+            }
+            return nil
+        }
+
         let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
         var todosToCreate = representationsByID
         let context = CoreDataStack.shared.container.newBackgroundContext()
         var error: Error?
         if AuthService.activeUser != nil {
             let fetchController = FetchController()
-            let identifiersToFetch = identifiersToFetch.compactMap({ $0 })
 
             guard let existingTodos = fetchController.fetchTodos(identifiersToFetch: identifiersToFetch, context: context) else {
                 error = NSError(domain: "\(#file), \(#function), invoking fetchController", code: 400)
@@ -104,6 +112,7 @@ class TodoController {
                     Todo(todoRepresentation: representation, context: context)
                 }
                 syncTodos(identifiersOnServer: identifiersToFetch, context: context)
+                delete7DayOldTodos(context: context)
                 do {
                     try CoreDataStack.shared.save(context: context)
                 } catch let saveError {
@@ -127,7 +136,6 @@ class TodoController {
                 context.delete(todo)
             }
         }
-
     }
 
     func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
@@ -202,7 +210,7 @@ class TodoController {
 
     func deleteTodo(representation: TodoRepresentation) {
         deleteToDoFromServer(representation: representation) { [weak self] in
-        guard let self = self else { return }
+            guard let self = self else { return }
             self.deleteTodoFromCoreData(representation: representation)
         }
     }
@@ -245,14 +253,26 @@ class TodoController {
                 context.delete(todo)
             }
         } else {
-            let context = CoreDataStack.shared.container.newBackgroundContext()
             todo.recurring = "deleted"
-            do {
-                try CoreDataStack.shared.save(context: context)
-            } catch let saveError {
-                print("Error saving context: \(saveError)")
-            }
+        }
 
+        do {
+            try CoreDataStack.shared.save(context: context)
+        } catch let saveError {
+            print("Error saving context: \(saveError)")
+        }
+    }
+
+    func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        guard let oldTodos = fetchController.fetchTodosToDeleteFromActiveUser(context: context) else {
+            print("failed to fetch oldTodos. no old todos?")
+            return
+        }
+
+        do {
+            for todo in oldTodos {
+                context.delete(todo)
+            }
         }
     }
 
