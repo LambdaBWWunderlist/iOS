@@ -17,14 +17,15 @@ class CreateTodoViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var datePicker: UIDatePicker!
     
     
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         //  When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
         
-        
         self.dismiss(animated: true, completion: nil)
+//        self.dateTextField.setInputViewDatePicker(target: self, selector: #selector(tapDone))
     }
     
     
@@ -37,5 +38,6 @@ class CreateTodoViewController: UIViewController {
     private func updateViews() {
         
     }
-
+    
+   
 }

@@ -70,7 +70,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             print("logged in")
         }
         
-        toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
         
         //saved dummy todo

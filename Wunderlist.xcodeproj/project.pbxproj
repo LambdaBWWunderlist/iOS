@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		998C345D24A41B2500E780E9 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998C345C24A41B2500E780E9 /* TextFieldExtension.swift */; };
 		99F2946024A144F40067A94E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2945F24A144F40067A94E /* LoginViewController.swift */; };
 		99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946124A1458F0067A94E /* CreateTodoViewController.swift */; };
 		99F2946424A146140067A94E /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F2946324A146140067A94E /* TodoTableViewCell.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		998C345C24A41B2500E780E9 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		99F2945F24A144F40067A94E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		99F2946124A1458F0067A94E /* CreateTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoViewController.swift; sourceTree = "<group>"; };
 		99F2946324A146140067A94E /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -125,13 +127,6 @@
 				B907CA1F24A185800048F94E /* AuthService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		992D350424A175150039DC05 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B907C9FA249FF5C20048F94E /* CoreData */ = {
@@ -204,7 +199,6 @@
 				B919222F249FEE5300138ED4 /* Model */,
 				B919222C249FEE3100138ED4 /* Controller */,
 				B919222B249FEE2C00138ED4 /* View */,
-				992D350424A175150039DC05 /* Helpers */,
 				B919222A249FEE0A00138ED4 /* Resources */,
 			);
 			path = Wunderlist;
@@ -236,6 +230,7 @@
 				B91921FC249FEDFC00138ED4 /* SceneDelegate.swift */,
 				B9192203249FEDFE00138ED4 /* Assets.xcassets */,
 				B9192208249FEDFE00138ED4 /* Info.plist */,
+				998C345C24A41B2500E780E9 /* TextFieldExtension.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -432,6 +427,7 @@
 				E9D8D41124A31D040005F513 /* NetworkService.swift in Sources */,
 				B907C9FE249FF9650048F94E /* TodoListTableViewController.swift in Sources */,
 				B91921FF249FEDFC00138ED4 /* TodoDetailViewController.swift in Sources */,
+				998C345D24A41B2500E780E9 /* TextFieldExtension.swift in Sources */,
 				99F2946224A1458F0067A94E /* CreateTodoViewController.swift in Sources */,
 				B907CA2024A185800048F94E /* AuthService.swift in Sources */,
 				B907CA2624A2944F0048F94E /* Token.swift in Sources */,
