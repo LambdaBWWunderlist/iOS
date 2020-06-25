@@ -243,12 +243,12 @@ class TodoController {
             }
         } else {
             todo.recurring = "deleted"
-            do {
-                try CoreDataStack.shared.save(context: context)
-            } catch let saveError {
-                print("Error saving context: \(saveError)")
-            }
+        }
 
+        do {
+            try CoreDataStack.shared.save(context: context)
+        } catch let saveError {
+            print("Error saving context: \(saveError)")
         }
     }
 
