@@ -14,20 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-//        if AuthService.activeUser == nil {
-//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        guard let authVC =
-//            storyboard.instantiateViewController(withIdentifier: "LoginVC") as? LoginViewController else { return }
-//        authVC.modalPresentationStyle = .fullScreen
-//
-//            guard let navVC = window?.rootViewController as? UINavigationController,
-//                let initialView = navVC.viewControllers[0] as? TodoListTableViewController else { return }
-//            authVC.delegate = initialView
-//            window?.makeKeyAndVisible()
-//            window?.rootViewController?.present(authVC, animated: false, completion: nil)
-//        }
-
 
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -64,7 +50,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

@@ -90,26 +90,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         
-        //        User(identifier: 7, username: AuthService.testUser.username, email: "thehammersvpa@gmail.com")
-        //        do {
-        //            try CoreDataStack.shared.save()
-        //        } catch {
-        //        print("\(error) saving CoreData user")
-        //        }
-        //        let authService = AuthService()
-        //
-        //        authService.loginUser(with: AuthService.testUser4.username, password: AuthService.testUser4.password!) {
-        //            print("logged in")
-        //        }
-        
         toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
-        
-        //saved dummy todo
-        //        let fetchController = FetchController()
-        //        let rep = TodoRepresentation(identifier: 2, completed: false, name: "do", recurring: "yeah", user_id: 1)
-        //        let fetchedTodo = fetchController.fetchTodo(todoRep: rep)
-        //        print(fetchedTodo?.user)
         
         configureLoginView()
         self.passwordTextField.delegate = self
@@ -145,7 +127,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         toggleButton.accessibilityIdentifier = "toggleButton"
         passwordTextField.rightView = toggleButton
         passwordTextField.rightViewMode = .always
-        
     }
     
     @ objc func passwordToggled(_: UIButton) {

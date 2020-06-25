@@ -14,6 +14,7 @@ class TodoListTableViewController: UITableViewController {
     let toDoController = TodoController()
     
     @IBOutlet private var searchBar: UISearchBar!
+    
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
@@ -21,16 +22,7 @@ class TodoListTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        
-//        if activeUser != nil {
-//            guard let username = self.activeUser?.username else {
-//                fatalError()
-//            }
-//            let predicate = NSPredicate(format: "username == %@", username)
-//            fetchRequest.predicate = predicate
-//        }
-//
-        
+
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "recurring",
                              ascending: true),

@@ -31,6 +31,7 @@ class WunderlistUITests: XCTestCase {
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
         case passwordToggleButton = "toggleButton"
+        case searchBar = "SearchBar"
     }
     
     private var testUsername = "mockUser"
@@ -41,6 +42,10 @@ class WunderlistUITests: XCTestCase {
     
     private var app: XCUIApplication {
         return XCUIApplication()
+    }
+    
+    private func searchField(identifier: Identifier) -> XCUIElement {
+        return app.searchFields[identifier.rawValue]
     }
     
     
@@ -83,6 +88,10 @@ class WunderlistUITests: XCTestCase {
     
     private var toggleButton: XCUIElement {
         return buttons(identifier: .passwordToggleButton)
+    }
+    
+    private var searchBar: XCUIElement {
+        return searchField(identifier: .searchBar)
     }
     
     
@@ -203,8 +212,21 @@ class WunderlistUITests: XCTestCase {
     func testEditList() throws {
         try testUserSignIn()
         
-        let cell = app.tables.staticTexts["Win"]
-        XCTAssert(app.staticTexts["Win"].exists)
+        let navBar = app.navigationBars["Wunderlist"]
+        XCTAssertNotNil(navBar)
+        
+        let cell = app.tables.staticTexts["New Entry"]
+        XCTAssertNotNil(cell)
+        
+        
+        let searchField = XCUIApplication().otherElements["SearchBar"].searchFields.firstMatch
+        searchField.tap()
+        searchField.typeText("Hello")
+//        searchBar.tap()
+//        searchBar.typeText("Entry")
+//        XCTAssertNotNil(cell)
+        
+        
         cell.tap()
     }
 }
