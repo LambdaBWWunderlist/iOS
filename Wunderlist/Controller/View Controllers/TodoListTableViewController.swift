@@ -52,15 +52,6 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //To register a user:
-//        let authService = AuthService()
-//        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
-//            print(AuthService.activeUser)
-//        }
-        /*
-         Alert usage:
-            self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
-         */
         searchBar.delegate = self
     }
 
@@ -201,5 +192,13 @@ extension TodoListTableViewController: UISearchBarDelegate {
             NSLog("Error: \(error)")
         }
         tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true;
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false;
     }
 }

@@ -31,7 +31,7 @@ class WunderlistUITests: XCTestCase {
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
         case passwordToggleButton = "toggleButton"
-        case searchBar = "SearchBar"
+//        case searchBar = "SearchBar"
     }
     
     private var testUsername = "mockUser"
@@ -44,9 +44,9 @@ class WunderlistUITests: XCTestCase {
         return XCUIApplication()
     }
     
-    private func searchField(identifier: Identifier) -> XCUIElement {
-        return app.searchFields[identifier.rawValue]
-    }
+//    private func searchField(identifier: Identifier) -> XCUIElement {
+//        return app.searchFields[identifier.rawValue]
+//    }
     
     
     private func textField(identifier: Identifier) -> XCUIElement {
@@ -90,9 +90,9 @@ class WunderlistUITests: XCTestCase {
         return buttons(identifier: .passwordToggleButton)
     }
     
-    private var searchBar: XCUIElement {
-        return searchField(identifier: .searchBar)
-    }
+//    private var searchBar: XCUIElement {
+//        return searchField(identifier: .searchBar)
+//    }
     
     
     private func signInHelper() {
@@ -209,7 +209,7 @@ class WunderlistUITests: XCTestCase {
         createNavBar.buttons["Save"].tap()
     }
     
-    func testEditList() throws {
+    func testSearchBar() throws {
         try testUserSignIn()
         
         let navBar = app.navigationBars["Wunderlist"]
@@ -218,15 +218,110 @@ class WunderlistUITests: XCTestCase {
         let cell = app.tables.staticTexts["New Entry"]
         XCTAssertNotNil(cell)
         
+        let tablesQuery = app.tables
         
-        let searchField = XCUIApplication().otherElements["SearchBar"].searchFields.firstMatch
+        let searchField = tablesQuery.children(matching: .other).element(boundBy: 1).children(matching: .searchField).element
         searchField.tap()
-        searchField.typeText("Hello")
-//        searchBar.tap()
-//        searchBar.typeText("Entry")
-//        XCTAssertNotNil(cell)
+        XCTAssert(searchField.isHittable)
+        
+        searchField.typeText("Apple")
+        XCTAssert(tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["an apple a day"]/*[[".cells[\"an apple a day\"]",".staticTexts[\"an apple a day\"]",".staticTexts[\"TodoTableViewCell.titleLabel\"]",".cells[\"ToDoListTVC.todoCell\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1]]@END_MENU_TOKEN@*/.exists)
+        XCTAssert(!tablesQuery.staticTexts["New Entry"].exists)
+        
+        let searchButton = app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        searchButton.tap()
+        
+        let clearTextButton = tablesQuery.buttons["Clear text"]
+        clearTextButton.tap()
+        
+        XCTAssert(tablesQuery.staticTexts["an apple a day"].exists)
+        XCTAssert(tablesQuery.staticTexts["New Entry"].exists)
+    }
+    
+    func testFunction() {
         
         
-        cell.tap()
+        let app = XCUIApplication()
+        app/*@START_MENU_TOKEN@*/.buttons["Log In"]/*[[".segmentedControls.buttons[\"Log In\"]",".buttons[\"Log In\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.textFields["LoginViewController.usernameTextField"]/*[[".textFields[\"Username\"]",".textFields[\"LoginViewController.usernameTextField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.buttons["shift"]/*[[".keyboards.buttons[\"shift\"]",".buttons[\"shift\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let uKey = app/*@START_MENU_TOKEN@*/.keys["U"]/*[[".keyboards.keys[\"U\"]",".keys[\"U\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        uKey.tap()
+        uKey.tap()
+        
+        let sKey = app/*@START_MENU_TOKEN@*/.keys["s"]/*[[".keyboards.keys[\"s\"]",".keys[\"s\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        sKey.tap()
+        
+        let eKey = app/*@START_MENU_TOKEN@*/.keys["e"]/*[[".keyboards.keys[\"e\"]",".keys[\"e\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        eKey.tap()
+        
+        let rKey = app/*@START_MENU_TOKEN@*/.keys["r"]/*[[".keyboards.keys[\"r\"]",".keys[\"r\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        rKey.tap()
+        app/*@START_MENU_TOKEN@*/.secureTextFields["LoginViewController.passwordTextField"]/*[[".secureTextFields[\"Password\"]",".secureTextFields[\"LoginViewController.passwordTextField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.keys["p"]/*[[".keyboards.keys[\"p\"]",".keys[\"p\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let aKey = app/*@START_MENU_TOKEN@*/.keys["a"]/*[[".keyboards.keys[\"a\"]",".keys[\"a\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        aKey.tap()
+        sKey.tap()
+        sKey.tap()
+        sKey.tap()
+        
+        let wKey = app/*@START_MENU_TOKEN@*/.keys["w"]/*[[".keyboards.keys[\"w\"]",".keys[\"w\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        wKey.tap()
+        wKey.tap()
+        app/*@START_MENU_TOKEN@*/.keys["o"]/*[[".keyboards.keys[\"o\"]",".keys[\"o\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        rKey.tap()
+        
+        let dKey = app/*@START_MENU_TOKEN@*/.keys["d"]/*[[".keyboards.keys[\"d\"]",".keys[\"d\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        dKey.tap()
+        dKey.tap()
+        app.buttons["LoginViewController.loginButton"].tap()
+        
+        let tablesQuery = app.tables
+        tablesQuery.children(matching: .other).element(boundBy: 1).children(matching: .searchField).element.tap()
+        app/*@START_MENU_TOKEN@*/.keys["D"]/*[[".keyboards.keys[\"D\"]",".keys[\"D\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        aKey.tap()
+        aKey.tap()
+        app/*@START_MENU_TOKEN@*/.keys["i"]/*[[".keyboards.keys[\"i\"]",".keys[\"i\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let lKey = app/*@START_MENU_TOKEN@*/.keys["l"]/*[[".keyboards.keys[\"l\"]",".keys[\"l\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        lKey.tap()
+        lKey.tap()
+        
+        let yKey = app/*@START_MENU_TOKEN@*/.keys["y"]/*[[".keyboards.keys[\"y\"]",".keys[\"y\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        yKey.tap()
+        yKey.tap()
+        
+        let searchButton = app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        searchButton.tap()
+        
+        let clearTextButton = tablesQuery.buttons["Clear text"]
+        clearTextButton.tap()
+        app/*@START_MENU_TOKEN@*/.keys["W"]/*[[".keyboards.keys[\"W\"]",".keys[\"W\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        eKey.tap()
+        eKey.tap()
+        eKey.tap()
+        app/*@START_MENU_TOKEN@*/.keys["k"]/*[[".keyboards.keys[\"k\"]",".keys[\"k\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        lKey.tap()
+        yKey.tap()
+        yKey.tap()
+        clearTextButton.tap()
+        
+        let eKey2 = app/*@START_MENU_TOKEN@*/.keys["E"]/*[[".keyboards.keys[\"E\"]",".keys[\"E\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        eKey2.tap()
+        eKey2.tap()
+        app/*@START_MENU_TOKEN@*/.keys["n"]/*[[".keyboards.keys[\"n\"]",".keys[\"n\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.keys["t"]/*[[".keyboards.keys[\"t\"]",".keys[\"t\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        rKey.tap()
+        rKey.tap()
+        yKey.tap()
+        yKey.tap()
+        searchButton.tap()
+        tablesQuery.buttons["Cancel"].tap()
+       
+        
+        
+        
     }
 }
