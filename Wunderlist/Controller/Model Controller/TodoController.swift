@@ -7,6 +7,7 @@
 //
 import Foundation
 import CoreData
+import UIKit
 
 class TodoController {
     let fetchController = FetchController()
@@ -21,7 +22,7 @@ class TodoController {
     }
     
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
-
+    var notificationController = NotificationController()
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/items")!
     private let networkService = NetworkService()
 
@@ -146,10 +147,21 @@ class TodoController {
         todo.dueDate = representation.dueDate
     }
 
-    func createTodo(representation: TodoRepresentation, complete: @escaping ()-> Void) {
+    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
         
         createTodoOnServer(representation: representation) {
-        
+            switch representation.recurring {
+            case .daily:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderDaily, onDate: date)
+            case .weekly:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderWeekly, onDate: date)
+            case .monthly:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderMonthly, onDate: date)
+            case nil:
+                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderOneTime, onDate: date)
+            case .deleted:
+                return
+            }
         complete()
         }
     }
@@ -209,10 +221,11 @@ class TodoController {
         context.perform {
             do {
                 try context.save()
-                complete()
-            } catch {
+                
+                } catch {
                 print("Error saving Todo in \(#file) \(#function): \(error)")
             }
+            complete()
         }
     }
 
