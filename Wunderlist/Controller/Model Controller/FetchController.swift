@@ -13,7 +13,11 @@ class FetchController {
   
     func fetchTodos(identifiersToFetch: [Int], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
-        let predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
+        guard let username = AuthService.activeUser?.username else {
+            print("Error: No identifier from active User in \(#function)")
+            return nil
+        }
+        let predicate = NSPredicate(format: "username == %@ AND identifier IN %@", username, identifiersToFetch)
         fetchRequest.predicate = predicate
         do {
             let todos = try context.fetch(fetchRequest)
@@ -25,9 +29,14 @@ class FetchController {
     }
    
     func fetchTodo(todoRep: TodoRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Todo? {
+        guard let username = AuthService.activeUser?.username else {
+            print("Error: No identifier from active User in \(#function)")
+            return nil
+        }
+
         let todoFetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         guard let identifier = todoRep.identifier else { return nil }
-        let predicate = NSPredicate(format: "identifier == %d", identifier )
+        let predicate = NSPredicate(format: "username == %@ AND identifier == %d", username, identifier )
         todoFetchRequest.predicate = predicate
         print(predicate)
         do {
