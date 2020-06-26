@@ -52,7 +52,6 @@ class CoreDataTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 5)
 
-
     }
 
 }

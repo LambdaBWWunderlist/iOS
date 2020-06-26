@@ -23,7 +23,7 @@ class AuthService {
 
     static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com") //id 7
 
-    static let testUser4 = UserRepresentation(identifier: nil, username: "testiOSUser4", password: "Secret", email: "iosUser4@apple.com") //id 13
+    static let testUser4 = UserRepresentation(identifier: nil, username: "testiOSUser", password: "Secret", email: "iosUser4@apple.com") //id 13
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {

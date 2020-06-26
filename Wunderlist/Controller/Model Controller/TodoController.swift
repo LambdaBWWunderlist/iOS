@@ -148,7 +148,41 @@ class TodoController {
     }
 
     func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
+    func updateTodoOnServer(todoRep: TodoRepresentation) {
+        guard let identifier = todoRep.identifier else {
+            print("nil todo identifier in \(#file) \(#function)")
+            return
+        }
+        let todoURL = baseURL.appendingPathComponent("\(identifier)")
+        var todoRep = todoRep
+        //can't send the ID or the update fails on the backend
+        todoRep.identifier = nil
         
+        guard var request = networkService.createRequest(url: todoURL, method: .put, headerType: .contentType, headerValue: .json) else {
+            print("request was nil in \(#file) \(#function)")
+            return
+        }
+        guard let token = AuthService.activeUser?.token else {
+            print("token was nil in \(#file) \(#function)")
+            return
+        }
+        request.addValue(token, forHTTPHeaderField: NetworkService.HttpHeaderType.authorization.rawValue)
+
+        guard let encodedTodoRepRequest = networkService.encode(from: todoRep, request: &request, dateFormatter: networkService.dateFormatter).request else {
+            print("Error creating request in \(#file), \(#function)")
+            return
+        }
+
+        networkService.loadData(using: encodedTodoRepRequest) { (data, _, error) in
+            if let error = error {
+                print("\(#file), \(#function) - Error updating Todo: \(error)")
+            }
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8) as Any)
+        }
+    }
+
+    func createTodo(representation: TodoRepresentation) {
         createTodoOnServer(representation: representation) {
             switch representation.recurring {
             case .daily:

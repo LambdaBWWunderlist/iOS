@@ -15,7 +15,7 @@ enum Recurring: String, CaseIterable, Codable {
 }
 
 struct TodoRepresentation: Codable {
-    let identifier: Int?
+    var identifier: Int?
     var completed: Bool?
     let name: String
     let body: String?
