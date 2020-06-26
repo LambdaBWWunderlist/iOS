@@ -88,6 +88,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         
         toggleButton.setImage(hidePasswordImage, for: .normal)
@@ -97,7 +99,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.passwordTextField.delegate = self
     }
     
-    
+    // MARK: - Functions
     private func configureLoginView() {
         
         loginButton.layer.cornerRadius = 6.0
