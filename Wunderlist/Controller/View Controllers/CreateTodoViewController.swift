@@ -27,7 +27,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             return
         }
 
-        var recurring: Recurring?
+        let recurring: Recurring?
         if recurringSegControl.selectedSegmentIndex == 0 {
             recurring = nil
         } else {
