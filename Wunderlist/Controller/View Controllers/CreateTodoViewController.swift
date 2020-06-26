@@ -46,9 +46,10 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
         let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
         
         todoController?.createTodo(representation: representation, date: datePicker.date) {
-            guard let representation = self.todoController?.fetchController.fetchTodo(todoRep: representation)?.todoRepresentation else { return }
-            
+           
+            DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: true)
+            }
         }
     }
    

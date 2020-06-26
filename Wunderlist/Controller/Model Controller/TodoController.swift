@@ -147,7 +147,7 @@ class TodoController {
         todo.dueDate = representation.dueDate
     }
 
-    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
+   
     func updateTodoOnServer(todoRep: TodoRepresentation) {
         guard let identifier = todoRep.identifier else {
             print("nil todo identifier in \(#file) \(#function)")
@@ -182,17 +182,23 @@ class TodoController {
         }
     }
 
-    func createTodo(representation: TodoRepresentation) {
-        createTodoOnServer(representation: representation) {
-            switch representation.recurring {
+    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
+        createTodoOnServer(representation: representation) { identifier in
+
+            guard let identifier = identifier else { return }
+            var rep = representation
+            rep.identifier = identifier
+            guard var todoRep = self.fetchController.fetchTodo(todoRep: rep)?.todoRepresentation else { return }
+            todoRep.identifier = identifier
+            switch todoRep.recurring {
             case .daily:
-                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderDaily, onDate: date)
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderDaily, onDate: date)
             case .weekly:
-                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderWeekly, onDate: date)
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderWeekly, onDate: date)
             case .monthly:
-                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderMonthly, onDate: date)
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderMonthly, onDate: date)
             case nil:
-                self.notificationController.triggerNotification(todoRep: representation, notificationType: .reminderOneTime, onDate: date)
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderOneTime, onDate: date)
             case .deleted:
                 return
             }
@@ -200,21 +206,21 @@ class TodoController {
         }
     }
 
-    private func createTodoOnServer(representation: TodoRepresentation, complete: @escaping () -> Void) {
+    private func createTodoOnServer(representation: TodoRepresentation, complete: @escaping (Int?) -> Void) {
         guard var request = networkService.createRequest(url: baseURL, method: .post, headerType: .contentType, headerValue: .json) else {
 
             print("Error creating request in \(#file), \(#function). invalid URL?")
-            complete()
+            complete(nil)
             return
         }
         guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
             print("Error encoding representation in \(#file), \(#function). Check the logs")
-            complete()
+            complete(nil)
             return
         }
         guard let token = AuthService.activeUser?.token else {
             print("No active user in \(#file), \(#function)")
-            complete()
+            complete(nil)
             return
         }
 
@@ -229,17 +235,17 @@ class TodoController {
                         let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
                         else {
                             print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
-                            complete()
+                            complete(nil)
                             return
                     }
 
                     self.createTodoInCoreData(representation: returnedRepresentation) {
-                        complete()
+                        complete(returnedRepresentation.identifier)
                     }
                     print("\(returnedRepresentation.userID) \(returnedRepresentation.identifier) \(returnedRepresentation.recurring)")
                 } else {
                     print("bad status code in \(#file), \(#function): \(response.statusCode)")
-                    complete()
+                    complete(nil)
                     return
                 }
             }
