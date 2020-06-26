@@ -107,20 +107,21 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
     private func scheduleNotification(todoRep: TodoRepresentation, notificationType: NotificationType) -> UNMutableNotificationContent {
         print("Scheduling")
         let content = UNMutableNotificationContent()
+        guard let body = todoRep.body
         content.sound = .default
         switch notificationType {
         case .reminderDaily:
             content.title = "\(todoRep.name)"
-            content.body = "This is your daily reminder.\n\(todoRep.body)"
+            content.body = "This is your daily reminder.\n\(body)"
         case .reminderWeekly:
             content.title = "\(todoRep.name)"
-            content.body = "This is your weekly reminder.\n\(todoRep.body)"
+            content.body = "This is your weekly reminder.\n\(body)"
         case .reminderOneTime:
             content.title = "\(todoRep.name)"
-            content.body = "\(todoRep.body)"
+            content.body = "\(body)"
         case .reminderMonthly:
             content.title = "\(todoRep.name)"
-            content.body = "This is your monthly reminder.\n\(todoRep.body)"
+            content.body = "This is your monthly reminder.\n\(body)"
         }
         //content.badge = 1 (can't figure out how to clear this)
         return content

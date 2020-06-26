@@ -44,7 +44,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
         }
         
         let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
-        
+        print("Error: \(bodyTextView.text)")
         todoController?.createTodo(representation: representation, date: datePicker.date) {
            
             DispatchQueue.main.async {
