@@ -21,8 +21,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var loginType = LoginType.register
     var togglePassword: Bool = false
     let toggleButton = UIButton(type: .custom)
-    let hidePWImg = UIImage(systemName: "eye.slash")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
-    let showPWImg = UIImage(systemName: "eye")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
+    let hidePasswordImage = UIImage(systemName: "eye.slash")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
+    let showPasswordImage = UIImage(systemName: "eye")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
     let authService = AuthService()
 
     // MARK: - Outlets
@@ -139,9 +139,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
         passwordTextField.isSecureTextEntry.toggle()
         if passwordTextField.isSecureTextEntry == true {
-            toggleButton.setImage(hidePWImg, for: .normal)
+            toggleButton.setImage(hidePasswordImage, for: .normal)
         } else {
-            toggleButton.setImage(showPWImg, for: .normal)
+            toggleButton.setImage(showPasswordImage, for: .normal)
         }
     }
 
