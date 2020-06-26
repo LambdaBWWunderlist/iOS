@@ -30,6 +30,8 @@ class WunderlistUITests: XCTestCase {
         case createBodyTextView = "CreateTodoViewController.bodyTextView"
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
+        case passwordToggleButton = "toggleButton"
+//        case searchBar = "SearchBar"
     }
     
     private var testUsername = "mockUser"
@@ -41,6 +43,11 @@ class WunderlistUITests: XCTestCase {
     private var app: XCUIApplication {
         return XCUIApplication()
     }
+    
+//    private func searchField(identifier: Identifier) -> XCUIElement {
+//        return app.searchFields[identifier.rawValue]
+//    }
+    
     
     private func textField(identifier: Identifier) -> XCUIElement {
         return app.textFields[identifier.rawValue]
@@ -74,20 +81,39 @@ class WunderlistUITests: XCTestCase {
         return app.buttons["Return"]
     }
     
+    private var securePasswordField: XCUIElement {
+        return app.secureTextFields["LoginViewController.passwordTextField"]
+        
+    }
+    
+    private var toggleButton: XCUIElement {
+        return buttons(identifier: .passwordToggleButton)
+    }
+    
+//    private var searchBar: XCUIElement {
+//        return searchField(identifier: .searchBar)
+//    }
+    
+    
     private func signInHelper() {
         let logInButton = app.segmentedControls.buttons["Log In"]
         XCTAssert(logInButton.isHittable)
         logInButton.tap()
         
-        emailTextField.tap()
-        XCTAssert(emailTextField.isHittable)
-        emailTextField.typeText(testEmail)
-        XCTAssert(emailTextField.value as? String == testEmail)
+        let userTextField = textField(identifier: .loginUserTextField)
+        userTextField.tap()
+        userTextField.typeText("User")
+        XCTAssertEqual(userTextField.value as! String, "User")
         
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
         passwordTextField.tap()
-        passwordTextField.typeText(testPassword)
-        XCTAssert(passwordTextField.value as? String == testPassword)
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
         
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
     }
     
     func testUserRegistration() throws {
@@ -98,40 +124,117 @@ class WunderlistUITests: XCTestCase {
         let userTextField = textField(identifier: .loginUserTextField)
         userTextField.tap()
         userTextField.typeText("User")
-        enterButton.tap()
+        XCTAssertEqual(userTextField.value as! String, "User")
         
         let emailTextField = textField(identifier: .loginEmailTextField)
         emailTextField.tap()
         emailTextField.typeText("test@email.com")
+        XCTAssertEqual(emailTextField.value as! String, "test@email.com")
+        enterButton.tap()
 
-//        let passwordTextField = textField(identifier: .loginPasswordTextField)
-//        XCTAssert(passwordTextField.isHittable)
-//        passwordTextField.tap()
-//        passwordTextField.typeText("password")
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
         
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
+    }
+    
+    func testUserSignIn() throws {
+        let signInButton = app.segmentedControls.buttons["Log In"]
+        XCTAssert(signInButton.isHittable)
+        signInButton.tap()
         
+        let userTextField = textField(identifier: .loginUserTextField)
+        userTextField.tap()
+        userTextField.typeText("User")
+        XCTAssertEqual(userTextField.value as! String, "User")
         
+        let passwordTextField = securePasswordField
+        XCTAssert(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        XCTAssertNotNil(passwordTextField.value)
+        passwordTextField.typeText("\n")
+        
+        let submitButton = buttons(identifier: .loginButton)
+        submitButton.tap()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testPasswordToggle() throws {
+        let passwordTextField = securePasswordField
+        XCTAssertNotNil(passwordTextField.isHittable)
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
+        
+        toggleButton.tap()
+        let showPasswordTextField = textField(identifier: .loginPasswordTextField)
+        XCTAssertEqual(showPasswordTextField.value as! String, "password")
+        
+        toggleButton.tap()
+        XCTAssertNotNil(passwordTextField.value)
     }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testAddList() throws {
+        signInHelper()
+        
+        let navBar = app.navigationBars["Wunderlist"]
+        navBar.buttons["Add"].tap()
+        
+        let titleTextField = textField(identifier: .createTitleLabel)
+        titleTextField.tap()
+        titleTextField.typeText("New Entry")
+        XCTAssertEqual(titleTextField.value as! String, "New Entry")
+        enterButton.tap()
+        
+        let recurButton = app.segmentedControls.buttons["Weekly"]
+        recurButton.tap()
+        
+        let datePickers = XCUIApplication().datePickers
+        datePickers.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Jun 24")
+        datePickers.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "9")
+        datePickers.pickerWheels.element(boundBy: 2).adjust(toPickerWheelValue: "02")
+        datePickers.pickerWheels.element(boundBy: 3).adjust(toPickerWheelValue: "PM")
+        
+        let bodyTextView = textView(identifier: .createBodyTextView)
+        bodyTextView.tap()
+        bodyTextView.typeText("Body Here")
+        XCTAssertEqual(bodyTextView.value as! String, "Body Here")
+        
+        let createNavBar = app.navigationBars["Create a List"]
+        createNavBar.buttons["Save"].tap()
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+    
+    func testSearchBar() throws {
+        try testUserSignIn()
+        
+        let navBar = app.navigationBars["Wunderlist"]
+        XCTAssertNotNil(navBar)
+        
+        let cell = app.tables.staticTexts["New Entry"]
+        XCTAssertNotNil(cell)
+        
+        let tablesQuery = app.tables
+        
+        let searchField = tablesQuery.children(matching: .other).element(boundBy: 1).children(matching: .searchField).element
+        searchField.tap()
+        XCTAssert(searchField.isHittable)
+        
+        searchField.typeText("Apple")
+        XCTAssert(tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["an apple a day"]/*[[".cells[\"an apple a day\"]",".staticTexts[\"an apple a day\"]",".staticTexts[\"TodoTableViewCell.titleLabel\"]",".cells[\"ToDoListTVC.todoCell\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1]]@END_MENU_TOKEN@*/.exists)
+        XCTAssert(!tablesQuery.staticTexts["New Entry"].exists)
+        
+        let searchButton = app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        searchButton.tap()
+        
+        let clearTextButton = tablesQuery.buttons["Clear text"]
+        clearTextButton.tap()
+        
+        XCTAssert(tablesQuery.staticTexts["an apple a day"].exists)
+        XCTAssert(tablesQuery.staticTexts["New Entry"].exists)
     }
 }

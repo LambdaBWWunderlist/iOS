@@ -21,7 +21,9 @@ class AuthService {
     /// Seeded user on backend (great for testing)
     static let ironMan = UserRepresentation(identifier: nil, username: "ironman", password: "iam!ronman", email: "ironman@ironman.com")
 
-    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com")
+    static let testUser = UserRepresentation(identifier: nil, username: "ThomTest", password: "Secret", email: "thehammersvpa@gmail.com") //id 7
+
+    static let testUser4 = UserRepresentation(identifier: nil, username: "testiOSUser", password: "Secret", email: "iosUser4@apple.com") //id 13
 
     // MARK: - Init -
     init(dataLoader: NetworkLoader = URLSession.shared) {
@@ -46,7 +48,7 @@ class AuthService {
             method: .post,
             headerType: .contentType,
             headerValue: .json
-        ) else { return }
+            ) else { return }
 
         var registerUser = UserRepresentation(identifier: nil, username: username, password: password, email: email)
         let encodedUser = networkService.encode(from: registerUser, request: &request)
@@ -68,12 +70,28 @@ class AuthService {
             }
             if let data = data {
                 print(String(data: data, encoding: .utf8) as Any) //as Any to silence warning
-                guard let returnedUser = self.networkService.decode(
+                guard let returnedUserDetails = self.networkService.decode(
                     to: UserRepresentation.self,
                     data: data
                     ) else { return }
-                registerUser = returnedUser
-                AuthService.activeUser = registerUser
+                registerUser = returnedUserDetails
+                guard let identifier = registerUser.identifier,
+                    let email = registerUser.email
+                    else {
+                        print("unable to retrieve email or identifier from registered user")
+                        return
+                }
+
+                //save user
+                User(identifier: identifier, username: registerUser.username, email: email)
+                do {
+                    try CoreDataStack.shared.save()
+                    AuthService.activeUser = registerUser
+                } catch let saveError {
+                    print("Error saving user: \(saveError)")
+                    completion()
+                    return
+                }
             }
             completion()
         })
@@ -86,7 +104,7 @@ class AuthService {
     ///   - completion: Signals when the method is complete (returns nothing)
     func loginUser(with username: String,
                    password: String,
-                   completion: @escaping () -> Void) {
+                   completion: @escaping (Bool) -> Void) {
         let loginURL = baseURL.appendingPathComponent("login")
         guard var request = networkService.createRequest(
             url: loginURL,
@@ -95,30 +113,30 @@ class AuthService {
             headerValue: .json
             ) else {
                 print("Error forming request, bad URL?")
-                completion()
+                completion(false)
                 return
         }
         //create a user to be encoded and sent to the server for login
+        print("user: \(username) pass: \(password)")
         let preLoginUser = UserRepresentation(identifier: nil, username: username, password: password)
         let encodingStatus = networkService.encode(from: preLoginUser, request: &request)
         guard let requestWithUser = encodingStatus.request else {
             print("requestWithUser failed, error encoding user?")
-            completion()
+            completion(false)
             return
         }
         networkService.dataLoader.loadData(using: requestWithUser) { (data, response, error) in
             if let error = error {
                 NSLog("Error logging user in: \(error)")
-                completion()
+                completion(false)
                 return
             }
             guard let data = data else {
                 print("No data from login request")
-                completion()
+                completion(false)
                 return
             }
             if let response = response as? HTTPURLResponse {
-                print(response.statusCode)
                 if response.statusCode == 200 {
                     //this assigns all of the user's attributes from the server since the server is
                     //returning username, token, and identifier, but password is nil which is perfect
@@ -126,24 +144,49 @@ class AuthService {
                     guard var loggedIn = self.networkService.decode(
                         to: UserDetails.self,
                         data: data
-                    ) else { return }
+                        ) else { return }
                     //assign the static activeUser
                     loggedIn.user.token = loggedIn.token
                     AuthService.activeUser = loggedIn.user
-                    completion()
-                    return
+
+                    //check for existing CoreData user and save if one doesn't exist (user logged in to a new device, etc)
+                    let fetchController = FetchController()
+                    let existingUser = fetchController.fetchUser(userRep: loggedIn.user)
+                    if existingUser == nil {
+                        let user = loggedIn.user
+                        let context = CoreDataStack.shared.container.newBackgroundContext()
+                        guard let identifier = user.identifier else {
+                            print("Login failure: identifier was nil.")
+                            completion(false)
+                            return
+                        }
+                        User(identifier: identifier, username: user.username, email: user.email!, context: context)
+                        context.performAndWait {
+                            do {
+                                try context.save()
+                            } catch {
+                                print("error saving logged in user: \(error)")
+                            }
+                        }
+                        completion(true)
+                        return
+                    } else {
+                        completion(true)
+                    }
                 } else {
                     //`String(describing:` to silence warning
                     print("Bad Status Code: \(String(describing: response.statusCode))")
+                    completion(false)
                 }
+            } else {
+                print("couldn't downcast response")
+                completion(false)
             }
-            completion()
         }
     }
 
     /// Log out the active user
     func logoutUser() {
         AuthService.activeUser = nil
-        //global function to return user to login screen? local method here?
     }
 }

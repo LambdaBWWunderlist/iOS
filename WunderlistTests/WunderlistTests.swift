@@ -67,6 +67,9 @@ class WunderlistTests: XCTestCase {
 
         let todoController = TodoController()
         todoController.fetchTodosFromServer() { _ in
+            let fetchController = FetchController()
+            let user = fetchController.fetchUser(userRep: AuthService.activeUser!)
+            XCTAssertNotNil(user!.todos)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 5.0)

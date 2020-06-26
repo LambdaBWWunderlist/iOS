@@ -7,21 +7,32 @@
 //
 import Foundation
 
+enum Recurring: String, CaseIterable, Codable {
+    case daily
+    case weekly
+    case monthly
+    case deleted
+}
+
 struct TodoRepresentation: Codable {
-    let identifier: Int
-    var completed: Bool
+    var identifier: Int?
+    var completed: Bool?
     let name: String
-    let recurring: String
-    let username: String
-    let dueDate: Date
+    let body: String?
+    let recurring: Recurring?
+    let username: String?
+    var userID: Int?
+    let dueDate: Date?
+    var deletedDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case completed
         case name
+        case body
         case recurring
-        case dueDate = "due_date"
         case username
+        case dueDate = "due_date"
+        case userID = "user_id"
     }
-
 }

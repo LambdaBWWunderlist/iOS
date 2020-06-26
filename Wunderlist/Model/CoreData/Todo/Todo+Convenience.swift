@@ -13,57 +13,69 @@ extension Todo {
         user: User,
         identifier: Int,
         name: String,
-        recurring: String,
+        body: String?,
+        recurring: Recurring?,
         dueDate: Date,
-        completed: Bool
+        completed: Bool,
+        deletedDate: Date? = nil
     ) {
         // Noticed insert(into: EntityDescription, context) init - we might need to use this instead of directly assigning the user and initializing the context...
-        
+
         //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
         guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
-        if !name.isEmpty && !recurring.isEmpty {
+        if !name.isEmpty {
+            self.user = user
+            self.identifier = Int16(identifier)
             self.name = name
-            self.recurring = recurring
+            self.body = body
+            self.recurring = recurring?.rawValue
+            self.completed = completed
+            self.username = user.username
+            self.dueDate = dueDate
+            self.deletedDate = deletedDate
         } else {
-            print("username or password were empty")
+            print("recurring, username or password were empty")
             return nil
         }
-        self.user = user
-        self.identifier = Int16(identifier)
-        self.username = user.username
-        self.dueDate = dueDate
-        self.completed = completed
-
-
         print()
     }
 
-    convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext) {
+    @discardableResult convenience init?(todoRepresentation: TodoRepresentation, context: NSManagedObjectContext) {
         let fetchController = FetchController()
         guard let userRep = AuthService.activeUser,
-            let user = fetchController.fetchUser(userRep: userRep, context: context) else { return nil }
+            let user = fetchController.fetchUser(userRep: userRep, context: context),
+            let identifier = todoRepresentation.identifier else {
+                print("userRep or fetchedUser were nil")
+                return nil
+        }
         self.init(user: user,
-                  identifier: todoRepresentation.identifier,
+                  identifier: identifier,
                   name: todoRepresentation.name,
+                  body: todoRepresentation.body,
                   recurring: todoRepresentation.recurring,
-                  dueDate: todoRepresentation.dueDate,
-                  completed: todoRepresentation.completed)
+                  dueDate: todoRepresentation.dueDate ?? Date(),
+                  completed: todoRepresentation.completed ?? false,
+                  deletedDate: todoRepresentation.deletedDate
+        )
     }
 
     var todoRepresentation: TodoRepresentation? {
         guard let name = name,
-            let recurring = recurring,
-            let date = dueDate,
+//            let recurring = recurring,
+//            let date = dueDate,
             let username = username
         else { return nil }
         return TodoRepresentation(
             identifier: Int(identifier),
             completed: completed,
             name: name,
-            recurring: recurring,
+            body: body,
+            recurring: Recurring(rawValue: recurring ?? ""), //this will be nil if it fails, and that's fine
             username: username,
-            dueDate: date
+            userID: Int(user?.identifier ?? 0),
+            dueDate: dueDate,
+            deletedDate: deletedDate
         )
     }
 }
