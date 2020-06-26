@@ -31,6 +31,7 @@ class WunderlistUITests: XCTestCase {
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
         case passwordToggleButton = "toggleButton"
+//        case searchBar = "SearchBar"
     }
     
     private var testUsername = "mockUser"
@@ -42,6 +43,10 @@ class WunderlistUITests: XCTestCase {
     private var app: XCUIApplication {
         return XCUIApplication()
     }
+    
+//    private func searchField(identifier: Identifier) -> XCUIElement {
+//        return app.searchFields[identifier.rawValue]
+//    }
     
     
     private func textField(identifier: Identifier) -> XCUIElement {
@@ -84,6 +89,10 @@ class WunderlistUITests: XCTestCase {
     private var toggleButton: XCUIElement {
         return buttons(identifier: .passwordToggleButton)
     }
+    
+//    private var searchBar: XCUIElement {
+//        return searchField(identifier: .searchBar)
+//    }
     
     
     private func signInHelper() {
@@ -154,16 +163,7 @@ class WunderlistUITests: XCTestCase {
         let submitButton = buttons(identifier: .loginButton)
         submitButton.tap()
     }
-    
-//    func dismissKeyboardIfPresent() {
-//        if app.keyboards.element(boundBy: 0).exists {
-//            if UIDevice.current.userInterfaceIdiom == .pad {
-//                app.keyboards.buttons["Hide keyboard"].tap()
-//            } else {
-//                textField(identifier: .createTitleLabel).typeText("\n")
-//            }
-//        }
-//    }
+
     
     func testPasswordToggle() throws {
         let passwordTextField = securePasswordField
@@ -209,13 +209,32 @@ class WunderlistUITests: XCTestCase {
         createNavBar.buttons["Save"].tap()
     }
     
-    func testEditList() throws {
+    func testSearchBar() throws {
         try testUserSignIn()
         
-        let cell = app.tables.staticTexts["Win"]
-        XCTAssert(app.staticTexts["Win"].exists)
-        cell.tap()
+        let navBar = app.navigationBars["Wunderlist"]
+        XCTAssertNotNil(navBar)
         
+        let cell = app.tables.staticTexts["New Entry"]
+        XCTAssertNotNil(cell)
         
+        let tablesQuery = app.tables
+        
+        let searchField = tablesQuery.children(matching: .other).element(boundBy: 1).children(matching: .searchField).element
+        searchField.tap()
+        XCTAssert(searchField.isHittable)
+        
+        searchField.typeText("Apple")
+        XCTAssert(tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["an apple a day"]/*[[".cells[\"an apple a day\"]",".staticTexts[\"an apple a day\"]",".staticTexts[\"TodoTableViewCell.titleLabel\"]",".cells[\"ToDoListTVC.todoCell\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1]]@END_MENU_TOKEN@*/.exists)
+        XCTAssert(!tablesQuery.staticTexts["New Entry"].exists)
+        
+        let searchButton = app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        searchButton.tap()
+        
+        let clearTextButton = tablesQuery.buttons["Clear text"]
+        clearTextButton.tap()
+        
+        XCTAssert(tablesQuery.staticTexts["an apple a day"].exists)
+        XCTAssert(tablesQuery.staticTexts["New Entry"].exists)
     }
 }

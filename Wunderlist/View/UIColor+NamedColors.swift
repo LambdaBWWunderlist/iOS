@@ -16,6 +16,8 @@ extension UIColor {
         case borderGray
         case buttonOrange
         case deselectedBlue
+        case usableBlue
+        case tintColor
     }
 
     // MARK: - Methods -
@@ -42,6 +44,14 @@ extension UIColor {
 
     static var deselectedBlue: UIColor {
         color(named: .deselectedBlue)
+    }
+
+    static var usableBlue: UIColor {
+        color(named: .usableBlue)
+    }
+
+    static var tintColor: UIColor {
+        color(named: .tintColor)
     }
 
 }

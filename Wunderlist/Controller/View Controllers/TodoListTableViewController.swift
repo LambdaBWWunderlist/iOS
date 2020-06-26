@@ -14,6 +14,7 @@ class TodoListTableViewController: UITableViewController {
     let toDoController = TodoController()
     
     @IBOutlet private var searchBar: UISearchBar!
+    
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
@@ -21,6 +22,7 @@ class TodoListTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
+
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "recurring",
                              ascending: true),
@@ -116,19 +118,16 @@ class TodoListTableViewController: UITableViewController {
     
   
     func updateViews() {
-//        func updateViews() {
-//            let todoController = TodoController()
-//            guard let user = todoController.loadMockUser() else { return }
-//            AuthService.activeUser = user
-//            todoController.fetchTodosFromServer { _ in
-//                try? self.fetchedResultsController.performFetch()
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        }
+          let todoController = TodoController()
+        guard AuthService.activeUser != nil else { return }
+          todoController.fetchTodosFromServer { _ in
+            try? self.fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+              self.tableView.reloadData()
+          }
+        }
+      }
     }
-}
 
 // MARK: - CoreData Delegate Methods -
 extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
@@ -208,5 +207,12 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true;
+    }
 
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false;
+    }
 }

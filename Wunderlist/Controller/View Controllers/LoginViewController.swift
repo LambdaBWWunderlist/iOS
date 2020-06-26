@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let toggleButton = UIButton(type: .custom)
     let hidePasswordImage = UIImage(systemName: "eye.slash")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
     let showPasswordImage = UIImage(systemName: "eye")?.withTintColor(UIColor.buttonOrange, renderingMode: .alwaysOriginal)
+    let authService = AuthService()
     
     // MARK: - Outlets
     
@@ -35,20 +36,39 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func loginButtonTapped(_ sender: Any) {
-        let authService = AuthService()
         
-        guard let user = usernameTextField.text,
-            !user.isEmpty,
-            let email = emailTextField.text,
-            !email.isEmpty,
+        guard let username = usernameTextField.text,
+            !username.isEmpty,
+            
             let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
             !password.isEmpty else { return }
-        authService.loginUser(with: user, password: password) {
-            DispatchQueue.main.async {
-                self.delegate?.updateViews()
-                self.navigationController?.popViewController(animated: true)
+        
+        if loginType == .register {
+            guard let email = emailTextField.text,
+                !email.isEmpty else { return }
+            
+            authService.registerUser(username: username, password: password, email: email) {
+                DispatchQueue.main.async {
+                    self.alertWithMessage(title: "Registration Complete", message: "Please Log In")
+                    self.loginType = .login
+                    self.loginSegControl.selectedSegmentIndex = 1
+                    self.promptLabel.text = "Please Log In"
+                    self.emailTextField.isHidden = true
+                    self.loginButton.setTitle("Log In", for: .normal)
+                }
             }
+        } else if loginType == .login {
+            authService.loginUser(with: username, password: password) {
+                DispatchQueue.main.async {
+                    print("\(String(describing: AuthService.activeUser))")
+                    self.delegate?.updateViews()
+                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                }
+
+            }
+
         }
+        
     }
     
     @IBAction func signInTypeChanged(_ sender: UISegmentedControl) {
@@ -66,9 +86,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             emailTextField.isHidden = true
             promptLabel.text = "Please Log In"
         }
-        
     }
     
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         
 //        User(identifier: 7, username: AuthService.testUser.username, email: "thehammersvpa@gmail.com")
@@ -86,17 +107,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
         
-        //saved dummy todo
-        //        let fetchController = FetchController()
-        //        let rep = TodoRepresentation(identifier: 2, completed: false, name: "do", recurring: "yeah", user_id: 1)
-        //        let fetchedTodo = fetchController.fetchTodo(todoRep: rep)
-        //        print(fetchedTodo?.user)
-        
         configureLoginView()
         self.passwordTextField.delegate = self
     }
     
-    
+    // MARK: - Functions
     private func configureLoginView() {
         
         loginButton.layer.cornerRadius = 6.0
@@ -119,14 +134,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.layer.cornerRadius = 6.0
         passwordTextField.layer.borderWidth = 1.0
-    
+        
         toggleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         toggleButton.frame = CGRect(x: CGFloat(passwordTextField.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         toggleButton.addTarget(self, action: #selector(self.passwordToggled(_:)), for: .touchUpInside)
         toggleButton.accessibilityIdentifier = "toggleButton"
         passwordTextField.rightView = toggleButton
         passwordTextField.rightViewMode = .always
-        
     }
     
     @ objc func passwordToggled(_: UIButton) {
@@ -143,6 +157,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-    
 }
 

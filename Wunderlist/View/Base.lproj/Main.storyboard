@@ -128,7 +128,7 @@
                                                     </view>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sC0-Vf-0HT">
                                                         <rect key="frame" x="0.0" y="35" width="374" height="295"/>
-                                                        <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.85882352941176465" green="0.89411764705882346" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="CreateTodoViewController.bodyTextView"/>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
@@ -172,7 +172,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bodyTextView" destination="MLS-0d-qoU" id="J5u-sf-NwU"/>
+                        <outlet property="bodyTextView" destination="sC0-Vf-0HT" id="tIs-Je-nEd"/>
                         <outlet property="datePicker" destination="3d8-He-BGG" id="ENN-58-YPp"/>
                         <outlet property="recurringSegControl" destination="AS3-qk-wGG" id="Cia-vP-xRG"/>
                         <outlet property="titleTextField" destination="a1f-Wx-Xy5" id="sGr-Dx-l8L"/>
@@ -190,11 +190,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8v-tg-3Jz">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8v-tg-3Jz">
                                 <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iTY-WK-9cu" userLabel="View Stack">
-                                        <rect key="frame" x="20" y="40" width="374" height="779"/>
+                                        <rect key="frame" x="20" y="0.0" width="374" height="716"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lb6-xs-Tjn" userLabel="Title Stack">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="70"/>
@@ -225,7 +225,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RnV-k7-W9t" userLabel="Recurring Stack">
-                                                <rect key="frame" x="0.0" y="75" width="374" height="66"/>
+                                                <rect key="frame" x="0.0" y="75" width="374" height="75"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recurring" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N44-nF-5Pl">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -244,21 +244,24 @@
                                                         </constraints>
                                                     </view>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" horizontalCompressionResistancePriority="745" verticalCompressionResistancePriority="746" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hUa-a5-CXz">
-                                                        <rect key="frame" x="0.0" y="35" width="374" height="32"/>
+                                                        <rect key="frame" x="0.0" y="35" width="374" height="41"/>
                                                         <color key="backgroundColor" name="deselectedBlue"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="DEf-RT-3ei"/>
+                                                        </constraints>
                                                         <segments>
                                                             <segment title="None"/>
                                                             <segment title="Daily"/>
                                                             <segment title="Weekly"/>
                                                             <segment title="Monthly"/>
                                                         </segments>
-                                                        <color key="tintColor" red="0.2430099547" green="0.48630940909999998" blue="0.69402945039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" red="0.24313725490196078" green="0.48627450980392156" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="selectedSegmentTintColor" name="borderGray"/>
                                                     </segmentedControl>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="o3W-dn-1sK" userLabel="Date Stack">
-                                                <rect key="frame" x="0.0" y="146" width="374" height="251"/>
+                                                <rect key="frame" x="0.0" y="155" width="374" height="135"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXg-73-cXn">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -277,12 +280,15 @@
                                                         </constraints>
                                                     </view>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cjI-Gh-mjz">
-                                                        <rect key="frame" x="0.0" y="35" width="374" height="216"/>
+                                                        <rect key="frame" x="0.0" y="35" width="374" height="100"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="100" id="p6P-zj-xkQ"/>
+                                                        </constraints>
                                                     </datePicker>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OrG-dm-7eZ" userLabel="Body Stack">
-                                                <rect key="frame" x="0.0" y="402" width="374" height="377"/>
+                                                <rect key="frame" x="0.0" y="295" width="374" height="421"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ZI-tL-OsL">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -301,13 +307,25 @@
                                                         </constraints>
                                                     </view>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cQ3-VG-nu8">
-                                                        <rect key="frame" x="0.0" y="35" width="374" height="342"/>
+                                                        <rect key="frame" x="0.0" y="35" width="374" height="341"/>
                                                         <color key="backgroundColor" red="0.85873854159999996" green="0.89416879419999995" blue="0.9332211614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="TodoDetailViewController.bodyTextView"/>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqo-iU-abk">
+                                                        <rect key="frame" x="0.0" y="381" width="374" height="40"/>
+                                                        <color key="backgroundColor" name="actionBlue"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="1LF-Ql-Tyi"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Save"/>
+                                                        <connections>
+                                                            <action selector="updateTodo:" destination="zKq-E1-p0w" eventType="touchUpInside" id="anS-dt-gKa"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="cQ3-VG-nu8" secondAttribute="trailing" id="nb7-CT-AsQ"/>
@@ -317,11 +335,11 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="iTY-WK-9cu" secondAttribute="bottom" constant="20" id="7fB-mE-5hA"/>
-                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="top" secondItem="R8v-tg-3Jz" secondAttribute="top" constant="40" id="QqD-pI-i3p"/>
-                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="leading" secondItem="R8v-tg-3Jz" secondAttribute="leading" constant="20" id="aX7-X5-AW9"/>
+                                    <constraint firstItem="DeF-WL-J1b" firstAttribute="trailing" secondItem="iTY-WK-9cu" secondAttribute="trailing" constant="20" id="BJy-uH-wOv"/>
+                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="top" secondItem="DeF-WL-J1b" secondAttribute="top" id="O1c-nT-NJl"/>
                                     <constraint firstItem="iTY-WK-9cu" firstAttribute="height" secondItem="Gan-DL-JZH" secondAttribute="height" multiplier="0.928486" id="b1o-WJ-N6l"/>
-                                    <constraint firstAttribute="trailing" secondItem="iTY-WK-9cu" secondAttribute="trailing" constant="20" id="pnB-YH-OQ5"/>
+                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="leading" secondItem="DeF-WL-J1b" secondAttribute="leading" constant="20" id="p9E-my-V6g"/>
+                                    <constraint firstItem="iTY-WK-9cu" firstAttribute="bottom" secondItem="DeF-WL-J1b" secondAttribute="bottom" constant="-40" id="sUX-oy-GHL"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Gan-DL-JZH"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="DeF-WL-J1b"/>
@@ -337,10 +355,9 @@
                         <viewLayoutGuide key="safeArea" id="wcY-4a-eFF"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="2TL-Gg-smz">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="7ov-9r-vbU">
-                            <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Yio-ed-3ww">
                             <connections>
-                                <action selector="editButtonTapped:" destination="zKq-E1-p0w" id="qAt-QE-8fA"/>
+                                <action selector="editButtonTapped:" destination="zKq-E1-p0w" id="Ei1-Ms-fH4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -348,6 +365,7 @@
                         <outlet property="bodyTextView" destination="cQ3-VG-nu8" id="07e-EC-er8"/>
                         <outlet property="datePicker" destination="cjI-Gh-mjz" id="HeS-Ba-2Ek"/>
                         <outlet property="recurringSegControl" destination="hUa-a5-CXz" id="faL-vq-gOz"/>
+                        <outlet property="saveButton" destination="Qqo-iU-abk" id="2rc-hm-8Ms"/>
                         <outlet property="titleTextField" destination="qn4-hR-akL" id="pQN-WL-axf"/>
                     </connections>
                 </viewController>
@@ -500,7 +518,6 @@
                                         </state>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="qBR-n6-tKz" eventType="touchUpInside" id="2bS-Xc-jAb"/>
-                                            <segue destination="lw1-KE-PNx" kind="presentation" modalPresentationStyle="currentContext" id="DXD-yD-hMm"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -581,17 +598,19 @@
                         <outlet property="passwordTextField" destination="0rU-CW-iNg" id="eGJ-Ti-Mck"/>
                         <outlet property="promptLabel" destination="OVM-ZL-dLo" id="Lys-ak-Zfo"/>
                         <outlet property="usernameTextField" destination="Ctg-e5-58n" id="7ur-jK-Zok"/>
+                        <segue destination="lw1-KE-PNx" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="0b7-RW-5Qs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5x-Ux-7Qr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="816" y="-574"/>
+            <point key="canvasLocation" x="816" y="-587"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W4y-la-wzw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lw1-KE-PNx" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="anp-yu-Dgl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Dax-hm-90b">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -616,6 +635,9 @@
     </scenes>
     <resources>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <namedColor name="actionBlue">
+            <color red="0.018999999389052391" green="0.28999999165534973" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="borderGray">
             <color red="0.85900002717971802" green="0.89399999380111694" blue="0.93300002813339233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

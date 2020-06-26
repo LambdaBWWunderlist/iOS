@@ -19,28 +19,12 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet var saveButton: UIButton!
     
     // MARK: - Actions
-    @IBAction func editButtonTapped(_ sender: Any) {
-        guard let name = titleTextField.text,
-            titleTextField.text != nil else {
-                let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: .none)
-                let alert = UIAlertController(title: "This ToDo Needs A Name!",
-                                              message: "Dismiss this message to enter a name for your ToDo",
-                                              preferredStyle: .alert)
-                alert.addAction(dismissAction)
-                self.present(alert, animated: true)
-                return }
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: .daily, username: AuthService.activeUser?.username ?? "", dueDate: Date())
-//        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: .none)
-//        let alert = UIAlertController(title: "This ToDo Needs A Name!",
-//                                      message: "Dismiss this message to enter a name for your ToDo",
-//                                      preferredStyle: .alert)
-//        alert.addAction(dismissAction)
-//              self.present(alert, animated: true)
-        navigationController?.popViewController(animated: true)
-  
-        
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        isEditing.toggle()
+        updateViews()
     }
 
     override func viewDidLoad() {
@@ -49,12 +33,63 @@ class TodoDetailViewController: UIViewController {
     }
 
     func updateViews() {
+        //set interaction
+        bodyTextView.isUserInteractionEnabled = isEditing
+        saveButton.isUserInteractionEnabled = isEditing
+        titleTextField.isUserInteractionEnabled = isEditing
+        datePicker.isUserInteractionEnabled = isEditing
+        recurringSegControl.isUserInteractionEnabled = isEditing
+
+        //set UI
+        if isEditing {
+            bodyTextView.backgroundColor = .usableBlue
+            saveButton.backgroundColor = .actionBlue
+            titleTextField.backgroundColor = .usableBlue
+            datePicker.backgroundColor = .usableBlue
+            recurringSegControl.backgroundColor = .tintColor
+        } else {
+            bodyTextView.backgroundColor = .gray
+            saveButton.backgroundColor = .gray
+            titleTextField.backgroundColor = .gray
+            datePicker.backgroundColor = .gray
+            recurringSegControl.backgroundColor = .gray
+        }
+
+        //set Segmented Control
         if let todoRepresentation = todoRepresentation {
+            title = todoRepresentation.name
             titleTextField.text = todoRepresentation.name
             bodyTextView.text = todoRepresentation.body
-        } else {
-
         }
+
+        guard let recurring = todoRepresentation?.recurring else { return }
+        guard var selectedIndex = Recurring.allCases.firstIndex(of: recurring) else { return }
+        selectedIndex += 1
+
+        recurringSegControl.selectedSegmentIndex = selectedIndex
+    }
+
+    @IBAction func updateTodo(_ sender: UIButton) {
+        guard let representation = todoRepresentation,
+            let todo = FetchController().fetchTodo(todoRep: representation)
+        else { return }
+
+        todo.name = titleTextField.text
+        todo.body = bodyTextView.text
+        todo.dueDate = datePicker.date
+
+        var recurring: Recurring?
+        if recurringSegControl.selectedSegmentIndex == 0 {
+            recurring = nil
+        } else {
+            let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
+            recurring = Recurring.allCases[selectedSegment]
+        }
+
+        todo.recurring = recurring?.rawValue
+
+        try? CoreDataStack.shared.save()
+        navigationController?.popViewController(animated: true)
     }
 
 }

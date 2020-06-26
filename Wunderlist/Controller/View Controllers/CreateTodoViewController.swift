@@ -18,7 +18,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
-    @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var datePicker: UIDatePicker!
     
    
@@ -35,7 +35,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             return
         }
 
-        var recurring: Recurring?
+        let recurring: Recurring?
         if recurringSegControl.selectedSegmentIndex == 0 {
             recurring = nil
         } else {
