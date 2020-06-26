@@ -12,7 +12,6 @@ import UserNotifications
 class NotificationController: NSObject, UNUserNotificationCenterDelegate {
     
     let userNotificationCenter = UNUserNotificationCenter.current()
-//    let dailyTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400, repeats: false)
     let calendar = Calendar.current
     private let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     private var date = Date()
@@ -25,23 +24,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         }
     }
-    
-//    func triggerNotification(todo: Todo, notificationType: NotificationType, onDate date: Date, withId id: String) {
-//        self.date = date
-//        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
-//        let identifier = id
-//        let request = UNNotificationRequest(identifier: identifier,
-//                                            content: scheduleNotification(todo: todo, notificationType: notificationType),
-//                                            trigger: trigger)
-//        userNotificationCenter.add(request) { (error) in
-//            print("notification: \(request.identifier)")
-//            if let error = error {
-//                print("Error \(error.localizedDescription)")
-//            }
-//        }
-//    }
-    
+
     func triggerNotification(todoRep: TodoRepresentation, notificationType: NotificationType, onDate date: Date) {
         switch notificationType {
         case .reminderOneTime:
@@ -88,7 +71,6 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         case .reminderMonthly:
             self.date = date
-            var monthlyComponents = DateComponents()
             let notificationDate = Calendar.current.dateComponents([.weekdayOrdinal,.hour,.minute], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
             let identifier = todoRep.identifier
@@ -123,7 +105,6 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             content.title = "\(todoRep.name)"
             content.body = "This is your monthly reminder.\n\(body)"
         }
-        //content.badge = 1 (can't figure out how to clear this)
         return content
     }
 }
