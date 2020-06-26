@@ -165,26 +165,31 @@ extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension TodoListTableViewController: UISearchBarDelegate {
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
+        guard let username = AuthService.activeUser?.username else { return }
         var predicate: NSPredicate?
         if searchBar.text?.count != 0 {
-            predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@)", searchText, searchText)
+            predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@ && username == %@)", searchText, searchText, username)
+        } else {
+            predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
         }
+
         fetchedResultsController.fetchRequest.predicate = predicate
+
         do {
             try fetchedResultsController.performFetch()
+            tableView.reloadData()
         } catch {
             NSLog("Error performing fetch: \(error)")
         }
-        tableView.reloadData()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
-        fetchedResultsController.fetchRequest.predicate = nil
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -192,12 +197,12 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = true;
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
+        searchBar.showsCancelButton = false;
     }
 }
