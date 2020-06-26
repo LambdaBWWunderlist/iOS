@@ -147,7 +147,9 @@ class TodoController {
     }
 
     func createTodo(representation: TodoRepresentation, complete: @escaping ()-> Void) {
+        
         createTodoOnServer(representation: representation) {
+        
         complete()
         }
     }
@@ -156,14 +158,17 @@ class TodoController {
         guard var request = networkService.createRequest(url: baseURL, method: .post, headerType: .contentType, headerValue: .json) else {
 
             print("Error creating request in \(#file), \(#function). invalid URL?")
+            complete()
             return
         }
         guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
             print("Error encoding representation in \(#file), \(#function). Check the logs")
+            complete()
             return
         }
         guard let token = AuthService.activeUser?.token else {
             print("No active user in \(#file), \(#function)")
+            complete()
             return
         }
 
@@ -178,12 +183,14 @@ class TodoController {
                         let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
                         else {
                             print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
+                            complete()
                             return
                     }
 
-                    self.createTodoInCoreData(representation: returnedRepresentation)
+                    self.createTodoInCoreData(representation: returnedRepresentation) {
+                        complete()
+                    }
                     print("\(returnedRepresentation.userID) \(returnedRepresentation.identifier) \(returnedRepresentation.recurring)")
-                    complete()
                 } else {
                     print("bad status code in \(#file), \(#function): \(response.statusCode)")
                     complete()
@@ -196,12 +203,13 @@ class TodoController {
 
     }
 
-    private func createTodoInCoreData(representation: TodoRepresentation) {
+    private func createTodoInCoreData(representation: TodoRepresentation, complete: @escaping () -> ()) {
         let context = CoreDataStack.shared.container.newBackgroundContext()
         Todo(todoRepresentation: representation, context: context)
         context.perform {
             do {
                 try context.save()
+                complete()
             } catch {
                 print("Error saving Todo in \(#file) \(#function): \(error)")
             }

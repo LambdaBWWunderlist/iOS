@@ -59,8 +59,8 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             case .deleted:
                 return
             }
+            self.navigationController?.popViewController(animated: true)
         }
-        navigationController?.popViewController(animated: true)
     }
    
     //    When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
