@@ -16,7 +16,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
-    @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var datePicker: UIDatePicker!
     
     

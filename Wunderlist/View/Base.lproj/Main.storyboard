@@ -172,7 +172,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bodyTextView" destination="MLS-0d-qoU" id="J5u-sf-NwU"/>
+                        <outlet property="bodyTextView" destination="sC0-Vf-0HT" id="tIs-Je-nEd"/>
                         <outlet property="datePicker" destination="3d8-He-BGG" id="ENN-58-YPp"/>
                         <outlet property="recurringSegControl" destination="AS3-qk-wGG" id="Cia-vP-xRG"/>
                         <outlet property="titleTextField" destination="a1f-Wx-Xy5" id="sGr-Dx-l8L"/>
