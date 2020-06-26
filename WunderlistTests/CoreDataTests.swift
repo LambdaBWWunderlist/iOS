@@ -41,7 +41,7 @@ class CoreDataTests: XCTestCase {
             try? CoreDataStack.shared.save()
 
             let firstTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
-            
+
             XCTAssertGreaterThanOrEqual(firstTodosToDelete!.count, 1)
             let todoController = TodoController()
             todoController.delete7DayOldTodos()

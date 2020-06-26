@@ -22,7 +22,7 @@ extension UIColor {
 
     // MARK: - Methods -
     private static func color(named: NamedColor) -> UIColor {
-        guard let color = UIColor(named:named.rawValue) else { return .black }
+        guard let color = UIColor(named: named.rawValue) else { return .black }
         return color
     }
 

@@ -18,8 +18,8 @@ struct UserRepresentation: Codable {
     let identifier: Int?
     let username: String
     let password: String?
-    var email: String? = nil
-    var token: String? = nil
+    var email: String?
+    var token: String?
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -28,5 +28,5 @@ struct UserRepresentation: Codable {
         case email
         case token
     }
-    
+
 }

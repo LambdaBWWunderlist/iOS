@@ -64,7 +64,7 @@ class FetchController {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         let deleted = Recurring.deleted.rawValue
-        
+
         fetchRequest.predicate = NSPredicate(format: "username == %@ AND recurring != %@", identifier as CVarArg, deleted)
         do {
             let todos = try context.fetch(fetchRequest)

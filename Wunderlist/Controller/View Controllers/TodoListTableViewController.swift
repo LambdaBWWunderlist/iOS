@@ -12,9 +12,8 @@ import CoreData
 class TodoListTableViewController: UITableViewController {
     // MARK: Properties
     let toDoController = TodoController()
-    
+
     @IBOutlet private var searchBar: UISearchBar!
-    
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
@@ -71,7 +70,7 @@ class TodoListTableViewController: UITableViewController {
         cell.todoController = toDoController
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
         return sectionInfo.name.capitalized
@@ -93,16 +92,16 @@ class TodoListTableViewController: UITableViewController {
             let todo = fetchedResultsController.object(at: indexPath)
             destination.todoRepresentation = todo.todoRepresentation
             destination.todoController = toDoController
-            
+
         } else if segue.identifier == addTodoSegue {
             guard let destination = segue.destination as? CreateTodoViewController else { return }
             destination.todoController = toDoController
 
         }
     }
-    
+
     // MARK: - Functions
-    
+
     func updateViews() {
           let todoController = TodoController()
         guard AuthService.activeUser != nil else { return }
@@ -166,9 +165,9 @@ extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension TodoListTableViewController: UISearchBarDelegate {
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+
         var predicate: NSPredicate?
         if searchBar.text?.count != 0 {
             predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@)", searchText, searchText)
@@ -181,7 +180,7 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
@@ -193,12 +192,12 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true;
+        searchBar.showsCancelButton = true
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false;
+        searchBar.showsCancelButton = false
     }
 }

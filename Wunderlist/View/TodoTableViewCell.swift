@@ -27,11 +27,11 @@ class TodoTableViewCell: UITableViewCell {
     func updateViews() {
         guard let todoRep = todoRep else { return }
         titleLabel.text = todoRep.name
-        
+
         todoRep.completed ?? false ? completeToggleButton.setImage(circleChecked, for: .normal) : completeToggleButton.setImage(circleEmpty, for: .normal)
 
     }
-    
+
     // MARK: - Actions -
     @IBAction func completeToggleTapped(_ sender: Any) {
         guard let todoRep = todoRep,
@@ -41,10 +41,9 @@ class TodoTableViewCell: UITableViewCell {
         self.todoRep?.completed?.toggle()
         todo.completed.toggle()
 
-
         updateViews()
         todoController?.updateTodoOnServer(todoRep: todoRep)
-        
+
         do {
             try CoreDataStack.shared.save()
         } catch let saveError {

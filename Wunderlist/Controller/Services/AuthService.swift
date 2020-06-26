@@ -100,7 +100,9 @@ class AuthService {
     func loginUser(with username: String,
                    password: String,
                    completion: @escaping () -> Void) {
+
         let loginURL = baseURL.appendingPathComponent("login")
+
         guard var request = networkService.createRequest(
             url: loginURL,
             method: .post,

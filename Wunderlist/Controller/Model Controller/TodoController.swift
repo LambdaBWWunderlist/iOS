@@ -203,7 +203,7 @@ class TodoController {
 
         requestWithEncodedRep.addValue(token, forHTTPHeaderField: NetworkService.HttpHeaderType.authorization.rawValue)
 
-        networkService.loadData(using: requestWithEncodedRep) { [weak self] (data, response, error) in
+        networkService.loadData(using: requestWithEncodedRep) { [weak self] (data, response, _) in
             guard let self = self else { return }
 
             if let response = response as? HTTPURLResponse {
@@ -226,7 +226,6 @@ class TodoController {
             }
 
         }
-
 
     }
 
@@ -265,7 +264,7 @@ class TodoController {
         }
         guard let token = AuthService.activeUser?.token else { return }
         request.addValue(token, forHTTPHeaderField: NetworkService.HttpHeaderType.authorization.rawValue)
-        networkService.dataLoader.loadData(using: request) { data, _, error in
+        networkService.dataLoader.loadData(using: request) { _, _, error in
             if let error = error {
                 print("Error deleting todo from server: \(error)")
                 completion()

@@ -19,9 +19,7 @@ extension Todo {
         completed: Bool,
         deletedDate: Date? = nil
     ) {
-        // Noticed insert(into: EntityDescription, context) init - we might need to use this instead of directly assigning the user and initializing the context...
-
-        //TODO: If we get weird crashes when making Todos, this might need to be user.managedObjectContext
+        
         guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
         if !name.isEmpty {

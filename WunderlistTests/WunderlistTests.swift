@@ -66,7 +66,7 @@ class WunderlistTests: XCTestCase {
         let expectation = self.expectation(description: "\(#file), \(#function): WaitForFetchingTodos")
 
         let todoController = TodoController()
-        todoController.fetchTodosFromServer() { _ in
+        todoController.fetchTodosFromServer { _ in
             let fetchController = FetchController()
             let user = fetchController.fetchUser(userRep: AuthService.activeUser!)
             XCTAssertNotNil(user!.todos)
