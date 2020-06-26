@@ -140,6 +140,9 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="nID-fZ-7mZ" secondAttribute="bottom" constant="8" id="aSe-EX-O3q"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -447,7 +450,7 @@
                             <outlet property="delegate" destination="Fp3-o0-djD" id="oXF-Q4-AtQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Wunderlist" leftItemsSupplementBackButton="YES" id="lpt-4P-dvb">
+                    <navigationItem key="navigationItem" title="Wunderlist" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="lpt-4P-dvb">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="eDK-s3-ozT"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bqy-Ww-mz3">
                             <color key="tintColor" red="0.94510310890000004" green="0.45100212099999998" blue="0.00020910924650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -611,7 +614,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lw1-KE-PNx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="anp-yu-Dgl"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="anp-yu-Dgl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Dax-hm-90b">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -43,7 +43,6 @@ class WunderlistUITests: XCTestCase {
         return XCUIApplication()
     }
 
-
     private func textField(identifier: Identifier) -> XCUIElement {
         return app.textFields[identifier.rawValue]
     }

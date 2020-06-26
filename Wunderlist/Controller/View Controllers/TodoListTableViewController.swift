@@ -165,13 +165,12 @@ extension TodoListTableViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension TodoListTableViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         guard let username = AuthService.activeUser?.username else { return }
         var predicate: NSPredicate?
         if searchBar.text?.count != 0 {
-            predicate = NSPredicate(format: "(name CONTAINS[cd] %@) || (recurring CONTAINS[cd] %@ && username == %@)", searchText, searchText, username)
+            predicate = NSPredicate(format: "(name CONTAINS[cd] %@ && username == %@) || (recurring CONTAINS[cd] %@ && username == %@)", searchText, username, searchText, username)
         } else {
             predicate = NSPredicate(format: "username == %@", AuthService.activeUser!.username)
         }
@@ -185,7 +184,7 @@ extension TodoListTableViewController: UISearchBarDelegate {
             NSLog("Error performing fetch: \(error)")
         }
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
@@ -197,12 +196,12 @@ extension TodoListTableViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true;
+        searchBar.showsCancelButton = true
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false;
+        searchBar.showsCancelButton = false
     }
 }
