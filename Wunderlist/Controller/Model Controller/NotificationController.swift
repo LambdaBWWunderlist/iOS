@@ -10,26 +10,26 @@ import Foundation
 import UserNotifications
 
 class NotificationController: NSObject, UNUserNotificationCenterDelegate {
-    
+
     let userNotificationCenter = UNUserNotificationCenter.current()
     let calendar = Calendar.current
     private let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     private var date = Date()
-    
+
     func requestNotificationAuthorization() {
         let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (_, error) in
             if let error = error {
                 print("Error: ", error)
             }
         }
     }
-    
+
     func triggerNotification(todoRep: TodoRepresentation, notificationType: NotificationType, onDate date: Date) {
         switch notificationType {
         case .reminderOneTime:
             self.date = date
-            let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute], from: date)
+            let notificationDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
             let identifier = todoRep.identifier
             let request = UNNotificationRequest(identifier: String(identifier ?? 404),
@@ -43,7 +43,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         case .reminderDaily:
             self.date = date
-            let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute], from: date)
+            let notificationDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
             let identifier = todoRep.identifier
             let request = UNNotificationRequest(identifier: String(identifier ?? 404),
@@ -57,7 +57,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         case .reminderWeekly:
             self.date = date
-            let notificationDate = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
+            let notificationDate = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
             let identifier = todoRep.identifier
             let request = UNNotificationRequest(identifier: String(identifier ?? 404),
@@ -71,7 +71,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         case .reminderMonthly:
             self.date = date
-            let notificationDate = Calendar.current.dateComponents([.weekdayOrdinal,.hour,.minute], from: date)
+            let notificationDate = Calendar.current.dateComponents([.weekdayOrdinal, .hour, .minute], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
             let identifier = todoRep.identifier
             let request = UNNotificationRequest(identifier: String(identifier ?? 404),
@@ -85,7 +85,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
             }
         }
     }
-    
+
     private func scheduleNotification(todoRep: TodoRepresentation, notificationType: NotificationType) -> UNMutableNotificationContent {
         print("Scheduling")
         let content = UNMutableNotificationContent()

@@ -33,7 +33,7 @@ class TodoController {
         }
     }
 
-    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in } ) {
+    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in }) {
 
         guard let identifier = AuthService.activeUser?.identifier else {
             print("No active user")
@@ -153,7 +153,6 @@ class TodoController {
 //        todo.dueDate = representation.dueDate
     }
 
-
     func updateTodoOnServer(todoRep: TodoRepresentation) {
         guard let identifier = todoRep.identifier else {
             print("nil todo identifier in \(#file) \(#function)")
@@ -188,7 +187,7 @@ class TodoController {
         }
     }
 
-    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
+    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping () -> Void) {
         createTodoOnServer(representation: representation) { identifier in
 
             guard let identifier = identifier else { return }
@@ -260,7 +259,7 @@ class TodoController {
 
     }
 
-    private func createTodoInCoreData(representation: TodoRepresentation, complete: @escaping () -> ()) {
+    private func createTodoInCoreData(representation: TodoRepresentation, complete: @escaping () -> Void) {
         let context = CoreDataStack.shared.container.newBackgroundContext()
         Todo(todoRepresentation: representation, context: context)
         context.perform {

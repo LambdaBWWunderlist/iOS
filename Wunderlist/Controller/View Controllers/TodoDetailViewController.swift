@@ -33,6 +33,7 @@ class TodoDetailViewController: UIViewController {
     }
 
     func updateViews() {
+        saveButton.layer.cornerRadius = 6.0
         //set interaction
         bodyTextView.isUserInteractionEnabled = isEditing
         saveButton.isUserInteractionEnabled = isEditing

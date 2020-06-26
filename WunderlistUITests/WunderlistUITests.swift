@@ -31,7 +31,6 @@ class WunderlistUITests: XCTestCase {
         case detailTitleTextField = "ToDoDetailViewController.titleTextField"
         case detailBodyTextView = "TodoDetailViewController.bodyTextView"
         case passwordToggleButton = "toggleButton"
-//        case searchBar = "SearchBar"
     }
 
     private var testUsername = "mockUser"
@@ -44,9 +43,6 @@ class WunderlistUITests: XCTestCase {
         return XCUIApplication()
     }
 
-//    private func searchField(identifier: Identifier) -> XCUIElement {
-//        return app.searchFields[identifier.rawValue]
-//    }
 
     private func textField(identifier: Identifier) -> XCUIElement {
         return app.textFields[identifier.rawValue]
@@ -88,10 +84,6 @@ class WunderlistUITests: XCTestCase {
     private var toggleButton: XCUIElement {
         return buttons(identifier: .passwordToggleButton)
     }
-
-//    private var searchBar: XCUIElement {
-//        return searchField(identifier: .searchBar)
-//    }
 
     private func signInHelper() {
         let logInButton = app.segmentedControls.buttons["Log In"]

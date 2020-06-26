@@ -19,7 +19,7 @@ extension Todo {
         completed: Bool,
         deletedDate: Date? = nil
     ) {
-        
+
         guard let context = user.managedObjectContext else { return nil }
         self.init(context: context)
         if !name.isEmpty {
