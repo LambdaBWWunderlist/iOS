@@ -107,7 +107,7 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate {
     private func scheduleNotification(todoRep: TodoRepresentation, notificationType: NotificationType) -> UNMutableNotificationContent {
         print("Scheduling")
         let content = UNMutableNotificationContent()
-        guard let body = todoRep.body else { return }
+        guard let body = todoRep.body else { return content }
         content.sound = .default
         switch notificationType {
         case .reminderDaily:
