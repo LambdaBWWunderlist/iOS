@@ -16,7 +16,8 @@ extension Todo {
         body: String?,
         recurring: Recurring?,
         dueDate: Date,
-        completed: Bool
+        completed: Bool,
+        deletedDate: Date? = nil
     ) {
         // Noticed insert(into: EntityDescription, context) init - we might need to use this instead of directly assigning the user and initializing the context...
 
@@ -32,6 +33,7 @@ extension Todo {
             self.completed = completed
             self.username = user.username
             self.dueDate = dueDate
+            self.deletedDate = deletedDate
         } else {
             print("recurring, username or password were empty")
             return nil
@@ -53,7 +55,9 @@ extension Todo {
                   body: todoRepresentation.body,
                   recurring: todoRepresentation.recurring,
                   dueDate: todoRepresentation.dueDate ?? Date(),
-                  completed: todoRepresentation.completed ?? false)
+                  completed: todoRepresentation.completed ?? false,
+                  deletedDate: todoRepresentation.deletedDate
+        )
     }
 
     var todoRepresentation: TodoRepresentation? {
@@ -70,7 +74,8 @@ extension Todo {
             recurring: Recurring(rawValue: recurring ?? ""), //this will be nil if it fails, and that's fine
             username: username,
             userID: Int(user?.identifier ?? 0),
-            dueDate: dueDate
+            dueDate: dueDate,
+            deletedDate: deletedDate
         )
     }
 }

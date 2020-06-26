@@ -26,14 +26,15 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             print("The Todo needs a name!")
             return
         }
-        #warning("update with date from datePicker")
-        var recurring: Recurring?
+
+        let recurring: Recurring?
         if recurringSegControl.selectedSegmentIndex == 0 {
             recurring = nil
         } else {
             let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
             recurring = Recurring.allCases[selectedSegment]
         }
+        
         let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
 
         todoController?.createTodo(representation: representation)

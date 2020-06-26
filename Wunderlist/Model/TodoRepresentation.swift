@@ -15,7 +15,7 @@ enum Recurring: String, CaseIterable, Codable {
 }
 
 struct TodoRepresentation: Codable {
-    let identifier: Int?
+    var identifier: Int?
     var completed: Bool?
     let name: String
     let body: String?
@@ -23,6 +23,7 @@ struct TodoRepresentation: Codable {
     let username: String?
     var userID: Int?
     let dueDate: Date?
+    var deletedDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
