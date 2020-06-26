@@ -17,7 +17,7 @@ class TodoListTableViewController: UITableViewController {
 
     private let detailSegueID = "TodoDetailSegue"
     private let addTodoSegue = "AddTodoSegue"
-
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Todo> = {
 
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
@@ -51,6 +51,17 @@ class TodoListTableViewController: UITableViewController {
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        //To register a user:
+//        let authService = AuthService()
+//        authService.registerUser(username: "testiOSUser", password: "123!456", email: "testiOSUser@ios.com") {
+//            print(AuthService.activeUser)
+//        }
+        /*
+         Alert usage:
+            self.alertWithMessage(title: "Oops!", message: "You forgot to do something!")
+         */
         searchBar.delegate = self
     }
 

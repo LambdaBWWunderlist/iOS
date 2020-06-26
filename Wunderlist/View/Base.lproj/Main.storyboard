@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5cB-qc-8if" userLabel="View Stack">
-                                        <rect key="frame" x="20" y="32" width="374" height="732"/>
+                                        <rect key="frame" x="20" y="40" width="374" height="732"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mfK-Z9-rfd" userLabel="Title Stack">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="70"/>
@@ -143,11 +143,12 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="5cB-qc-8if" secondAttribute="trailing" constant="20" id="83E-cW-6m9"/>
-                                    <constraint firstAttribute="bottom" secondItem="5cB-qc-8if" secondAttribute="bottom" constant="20" id="NKG-bf-Wkl"/>
-                                    <constraint firstItem="5cB-qc-8if" firstAttribute="leading" secondItem="Q7G-eW-EQZ" secondAttribute="leading" constant="20" id="P5Z-ym-A5D"/>
-                                    <constraint firstItem="5cB-qc-8if" firstAttribute="height" secondItem="HSN-gO-3XO" secondAttribute="height" multiplier="0.933673" id="ia5-k7-Wec"/>
-                                    <constraint firstItem="5cB-qc-8if" firstAttribute="top" secondItem="Q7G-eW-EQZ" secondAttribute="top" constant="32" id="yhW-I9-9MK"/>
+                                    <constraint firstAttribute="bottom" secondItem="5cB-qc-8if" secondAttribute="bottom" constant="-8" id="D2g-Jj-ZOH"/>
+                                    <constraint firstItem="5cB-qc-8if" firstAttribute="leading" secondItem="Q7G-eW-EQZ" secondAttribute="leading" constant="20" id="G6a-8e-07d"/>
+                                    <constraint firstItem="5cB-qc-8if" firstAttribute="height" secondItem="Q7G-eW-EQZ" secondAttribute="height" multiplier="0.816964" id="MyU-th-43a"/>
+                                    <constraint firstAttribute="trailing" secondItem="5cB-qc-8if" secondAttribute="trailing" constant="20" id="TLJ-4y-wAR"/>
+                                    <constraint firstItem="5cB-qc-8if" firstAttribute="width" secondItem="Q7G-eW-EQZ" secondAttribute="width" multiplier="0.903382" id="c2y-9d-Wy3"/>
+                                    <constraint firstItem="5cB-qc-8if" firstAttribute="top" secondItem="Q7G-eW-EQZ" secondAttribute="top" constant="40" id="sXa-QY-d4Q"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="HSN-gO-3XO"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Bmm-Bn-6d6"/>
@@ -172,7 +173,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bodyTextView" destination="MLS-0d-qoU" id="J5u-sf-NwU"/>
+                        <outlet property="bodyTextView" destination="sC0-Vf-0HT" id="tIs-Je-nEd"/>
                         <outlet property="datePicker" destination="3d8-He-BGG" id="ENN-58-YPp"/>
                         <outlet property="recurringSegControl" destination="AS3-qk-wGG" id="Cia-vP-xRG"/>
                         <outlet property="titleTextField" destination="a1f-Wx-Xy5" id="sGr-Dx-l8L"/>

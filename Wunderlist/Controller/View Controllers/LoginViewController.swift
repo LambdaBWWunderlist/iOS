@@ -58,13 +58,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         } else if loginType == .login {
-            authService.loginUser(with: username, password: password) {
-                DispatchQueue.main.async {
-                    print("\(String(describing: AuthService.activeUser))")
-                    self.delegate?.updateViews()
-                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            authService.loginUser(with: username, password: password) { [weak self] status in
+                guard let self = self else { return }
+                if status {
+                    DispatchQueue.main.async {
+                        print("\(String(describing: AuthService.activeUser))")
+                        self.delegate?.updateViews()
+                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                    }
+                } else {
+                    self.alertWithMessage(title: "Login Failed", message: "Please check your password")
                 }
-
             }
 
         }
@@ -88,10 +92,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    // MARK: - Lifecycle
+
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
 
-        toggleButton.setImage(hidePWImg, for: .normal)
+        toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
 
         configureLoginView()
@@ -130,7 +135,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.rightViewMode = .always
     }
 
-    @ objc func passwordToggled(_: UIButton) {
+    @objc func passwordToggled(_: UIButton) {
 
         passwordTextField.isSecureTextEntry.toggle()
         if passwordTextField.isSecureTextEntry == true {

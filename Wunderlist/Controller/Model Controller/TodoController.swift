@@ -7,6 +7,7 @@
 //
 import Foundation
 import CoreData
+import UIKit
 
 class TodoController {
     let fetchController = FetchController()
@@ -21,7 +22,7 @@ class TodoController {
     }
 
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
-
+    var notificationController = NotificationController()
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/items")!
     private let networkService = NetworkService()
 
@@ -32,8 +33,14 @@ class TodoController {
         }
     }
 
-    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in }) {
-        let userURL = baseURL.appendingPathComponent("\(AuthService.activeUser?.identifier ?? 404)")
+    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in } ) {
+
+        guard let identifier = AuthService.activeUser?.identifier else {
+            print("No active user")
+            return
+        }
+
+        let userURL = baseURL.appendingPathComponent("\(identifier)")
         guard var request = networkService.createRequest(url: userURL, method: .get, headerType: .contentType, headerValue: .json) else {
             print("bad request")
             completion(.failure(.otherError))
@@ -138,13 +145,14 @@ class TodoController {
         }
     }
 
-    private func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
-        todo.name = representation.name
-        todo.body = representation.body
-        todo.recurring = representation.recurring?.rawValue
-        todo.completed = representation.completed ?? false
-        todo.dueDate = representation.dueDate
+    func updateTodoRep(todo: Todo, with representation: TodoRepresentation) {
+//        todo.name = representation.name
+//        todo.body = representation.body
+//        todo.recurring = representation.recurring?.rawValue
+//        todo.completed = representation.completed ?? false
+//        todo.dueDate = representation.dueDate
     }
+
 
     func updateTodoOnServer(todoRep: TodoRepresentation) {
         guard let identifier = todoRep.identifier else {
@@ -180,24 +188,45 @@ class TodoController {
         }
     }
 
-    func createTodo(representation: TodoRepresentation) {
-        createTodoOnServer(representation: representation) {
-            print("complete")
+    func createTodo(representation: TodoRepresentation, date: Date, complete: @escaping ()-> Void) {
+        createTodoOnServer(representation: representation) { identifier in
+
+            guard let identifier = identifier else { return }
+            var rep = representation
+            rep.identifier = identifier
+            guard var todoRep = self.fetchController.fetchTodo(todoRep: rep)?.todoRepresentation else { return }
+            todoRep.identifier = identifier
+            switch todoRep.recurring {
+            case .daily:
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderDaily, onDate: date)
+            case .weekly:
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderWeekly, onDate: date)
+            case .monthly:
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderMonthly, onDate: date)
+            case nil:
+                self.notificationController.triggerNotification(todoRep: todoRep, notificationType: .reminderOneTime, onDate: date)
+            case .deleted:
+                return
+            }
+        complete()
         }
     }
 
-    private func createTodoOnServer(representation: TodoRepresentation, complete: @escaping () -> Void) {
+    private func createTodoOnServer(representation: TodoRepresentation, complete: @escaping (Int?) -> Void) {
         guard var request = networkService.createRequest(url: baseURL, method: .post, headerType: .contentType, headerValue: .json) else {
 
             print("Error creating request in \(#file), \(#function). invalid URL?")
+            complete(nil)
             return
         }
         guard var requestWithEncodedRep = networkService.encode(from: representation, request: &request, dateFormatter: networkService.dateFormatter).request else {
             print("Error encoding representation in \(#file), \(#function). Check the logs")
+            complete(nil)
             return
         }
         guard let token = AuthService.activeUser?.token else {
             print("No active user in \(#file), \(#function)")
+            complete(nil)
             return
         }
 
@@ -212,15 +241,17 @@ class TodoController {
                         let returnedRepresentation = self.networkService.decode(to: TodoRepresentation.self, data: data, dateFormatter: self.networkService.dateFormatter)
                         else {
                             print("data was nil or returnedRepresentation couldn't be decoded in \(#file), \(#function)")
+                            complete(nil)
                             return
                     }
 
-                    self.createTodoInCoreData(representation: returnedRepresentation)
-
-                    complete()
+                    self.createTodoInCoreData(representation: returnedRepresentation) {
+                        complete(returnedRepresentation.identifier)
+                    }
+                    print("\(String(describing: returnedRepresentation.userID)) \(String(describing: returnedRepresentation.identifier)) \(String(describing: returnedRepresentation.recurring))")
                 } else {
                     print("bad status code in \(#file), \(#function): \(response.statusCode)")
-                    complete()
+                    complete(nil)
                     return
                 }
             }
@@ -229,15 +260,17 @@ class TodoController {
 
     }
 
-    private func createTodoInCoreData(representation: TodoRepresentation) {
+    private func createTodoInCoreData(representation: TodoRepresentation, complete: @escaping () -> ()) {
         let context = CoreDataStack.shared.container.newBackgroundContext()
         Todo(todoRepresentation: representation, context: context)
         context.perform {
             do {
                 try context.save()
-            } catch {
+
+                } catch {
                 print("Error saving Todo in \(#file) \(#function): \(error)")
             }
+            complete()
         }
     }
 

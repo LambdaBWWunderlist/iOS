@@ -7,22 +7,31 @@
 //
 
 import UIKit
+import UserNotifications
 
 class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
-
+    let notificationController = NotificationController()
+    
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
-    @IBOutlet var bodyTextView: UILabel!
+    @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var datePicker: UIDatePicker!
-
+    
+   
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
-        guard let name = titleTextField.text else {
-            print("The Todo needs a name!")
+        guard let name = titleTextField.text,
+            !name.isEmpty  else {
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: .none)
+            let alert = UIAlertController(title: "This ToDo Needs A Name!",
+                                          message: "Dismiss this message to enter a name for your ToDo",
+                                          preferredStyle: .alert)
+            alert.addAction(dismissAction)
+            self.present(alert, animated: true)
             return
         }
 
@@ -33,18 +42,15 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
             recurring = Recurring.allCases[selectedSegment]
         }
-
-        let representation = TodoRepresentation(identifier: nil,
-                                                completed: false,
-                                                name: name,
-                                                body: bodyTextView.text,
-                                                recurring: recurring,
-                                                username: nil,
-                                                userID: AuthService.activeUser?.identifier ?? 0,
-                                                dueDate: datePicker.date)
-
-        todoController?.createTodo(representation: representation)
-        navigationController?.popViewController(animated: true)
+        
+        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
+        print("Error: \(String(describing: bodyTextView.text))")
+        todoController?.createTodo(representation: representation, date: datePicker.date) {
+           
+            DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 
     //When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
@@ -53,6 +59,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         updateViews()
         titleTextField.delegate = self
+         self.notificationController.requestNotificationAuthorization()
     }
 
     private func updateViews() {
