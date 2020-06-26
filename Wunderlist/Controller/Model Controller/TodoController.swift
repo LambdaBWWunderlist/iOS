@@ -19,7 +19,7 @@ class TodoController {
         case noEncode
         case noRep
     }
-    
+
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
 
     private let baseURL = URL(string: "https://wunderlist-node.herokuapp.com/api/items")!
@@ -32,7 +32,7 @@ class TodoController {
         }
     }
 
-    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in } ) {
+    func fetchTodosFromServer(completion: @escaping CompletionHandler = { _ in }) {
         let userURL = baseURL.appendingPathComponent("\(AuthService.activeUser?.identifier ?? 404)")
         guard var request = networkService.createRequest(url: userURL, method: .get, headerType: .contentType, headerValue: .json) else {
             print("bad request")
@@ -155,7 +155,7 @@ class TodoController {
         var todoRep = todoRep
         //can't send the ID or the update fails on the backend
         todoRep.identifier = nil
-        
+
         guard var request = networkService.createRequest(url: todoURL, method: .put, headerType: .contentType, headerValue: .json) else {
             print("request was nil in \(#file) \(#function)")
             return
@@ -248,7 +248,7 @@ class TodoController {
             self.deleteTodoFromCoreData(representation: representation)
         }
     }
-    
+
     private func deleteToDoFromServer(representation: TodoRepresentation, with completion: @escaping () -> Void) {
         guard let identifier = representation.identifier else {
             print("identifier was nil")

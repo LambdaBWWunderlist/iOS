@@ -130,9 +130,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.rightView = toggleButton
         passwordTextField.rightViewMode = .always
     }
-    
+
     @ objc func passwordToggled(_: UIButton) {
-        
+
         passwordTextField.isSecureTextEntry.toggle()
         if passwordTextField.isSecureTextEntry == true {
             toggleButton.setImage(hidePasswordImage, for: .normal)
@@ -140,10 +140,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             toggleButton.setImage(showPasswordImage, for: .normal)
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
 }
-

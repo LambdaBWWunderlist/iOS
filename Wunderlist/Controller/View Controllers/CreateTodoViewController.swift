@@ -12,14 +12,13 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties -
     var todoController: TodoController?
-    
+
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var bodyTextView: UILabel!
     @IBOutlet var datePicker: UIDatePicker!
-    
-    
+
     // MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = titleTextField.text else {
@@ -34,14 +33,21 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
             let selectedSegment = recurringSegControl.selectedSegmentIndex - 1
             recurring = Recurring.allCases[selectedSegment]
         }
-        
-        let representation = TodoRepresentation(identifier: nil, completed: false, name: name, body: bodyTextView.text, recurring: recurring, username: nil, userID: AuthService.activeUser?.identifier ?? 0, dueDate: datePicker.date)
+
+        let representation = TodoRepresentation(identifier: nil,
+                                                completed: false,
+                                                name: name,
+                                                body: bodyTextView.text,
+                                                recurring: recurring,
+                                                username: nil,
+                                                userID: AuthService.activeUser?.identifier ?? 0,
+                                                dueDate: datePicker.date)
 
         todoController?.createTodo(representation: representation)
         navigationController?.popViewController(animated: true)
     }
-   
-    //    When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
+
+    //When we call "PostToDo", we should only pass in a representation that is currently being initialized in CoreData (Todo.representation)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,7 @@ class CreateTodoViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func updateViews() {
-        
+
     }
     func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
         self.view.endEditing(true)

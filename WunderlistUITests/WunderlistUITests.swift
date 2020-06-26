@@ -103,7 +103,7 @@ class WunderlistUITests: XCTestCase {
         let userTextField = textField(identifier: .loginUserTextField)
         userTextField.tap()
         userTextField.typeText("User")
-        XCTAssertEqual(userTextField.value as! String, "User")
+        XCTAssertEqual(userTextField.value as? String, "User")
         
         let passwordTextField = securePasswordField
         XCTAssert(passwordTextField.isHittable)
@@ -124,12 +124,12 @@ class WunderlistUITests: XCTestCase {
         let userTextField = textField(identifier: .loginUserTextField)
         userTextField.tap()
         userTextField.typeText("User")
-        XCTAssertEqual(userTextField.value as! String, "User")
+        XCTAssertEqual(userTextField.value as? String, "User")
         
         let emailTextField = textField(identifier: .loginEmailTextField)
         emailTextField.tap()
         emailTextField.typeText("test@email.com")
-        XCTAssertEqual(emailTextField.value as! String, "test@email.com")
+        XCTAssertEqual(emailTextField.value as? String, "test@email.com")
         enterButton.tap()
 
         let passwordTextField = securePasswordField
@@ -151,7 +151,7 @@ class WunderlistUITests: XCTestCase {
         let userTextField = textField(identifier: .loginUserTextField)
         userTextField.tap()
         userTextField.typeText("User")
-        XCTAssertEqual(userTextField.value as! String, "User")
+        XCTAssertEqual(userTextField.value as? String, "User")
         
         let passwordTextField = securePasswordField
         XCTAssert(passwordTextField.isHittable)
@@ -173,7 +173,7 @@ class WunderlistUITests: XCTestCase {
         
         toggleButton.tap()
         let showPasswordTextField = textField(identifier: .loginPasswordTextField)
-        XCTAssertEqual(showPasswordTextField.value as! String, "password")
+        XCTAssertEqual(showPasswordTextField.value as? String, "password")
         
         toggleButton.tap()
         XCTAssertNotNil(passwordTextField.value)
@@ -188,7 +188,7 @@ class WunderlistUITests: XCTestCase {
         let titleTextField = textField(identifier: .createTitleLabel)
         titleTextField.tap()
         titleTextField.typeText("New Entry")
-        XCTAssertEqual(titleTextField.value as! String, "New Entry")
+        XCTAssertEqual(titleTextField.value as? String, "New Entry")
         enterButton.tap()
         
         let recurButton = app.segmentedControls.buttons["Weekly"]
@@ -203,7 +203,7 @@ class WunderlistUITests: XCTestCase {
         let bodyTextView = textView(identifier: .createBodyTextView)
         bodyTextView.tap()
         bodyTextView.typeText("Body Here")
-        XCTAssertEqual(bodyTextView.value as! String, "Body Here")
+        XCTAssertEqual(bodyTextView.value as? String, "Body Here")
         
         let createNavBar = app.navigationBars["Create a List"]
         createNavBar.buttons["Save"].tap()
@@ -225,7 +225,10 @@ class WunderlistUITests: XCTestCase {
         XCTAssert(searchField.isHittable)
         
         searchField.typeText("Apple")
-        XCTAssert(tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["an apple a day"]/*[[".cells[\"an apple a day\"]",".staticTexts[\"an apple a day\"]",".staticTexts[\"TodoTableViewCell.titleLabel\"]",".cells[\"ToDoListTVC.todoCell\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1]]@END_MENU_TOKEN@*/.exists)
+        
+        XCTAssert(app.staticTexts["an apple a day"].exists)
+
+        
         XCTAssert(!tablesQuery.staticTexts["New Entry"].exists)
         
         let searchButton = app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/

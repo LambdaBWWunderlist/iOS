@@ -42,23 +42,19 @@ class AuthService {
                       email: String,
                       completion: @escaping () -> Void) {
         let requestURL = baseURL.appendingPathComponent("register")
-
         guard var request = networkService.createRequest(
             url: requestURL,
             method: .post,
             headerType: .contentType,
             headerValue: .json
             ) else { return }
-
         var registerUser = UserRepresentation(identifier: nil, username: username, password: password, email: email)
         let encodedUser = networkService.encode(from: registerUser, request: &request)
-
         guard let requestWithUser = encodedUser.request else {
             print("requestWithUser failed, error encoding user?")
             completion()
             return
         }
-
         networkService.dataLoader.loadData(using: requestWithUser, with: { (data, response, error) in
             if let error = error {
                 print("error registering user: \(error)")
@@ -81,7 +77,6 @@ class AuthService {
                         print("unable to retrieve email or identifier from registered user")
                         return
                 }
-
                 //save user
                 User(identifier: identifier, username: registerUser.username, email: email)
                 do {
@@ -175,7 +170,6 @@ class AuthService {
         }
     }
 
-    /// Log out the active user
     func logoutUser() {
         AuthService.activeUser = nil
     }

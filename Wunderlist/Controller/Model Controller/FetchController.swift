@@ -10,20 +10,20 @@ import Foundation
 import CoreData
 
 class FetchController {
-  
     func fetchTodos(identifiersToFetch: [Int], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
+
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         let predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
         fetchRequest.predicate = predicate
         do {
             let todos = try context.fetch(fetchRequest)
             return todos
-        }catch {
+        } catch {
             print("Error Fetching Todos")
             return nil
         }
     }
-   
+
     func fetchTodo(todoRep: TodoRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Todo? {
         let todoFetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         guard let identifier = todoRep.identifier else { return nil }
@@ -41,9 +41,10 @@ class FetchController {
         }
         return nil
     }
-  
+
     func fetchUser(userRep: UserRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> User? {
         guard let identifier = userRep.identifier else { return nil }
+
         let userFetchRequest: NSFetchRequest<User> = User.fetchRequest()
         userFetchRequest.predicate = NSPredicate(format: "identifier == %d", identifier)
         do {
@@ -54,14 +55,16 @@ class FetchController {
             return nil
         }
     }
-   
+
     func fetchTodosFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         guard let identifier = AuthService.activeUser?.username else {
             print("Error: No identifier from active User in \(#function)")
             return nil
         }
+
         let fetchRequest: NSFetchRequest<Todo> = Todo.fetchRequest()
         let deleted = Recurring.deleted.rawValue
+        
         fetchRequest.predicate = NSPredicate(format: "username == %@ AND recurring != %@", identifier as CVarArg, deleted)
         do {
             let todos = try context.fetch(fetchRequest)
@@ -71,7 +74,6 @@ class FetchController {
             return nil
         }
     }
-
     func fetchTodosToDeleteFromActiveUser(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> [Todo]? {
         guard let username = AuthService.activeUser?.username else {
             print("Error: No identifier from active User in \(#function)")
@@ -89,5 +91,4 @@ class FetchController {
             return nil
         }
     }
-
 }

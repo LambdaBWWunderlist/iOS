@@ -144,36 +144,3 @@ class NetworkService {
         dataLoader.loadData(using: request, with: completion)
     }
 }
-
-//MARK: USAGE:
-
-/*
-To get data and decode:
-func getSomeDataAndDecodeIt() {
-    let networkService = NetworkService()
-    guard let request = networkService.createRequest(url: URL(string:"https://www.google.com"), method: .get) else { return }
-    networkService.loadData(using: request) {
-        //TODO: Error handling like normal, maybe check the response if you care what the code is
-        guard let data = data else { return }
-        let decodedData = networkService.decode(to: Data.self, data: data) //Data.self would be whatever type you're really trying to decode to (i.e. Todo.self)
-        print(String(data:data, encoding: .utf8))
-    } //NO .resume() needed
-}
-
-//To encode data and send:
-func encodeSomeDataAndSendIt() {
-    let networkService = NetworkService()
-    let loginUser = UserRepresentation(identifier: nil, username: "somenetworkuser", password: "123")
-    guard var request = networkService.createRequest(url: URL(string:"https://www.google.com"), method: .get) else { return } //the request must be unwrapped and must be a variable
-    let encodingStatus = networkService.encode(from: loginUser, request: &request)
-    // you can check the encodingStatus.error for an error (and should)
-    // you can use either the original request or encodingStatus.request
-    // but should use the encodingStatus.request in case the original gets malformed
-    guard let encodedRequest = encodingStatus.request else { return }
-    networkService.loadData(using: encodedRequest) { (data, response, error) in
-        //it's sent, the server has handled it, and sent you some data
-        //handle the data that comes back
-    } //NO .resume() needed
-
-}
-*/

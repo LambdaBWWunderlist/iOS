@@ -13,14 +13,14 @@ class TodoDetailViewController: UIViewController {
     // MARK: - Properties -
     var todoRepresentation: TodoRepresentation?
     var todoController: TodoController?
-    
+
     // MARK: - Outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var recurringSegControl: UISegmentedControl!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var saveButton: UIButton!
-    
+
     // MARK: - Actions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         isEditing.toggle()
@@ -91,6 +91,4 @@ class TodoDetailViewController: UIViewController {
         try? CoreDataStack.shared.save()
         navigationController?.popViewController(animated: true)
     }
-
 }
-

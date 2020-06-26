@@ -11,7 +11,7 @@ import Foundation
 struct Token: Codable {
     var jsonWebToken: String
 
-    enum codingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case jsonWebToken = "token"
     }
 }

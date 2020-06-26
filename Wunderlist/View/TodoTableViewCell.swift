@@ -11,14 +11,15 @@ import UIKit
 class TodoTableViewCell: UITableViewCell {
     // MARK: - Properties -
     static let reuseID = "TodoCell"
-
+    private let circleChecked = UIImage(systemName: "checkmark.circle.fill")
+    private let circleEmpty = UIImage(systemName: "circle")
     var todoController: TodoController?
     var todoRep: TodoRepresentation? {
         didSet {
             updateViews()
         }
     }
-    
+
     // MARK: - Outlets -
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var completeToggleButton: UIButton!
@@ -26,7 +27,9 @@ class TodoTableViewCell: UITableViewCell {
     func updateViews() {
         guard let todoRep = todoRep else { return }
         titleLabel.text = todoRep.name
-        todoRep.completed ?? false ? completeToggleButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) : completeToggleButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        
+        todoRep.completed ?? false ? completeToggleButton.setImage(circleChecked, for: .normal) : completeToggleButton.setImage(circleEmpty, for: .normal)
+
     }
     
     // MARK: - Actions -
