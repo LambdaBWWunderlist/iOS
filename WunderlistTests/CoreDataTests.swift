@@ -36,11 +36,9 @@ class CoreDataTests: XCTestCase {
 
         authService.loginUser(with: "martianman", password: "password") { _ in
             let user = User(identifier: AuthService.activeUser!.identifier!, username: "martianman", email: "manfrom@mars.com")
-            let todoDeleted7DaysAgo = Todo(user: user!, identifier: 404, name: "test", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: oldDate)
+            Todo(user: user!, identifier: 404, name: "test", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: oldDate)
 
-            let todoDeletedToday = Todo(user: user!, identifier: 405, name: "don't delete me", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: Date())
-
-            XCTAssertEqual(todoDeleted7DaysAgo?.deletedDate, oldDate)
+            Todo(user: user!, identifier: 405, name: "don't delete me", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: Date())
 
             try? CoreDataStack.shared.save()
 
