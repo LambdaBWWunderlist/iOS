@@ -330,7 +330,7 @@ class TodoController {
         }
     }
 
-    func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    func delete7DayOldTodos(context: NSManagedObjectContext = CoreDataStack.shared.mainContext, complete: @escaping () -> Void = { }) {
         guard let oldTodos = fetchController.fetchTodosToDeleteFromActiveUser(context: context) else {
             print("failed to fetch oldTodos. no old todos?")
             return
@@ -340,6 +340,10 @@ class TodoController {
             for todo in oldTodos {
                 context.delete(todo)
             }
+            try CoreDataStack.shared.save(context: context)
+            complete()
+        } catch {
+            print("Error saving context: \(error)")
         }
     }
 

@@ -93,7 +93,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
-
         toggleButton.setImage(hidePasswordImage, for: .normal)
         super.viewDidLoad()
 

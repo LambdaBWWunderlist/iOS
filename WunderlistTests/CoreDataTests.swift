@@ -32,24 +32,33 @@ class CoreDataTests: XCTestCase {
         let oldDate = Date() - 8*24*60*60
         let authService = AuthService()
         let expectation = self.expectation(description: "WaitForLoginWhileDeletingOldTodo")
+        let deleteOpExpectation = XCTestExpectation(description: "Wait for deleting old todos")
 
-        authService.loginUser(with: "testiOSUser3", password: "Secret") {
-            let user = User(identifier: 13, username: "testiOSUser3", email: "iosUser3@apple.com")
-            let todo = Todo(user: user!, identifier: 2, name: "test", body: "body", recurring: Recurring.daily, dueDate: Date(), completed: false, deletedDate: oldDate)
-            XCTAssertEqual(todo?.deletedDate, oldDate)
+        authService.loginUser(with: "martianman", password: "password") { _ in
+            let user = User(identifier: AuthService.activeUser!.identifier!, username: "martianman", email: "manfrom@mars.com")
+            let todoDeleted7DaysAgo = Todo(user: user!, identifier: 404, name: "test", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: oldDate)
+
+            let todoDeletedToday = Todo(user: user!, identifier: 405, name: "don't delete me", body: "body", recurring: Recurring.deleted, dueDate: Date(), completed: false, deletedDate: Date())
+
+            XCTAssertEqual(todoDeleted7DaysAgo?.deletedDate, oldDate)
 
             try? CoreDataStack.shared.save()
 
-            let firstTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
+            let firstTodoToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
             
-            XCTAssertGreaterThanOrEqual(firstTodosToDelete!.count, 1)
+            XCTAssertEqual(firstTodoToDelete!.count, 1)
             let todoController = TodoController()
-            todoController.delete7DayOldTodos()
 
-            let noTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
-            XCTAssertEqual(noTodosToDelete?.count, 0)
+
+            todoController.delete7DayOldTodos() {
+                let noTodosToDelete = FetchController().fetchTodosToDeleteFromActiveUser()
+                XCTAssertEqual(noTodosToDelete?.count, 0)
+                deleteOpExpectation.fulfill()
+            }
+
             expectation.fulfill()
         }
+        wait(for: [deleteOpExpectation], timeout: 5)
         wait(for: [expectation], timeout: 5)
 
     }

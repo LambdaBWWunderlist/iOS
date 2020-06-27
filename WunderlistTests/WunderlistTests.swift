@@ -43,7 +43,7 @@ class WunderlistTests: XCTestCase {
         authService.loginUser(
             with: AuthService.ironMan.username,
             password: AuthService.ironMan.password!
-        ) {
+        ) { _ in
             XCTAssertNotNil(AuthService.activeUser)
             XCTAssertNotNil(AuthService.activeUser?.token)
             expectation.fulfill()
@@ -57,14 +57,15 @@ class WunderlistTests: XCTestCase {
     }
 
     func testFetchingTodos() {
+        let expectation = XCTestExpectation(description: "\(#file), \(#function): WaitForFetchingTodos")
         let authService = AuthService()
         let authExpectation = self.expectation(description: "\(#file), \(#function): WaitForLoggingIn")
-        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) {
+
+        authService.loginUser(with: AuthService.testUser.username, password: AuthService.testUser.password!) { _ in
             authExpectation.fulfill()
+
         }
         wait(for: [authExpectation], timeout: 5.0)
-        let expectation = self.expectation(description: "\(#file), \(#function): WaitForFetchingTodos")
-
         let todoController = TodoController()
         todoController.fetchTodosFromServer() { _ in
             let fetchController = FetchController()
@@ -86,12 +87,11 @@ class WunderlistTests: XCTestCase {
             let controller = AuthService(dataLoader: URLSession(configuration: .ephemeral))
             startMeasuring()
             let ironMan = AuthService.ironMan
-            controller.loginUser(with: ironMan.username, password: ironMan.password!) {
+            controller.loginUser(with: ironMan.username, password: ironMan.password!) { _ in
                 XCTAssertNotNil(AuthService.activeUser)
                 expectation.fulfill()
             }
             wait(for: [expectation], timeout: 5)
         }
     }
-
 }
